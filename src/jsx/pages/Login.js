@@ -66,7 +66,7 @@ function Login (props) {
 															</div>
 														)}
 														<form className=" dz-form pb-3" onSubmit={onLogin}>
-															<h3 className="form-title m-t0">Personal Information</h3>
+															<h3 className="form-title m-t0">Informacion Personal</h3>
 															<div className="dz-separator-outer m-b5">
 																<div className="dz-separator bg-primary style-liner"></div>
 															</div>
