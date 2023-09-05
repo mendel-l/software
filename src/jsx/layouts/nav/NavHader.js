@@ -18,6 +18,7 @@ const NavHader = () => {
   return (
     <div className="nav-header">
       <h1>Hola Marito</h1>
+      <h1>Hola Tio Frank</h1>
       <div
         className="nav-control"
         onClick={() => {              
