@@ -31,7 +31,7 @@ function LogoutPage(props){
     }
     return(
         <>
-            <button className="btn btn-primary btn-sm" onClick={onLogout}>Logout</button>
+            <button className="btn btn-primary btn-sm" onClick={onLogout}>Cerrar Sesion</button>
         </>
     )
 } 

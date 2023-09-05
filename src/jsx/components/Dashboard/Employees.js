@@ -8,31 +8,37 @@ import MainPagetitle from '../../layouts/MainPagetitle';
 import InviteCustomer from '../../constant/ModalList';
 import EmployeeOffcanvas from '../../constant/EmployeeOffcanvas';
 
-const tableData = [
-    {emplid: '1001', department: 'Computer Science', image:IMAGES.contact1, contact:'+91 123 456 7890',status:'Active' ,title: 'Ricky Antony', email: 'ra@gmail.com', gender:'Female', location:'India'},    
-    {emplid: '1002', department: 'Computer Science', image:IMAGES.contact2, contact:'+91 123 456 7890',status:'Inactive' ,title: 'Ankites Risher', email: 'abc@gmail.com', gender:'Male', location:'Brazil'},    
-    {emplid: '1003', department: 'Computer Science', image:IMAGES.contact3, contact:'+91 123 456 7890',status:'Active' ,title: 'Ricky M', email: 'pqr@gmail.com', gender:'Male', location:'France'},    
-    {emplid: '1004', department: 'Computer Science', image:IMAGES.contact1, contact:'+91 123 456 7890',status:'Active' ,title: 'Elijah James', email: 'stuy@gmail.com', gender:'Female', location:'Dubai'},    
-    {emplid: '1005', department: 'Computer Science', image:IMAGES.contact2, contact:'+91 123 456 7890',status:'Inactive' ,title: 'Honey Risher', email: 'xyz@gmail.com', gender:'Male', location:'USA'},    
-    {emplid: '1006', department: 'Computer Science', image:IMAGES.contact2, contact:'+91 123 456 7890',status:'Active' ,title: 'Honey Risher', email: 'xyz@gmail.com', gender:'Male', location:'USA'},    
-    {emplid: '1007', department: 'Computer Science', image:IMAGES.contact2, contact:'+91 123 456 7890',status:'Inactive' ,title: 'Ankites Risher', email: 'abc@gmail.com', gender:'Male', location:'Brazil'},    
-    {emplid: '1008', department: 'Computer Science', image:IMAGES.contact3, contact:'+91 123 456 7890',status:'Active' ,title: 'Ricky M', email: 'pqr@gmail.com', gender:'Male', location:'France'},    
-    {emplid: '1009', department: 'Computer Science', image:IMAGES.contact1, contact:'+91 123 456 7890',status:'Inactive' ,title: 'Ricky Antony', email: 'ra@gmail.com', gender:'Female', location:'India'},    
-    {emplid: '1010', department: 'Computer Science', image:IMAGES.contact1, contact:'+91 123 456 7890',status:'Active' ,title: 'Elijah James', email: 'stuy@gmail.com', gender:'Female', location:'Dubai'},    
-    {emplid: '1011', department: 'Computer Science', image:IMAGES.contact2, contact:'+91 123 456 7890',status:'Inactive' ,title: 'Ankites Risher', email: 'abc@gmail.com', gender:'Male', location:'Brazil'},    
-    {emplid: '1012', department: 'Computer Science', image:IMAGES.contact1, contact:'+91 123 456 7890',status:'Active' ,title: 'Ricky Antony', email: 'ra@gmail.com', gender:'Female', location:'India'},    
-];
+const tableData =[
+        { CUI: '12345678904', Nombre: 'Juna Hernandez', FechaNacimiento: '12/01/2001', Direccion: 'Quetzaltenango', Estado: 'Activo', Telefono: '+502 1234 5575', Salario: 'Q2600', Titulacion: 'Diversificado', Rol: 'Administrador'},
+        { CUI: '23456789015', Nombre: 'Carlos Perez', FechaNacimiento: '05/07/1995', Direccion: 'Guatemala City', Estado: 'Inactivo', Telefono: '+502 2345 6789', Salario: 'Q3200', Titulacion: 'Diversificado', Rol: 'Usuario'},
+        { CUI: '34567890126', Nombre: 'María González', FechaNacimiento: '20/09/1990', Direccion: 'Mixco', Estado: 'Activo', Telefono: '+502 3456 7890', Salario: 'Q2900', Titulacion: 'Diversificado', Rol: 'Administrador' },
+        { CUI: '45678901237', Nombre: 'Luis Méndez', FechaNacimiento: '15/03/1998', Direccion: 'Villa Nueva', Estado: 'Inactivo', Telefono: '+502 4567 8901', Salario: 'Q2400', Titulacion: 'Diversificado', Rol: 'Usuario'},
+        { CUI: '56789012348', Nombre: 'Ana Sánchez', FechaNacimiento: '10/11/1993', Direccion: 'Chimaltenango', Estado: 'Activo', Telefono: '+502 5678 9012', Salario: 'Q2800', Titulacion: 'Diversificado', Rol: 'Administrador'},
+        { CUI: '67890123459', Nombre: 'David Rodríguez', FechaNacimiento: '25/06/1997', Direccion: 'Escuintla', Estado: 'Inactivo', Telefono: '+502 6789 0123', Salario: 'Q3100', Titulacion: 'Diversificado', Rol: 'Usuario' },
+        { CUI: '78901234560', Nombre: 'Laura Martínez', FechaNacimiento: '03/04/1992', Direccion: 'Quetzaltenango', Estado: 'Activo', Telefono: '+502 7890 1234', Salario: 'Q2700', Titulacion: 'Diversificado', Rol: 'Administrador'},
+        { CUI: '89012345671', Nombre: 'Mario López', FechaNacimiento: '18/08/1996', Direccion: 'Petén', Estado: 'Inactivo', Telefono: '+502 8901 2345', Salario: 'Q3500', Titulacion: 'Diversificado', Rol: 'Usuario'},
+        { CUI: '90123456782', Nombre: 'Sofía García', FechaNacimiento: '29/02/2000', Direccion: 'Huehuetenango', Estado: 'Activo', Telefono: '+502 9012 3456', Salario: 'Q3000', Titulacion: 'Diversificado', Rol: 'Administrador' },
+        { CUI: '01234567893', Nombre: 'Eduardo Ramírez', FechaNacimiento: '14/05/1994', Direccion: 'Chiquimula', Estado: 'Inactivo', Telefono: '+502 0123 4567', Salario: 'Q2700', Titulacion: 'Diversificado', Rol: 'Usuario'},
+        { CUI: '12345678904', Nombre: 'Andrea Morales', FechaNacimiento: '07/09/1999', Direccion: 'Retalhuleu', Estado: 'Activo', Telefono: '+502 1234 5678', Salario: 'Q3200', Titulacion: 'Diversificado', Rol: 'Administrador'},
+        { CUI: '23456789015', Nombre: 'Javier González', FechaNacimiento: '30/12/1991', Direccion: 'Sololá', Estado: 'Inactivo', Telefono: '+502 2345 6789', Salario: 'Q2800', Titulacion: 'Diversificado', Rol: 'Usuario', image: IMAGES.contact1 },
+        { CUI: '34567890126', Nombre: 'María Rodríguez', FechaNacimiento: '22/10/1997', Direccion: 'Suchitepéquez', Estado: 'Activo', Telefono: '+502 3456 7890', Salario: 'Q2900', Titulacion: 'Diversificado', Rol: 'Administrador'},
+        { CUI: '45678901237', Nombre: 'Carlos Ramírez', FechaNacimiento: '05/08/1995', Direccion: 'Totonicapán', Estado: 'Inactivo', Telefono: '+502 4567 8901', Salario: 'Q2500', Titulacion: 'Diversificado', Rol: 'Usuario'},
+        { CUI: '56789012348', Nombre: 'Gabriela Pérez', FechaNacimiento: '18/06/1993', Direccion: 'San Marcos', Estado: 'Activo', Telefono: '+502 5678 9012', Salario: 'Q2700', Titulacion: 'Diversificado', Rol: 'Administrador'}
+          ]
+  ;
 
-const headers = [
-    { label: "Employee ID", key: "emplid" },
-    { label: "Employee Name", key: "title" },
-    { label: "Department", key: "department" },
-    { label: "Email Address", key: "email" },
-    { label: "Contact Number", key: "contact" },
-    { label: "Gender", key: "gender" },
-    { label: "Location", key: "location" },
-    { label: "Status", key: "status" },
-]
+const headers =[
+    { label: "CUI", key: "cui" },
+    { label: "Nombres", key: "nombres" },
+    { label: "FechaNacimiento", key: "fechaNacimiento" },
+    { label: "Direccion", key: "direccion" },
+    { label: "Estado", key: "estado" },
+    { label: "Telefono", key: "telefono" },
+    { label: "Salario", key: "salario" },
+    { label: "Titulacion", key: "titulacion" },
+    { label: "Rol", key: "rol" }
+  ]
+  
 
 const csvlink = {
     headers : headers,
@@ -66,7 +72,7 @@ const Employees = () => {
     const employe = useRef();
     return (
         <>
-            <MainPagetitle mainTitle="Employee" pageTitle={'Employee'} parentTitle={'Home'} />  
+            <MainPagetitle mainTitle="Empleados" pageTitle={'Empleados'} parentTitle={'Inicio'} />  
             <div className="container-fluid">
 				<div className="row">
 			    	<div className="col-xl-12">
@@ -74,62 +80,65 @@ const Employees = () => {
                             <div className="card-body p-0">
                                 <div className="table-responsive active-projects style-1 ItemsCheckboxSec shorting">   
                                     <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
-                                        <h4 className="heading mb-0">Employees</h4>                                        
+                                        <h4 className="heading mb-0">Empleados</h4>                                        
                                         <div>
                                             <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                                                 <i className="fa-solid fa-file-excel" /> {" "} 
-                                                Export Report
+                                                Exportar reporte
                                             </CSVLink> 
                                             <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"                                            
                                                 onClick={()=>employe.current.showEmployeModal()}
-                                            >+ Add Employee</Link> {" "}
-                                            <button type="button" className="btn btn-secondary btn-sm"                                                 
-                                                onClick={() => invite.current.showInviteModal()}
-                                            >+ Invite Employee
-                                            </button>
+                                            >+ Agregar Empleado</Link> {" "}
                                         </div>
                                     </div>          
                                     <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                                         <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                                             <thead>
                                                 <tr>                                                   
-                                                    <th>Employee ID</th>
-                                                    <th>Employee Name</th>
-                                                    <th>Department</th>
-                                                    <th>Email Address</th>
-                                                    <th>Contact Number</th>
-                                                    <th>Gender</th>
-                                                    <th>Location</th>
-                                                    <th>Status</th>
+                                                <th>CUI</th>
+                                                <th>Nombres</th>
+                                                <th>FechaNacimiento</th>
+                                                <th>Direccion</th>
+                                                <th>Estado</th>
+                                                <th>Telefono</th>
+                                                <th>Salario</th>
+                                                <th>Titulacion</th>
+                                                <th>Rol</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {records.map((item, index)=>(
                                                     <tr key={index}>                                                       
-                                                        <td><span>{item.emplid}</span></td>
+                                                        <td><span>{item.CUI}</span></td>
                                                         <td>
                                                             <div className="products">
-                                                                <img src={item.image}  className="avatar avatar-md" alt="" />
+                                                                
+                                                               
                                                                 <div>
-                                                                    <h6>{item.title}</h6>
-                                                                    <span>Web Designer</span>	
+                                                                    <h6>{item.Nombre}</h6>
                                                                 </div>	
                                                             </div>
                                                         </td>
-                                                        <td><span>{item.department}</span></td>
-                                                        <td><span className="text-primary">{item.email}</span></td>
+                                                        <td><span>{item.FechaNacimiento}</span></td>
                                                         <td>
-                                                            <span>{item.contact}</span>
+                                                            {item.Direccion}
                                                         </td>
                                                         <td>
-                                                            <span>{item.gender}</span>
+                                                            <span className={`badge light border-0 ${item.Estado==="Activo" ? 'badge-success' : 'badge-danger'} `}>{item.Estado}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{item.Telefono}</span>
                                                         </td>	
                                                         <td>
-                                                            <span>{item.location}</span>
+                                                            <span>{item.Salario}</span>
                                                         </td>
                                                         <td>
-                                                            <span className={`badge light border-0 ${item.status==="Active" ? 'badge-success' : 'badge-danger'} `}>{item.status}</span>
+                                                            <span>{item.Titulacion}</span>
                                                         </td>
+                                                        <td>
+                                                            <span>{item.Rol}</span>
+                                                        </td>
+                                                       
                                                     </tr>
                                                 ))}
                                             </tbody>
