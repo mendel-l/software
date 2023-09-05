@@ -113,7 +113,7 @@ function Login (props) {
 										<div className="card-footer">
 											<div className=" bottom-footer clearfix m-t10 m-b20 row text-center">
 												<div className="col-lg-12 text-center">
-													<span> © Copyright by Mendel, Francisco <span 
+													<span> © Copyright by Mendel, Francisco, Bladimir <span 
 														className={`heart ${heartActive ? "" : "heart-blast"}`}														
 														onClick={()=>setHeartActive(!heartActive)}
 													></span>
