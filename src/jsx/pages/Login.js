@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { loadingToggleAction,loginAction,
 } from '../../store/actions/AuthActions';
 
-
+/*Aqui se hacen las importaciones de las imagenes*/
 import logo from '../../images/logo/logo-full.png';
 import LogoWhite from '../../images/logo/logofull-white.png';
 import bg6 from '../../images/background/bg6.jpg';
@@ -24,11 +24,11 @@ function Login (props) {
         let error = false;
         const errorObj = { ...errorsObj };
         if (email === '') {
-            errorObj.email = 'Email is Required';
+            errorObj.email = 'Se requiere un correo.';
             error = true;
         }
         if (password === '') {
-            errorObj.password = 'Password is Required';
+            errorObj.password = 'Se requiere una contraseña';
             error = true;
         }
         setErrors(errorObj);
@@ -48,10 +48,12 @@ function Login (props) {
 								<div id="mCSB_1_container" className="mCSB_container" style={{position:"relative", top:"0", left:"0", dir:"ltr"}}>
 									<div className="login-form style-2">
 										<div className="card-body">
-											<div className="logo-header">
+											{/* Logos del login */}
+										 	<div className="logo-header">
 												<Link to={"#"} className="logo"><img src={logo} alt="" className="width-230 light-logo" /></Link>
 												<Link to={"#"} className="logo"><img src={LogoWhite} alt="" className="width-230 dark-logo" /></Link>
-											</div>											
+											</div>	
+											{/* Aqui termina el codigo del logo*/}										
 											<div className="nav nav-tabs border-bottom-0" >														
 												<div className="tab-content w-100" id="nav-tabContent">
 													<div className="tab-pane fade active show" id="nav-personal">
@@ -66,11 +68,11 @@ function Login (props) {
 															</div>
 														)}
 														<form className=" dz-form pb-3" onSubmit={onLogin}>
-															<h3 className="form-title m-t0">Informacion Personal</h3>
+															<h3 className="form-title m-t0">Informacion personal.</h3>
 															<div className="dz-separator-outer m-b5">
 																<div className="dz-separator bg-primary style-liner"></div>
 															</div>
-															<p>Enter your e-mail address and your password. </p>
+															<p>Ingrese su correo electronico y su contraseña. </p>
 															<div className="form-group mb-3">
 															
 																<input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -85,11 +87,11 @@ function Login (props) {
 																<button type="submit" className="btn btn-primary dz-xs-flex m-r5">login</button>
 																<span className="form-check d-inline-block ms-2">
 																	<input type="checkbox" className="form-check-input" id="check1" name="example1" />
-																	<label className="form-check-label" htmlFor="check1">Remember me</label>
+																	<label className="form-check-label" htmlFor="check1">Recordar siempre</label>
 																</span>																
 															</div>
 															<div className="dz-social">
-																<h5 className="form-title fs-20">Sign In With</h5>
+																<h5 className="form-title fs-20">Inicia sesion con:</h5>
 																<ul className="dz-social-icon dz-border dz-social-icon-lg text-white">
 																	<li><a target="_blank" href="https://www.facebook.com/dexignzone" className="fab fa-facebook-f btn-facebook"></a></li>
 																	<li><a target="_blank" href="mailto:dexignzones@gmail.com" className="fab fa-google-plus-g btn-google-plus"></a></li>
@@ -100,7 +102,7 @@ function Login (props) {
 														</form>
 														<div className="text-center bottom"> 
 															<NavLink to="/page-register" className="btn btn-primary button-md btn-block" >
-																Create an account
+																Registrarse
 															</NavLink> 																	
 														</div>
 													</div>
@@ -129,6 +131,7 @@ function Login (props) {
 		</div>            
     )
 }
+
 
 const mapStateToProps = (state) => {
     return {
