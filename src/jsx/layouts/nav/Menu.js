@@ -3,7 +3,7 @@ import { SVGICON } from "../../constant/theme";
 export const MenuList = [
     //Content
     {
-        title: 'YOUR COMPANY',
+        title: 'Tu Compañia',
         classsChange: 'menu-title'
     },
     //Dashboard
@@ -25,22 +25,22 @@ export const MenuList = [
         ],
     },
     {   
-        title:'Employees',
+        title:'Empleados',
         iconStyle: SVGICON.Employe,
         to: '/employee',
     },
-    {   
+   /* {   
         title:'Core HR',
         iconStyle: SVGICON.CoreHr,
         to: '/core-hr',
-    },
-    {   
+    },*/
+    /*{   
         title:'Finance',
         iconStyle: SVGICON.Finance,
         to: '/finance',
-    },
+    },*/
     //Tasks
-    {
+  /* {
         title: 'Tasks',
         classsChange: 'mm-collapse',
         iconStyle: SVGICON.Task,
@@ -55,8 +55,8 @@ export const MenuList = [
             },
             
         ]
-    },
-    {   
+    },*/
+    /*  {   
         title:'Performance',
         iconStyle: SVGICON.Performance,
         to: '/performance',
@@ -65,26 +65,26 @@ export const MenuList = [
         title:'Projects',
         iconStyle: SVGICON.ProjectsSidbar,
         to: '/project',
-    },
+    },*/
 	
     {   
-        title:'Reports',
+        title:'Reportes',
         iconStyle: SVGICON.Reports,
         to: '/reports',
     },
 	
     {   
-        title:'Manage Clients',
+        title:'Control de Clientes',
         iconStyle: SVGICON.ManageClient,
         to: '/manage-client',
     },
-    {   
+    /*{   
         title:'Blog',
         // update:"New",
         iconStyle: SVGICON.Blog,
         to: '/blog',
-    },
-	{
+    },*/
+	/*{
         title: 'OUR FEATURES',
         classsChange: 'menu-title'
     },
@@ -378,31 +378,31 @@ export const MenuList = [
             },
 
         ]
-    },
+    },*/
     //Table
     {
-        title:'Table',
+        title:'Tabla',
         classsChange: 'mm-collapse',
         iconStyle:SVGICON.Table,
         content : [
             {
-                title:'Table Filtering',
+                title:'Tabla de filtro',
                 to: 'table-filtering',
             },
             {
-                title:'Table Sorting',
+                title:'Tabla de seleccion',
                 to: 'table-sorting',
             },
-            {
+           /* {
                 title:'Bootstrap',
                 to: 'table-bootstrap-basic',
-            },
+            },*/
            
 
         ]
     },
     //Pages
-    {
+    /*{
         title:'Pages',
         classsChange: 'mm-collapse',
         iconStyle: SVGICON.Pages,
@@ -439,6 +439,6 @@ export const MenuList = [
             },
 
         ]
-    },
+    },*/
     
 ]
