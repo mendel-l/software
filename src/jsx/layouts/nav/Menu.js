@@ -25,7 +25,7 @@ export const MenuList = [
         ],
     },
     {   
-        title:'Empleados',
+        title:'Clientes',
         iconStyle: SVGICON.Employe,
         to: '/employee',
     },
