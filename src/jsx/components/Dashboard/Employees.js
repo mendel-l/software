@@ -63,7 +63,7 @@ const Employees = () => {
 
   return (
     <>
-      <MainPagetitle mainTitle="Empleados" pageTitle={'Empleados'} parentTitle={'Inicio'} />
+      <MainPagetitle mainTitle="Clientes" pageTitle={'Clientes'} parentTitle={'Inicio'} />
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-12">
@@ -71,7 +71,7 @@ const Employees = () => {
               <div className="card-body p-0">
                 <div className="table-responsive active-projects style-1 ItemsCheckboxSec shorting">
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
-                    <h4 className="heading mb-0">Empleados</h4>
+                    <h4 className="heading mb-0">Clientes</h4>
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
@@ -79,7 +79,7 @@ const Employees = () => {
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
                         onClick={() => employe.current.showEmployeModal()}
-                      >+ Agregar Empleado</Link> {" "}
+                      >+ Agregar Cliente</Link> {" "}
                     </div>
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">

@@ -20,7 +20,7 @@ const EmployeeOffcanvas =forwardRef((props, ref) => {
         <>
             <Offcanvas show={addEmploye} onHide={setAddEmploye} className="offcanvas-end customeoff" placement='end'>
 				<div className="offcanvas-header">
-					<h5 className="modal-title" id="#gridSystemModal">Agregar Empleados</h5>
+					<h5 className="modal-title" id="#gridSystemModal">Agregar Cliente</h5>
 					<button type="button" className="btn-close" 
 						onClick={()=>setAddEmploye(false)}
 					>
@@ -34,23 +34,23 @@ const EmployeeOffcanvas =forwardRef((props, ref) => {
                         <form onClick={(e)=>handleSubmit(e)}>
                             <div className="row">
                                 <div className="col-xl-6 mb-3">
-                                    <label htmlFor="exampleFormControlInput1" className="form-label">CUI <span className="text-danger">*</span></label>
+                                    <label htmlFor="exampleFormControlInput1" className="form-label">NIT <span className="text-danger">*</span></label>
                                     <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="" />
                                 </div>	
-                                <div className="col-xl-6 mb-3">
+                                {/* <div className="col-xl-6 mb-3">
                                     <label htmlFor="exampleFormControlInput2" className="form-label">Direccion <span className="text-danger">*</span></label>
                                     <input type="text" className="form-control" id="exampleFormControlInput2" placeholder="" />
-                                </div>	
+                                </div>	 */}
                                 <div className="col-xl-6 mb-3">
                                     <label htmlFor="exampleFormControlInput3" className="form-label">Nombre<span className="text-danger">*</span></label>
                                     <input type="email" className="form-control" id="exampleFormControlInput3" placeholder="" />
                                 </div>
-                                <div className="col-xl-6 mb-3">
+                                {/* <div className="col-xl-6 mb-3">
                                     <label htmlFor="exampleFormControlInput4" className="form-label">Apellido <span className="text-danger">*</span></label>
                                     <input type="password" className="form-control" id="exampleFormControlInput4" placeholder="" />
-                                </div>
+                                </div> */}
                                 	
-                                <div className="col-xl-6 mb-3">
+                                {/* <div className="col-xl-6 mb-3">
                                     <label className="form-label">Rol<span className="text-danger">*</span></label>
                                     <select className="default-select form-control">
                                         <option  data-display="Select">Seleccione un rol</option>
@@ -58,9 +58,9 @@ const EmployeeOffcanvas =forwardRef((props, ref) => {
                                         <option value="css">Administrador</option>
                                      
                                     </select>
-                                </div>
+                                </div> */}
                                
-                                <div className="col-xl-6 mb-3">
+                                {/* <div className="col-xl-6 mb-3">
                                     <label htmlFor="exampleFormControlInput88" className="form-label">Telefono <span className="text-danger">*</span></label>
                                     <input type="number" className="form-control" id="exampleFormControlInput88" placeholder="" />
                                 </div>
@@ -75,7 +75,7 @@ const EmployeeOffcanvas =forwardRef((props, ref) => {
                                         selected={startDate} 
                                         onChange={(date) => setStartDate(date)} 
                                     />
-                                </div>
+                                </div> */}
                                 <div className="col-xl-6 mb-3">
                                     <label htmlFor="exampleFormControlInput10" className="form-label">Salario <span className="text-danger">*</span></label>
                                     <input type="text" className="form-control" id="exampleFormControlInput10" placeholder="" />
