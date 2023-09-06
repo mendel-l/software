@@ -5,8 +5,8 @@ import { loadingToggleAction,loginAction,
 } from '../../store/actions/AuthActions';
 
 /*Aqui se hacen las importaciones de las imagenes*/
-import logo from '../../images/logo/logo-full.png';
-import LogoWhite from '../../images/logo/logofull-white.png';
+import logo from '../../images/logo/logofullfarmacia-login.png';
+import LogoWhite from '../../images/logo/logofullfarmacia-login.png';
 import bg6 from '../../images/background/bg6.jpg';
 
 function Login (props) {
