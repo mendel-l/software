@@ -22,15 +22,11 @@ const Employees = () => {
 
   
   const headers = [
-    { label: "CUI", key: "CUI" },
     { label: "Nombres", key: "Nombre" },
-    { label: "FechaNacimiento", key: "FechaNacimiento" },
-    { label: "Direccion", key: "Direccion" },
-    { label: "Estado", key: "Estado" },
-    { label: "Telefono", key: "Telefono" },
-    { label: "Salario", key: "Salario" },
-    { label: "Titulacion", key: "Titulacion" },
-    { label: "Rol", key: "Rol" }
+    { label: "idCliente", key: "idCliente" },
+    { label: "Nit", key: "Nit" },
+    { label: "telefono", key: "telefono" },
+
   ];
 
   const csvlink = {
@@ -40,7 +36,7 @@ const Employees = () => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPage = 10;
+  const recordsPage = 100;
   const lastIndex = currentPage * recordsPage;
   const firstIndex = lastIndex - recordsPage;
   const records = datos.slice(firstIndex, lastIndex);
@@ -90,21 +86,16 @@ const Employees = () => {
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                          <th>CUI</th>
                           <th>Nombres</th>
-                          <th>FechaNacimiento</th>
-                          <th>Direccion</th>
-                          <th>Estado</th>
+                          <th>idCliente</th>
+                          <th>Nit</th>
                           <th>Telefono</th>
-                          <th>Salario</th>
-                          <th>Titulacion</th>
-                          <th>Rol</th>
+                       
                         </tr>
                       </thead>
                       <tbody>
                         {records.map((item, index) => (
                           <tr key={index}>
-                            <td><span>{item.CUI}</span></td>
                             <td>
                               <div className="products">
                                 <div>
@@ -112,17 +103,9 @@ const Employees = () => {
                                 </div>
                               </div>
                             </td>
-                            <td><span>{item.FechaNacimiento}</span></td>
-                            <td>{item.Direccion}</td>
-                            <td>
-                              <span className={`badge light border-0 ${item.Estado === "Activo" ? 'badge-success' : 'badge-danger'}`}>
-                                {item.Estado}
-                              </span>
-                            </td>
-                            <td><span>{item.Telefono}</span></td>
-                            <td><span>{item.Salario}</span></td>
-                            <td><span>{item.Titulacion}</span></td>
-                            <td><span>{item.Rol}</span></td>
+                            <td><span>{item.idCliente}</span></td>
+                            <td>{item.Nit}</td>
+                            <td><span>{item.telefono}</span></td>
                           </tr>
                         ))}
                       </tbody>
