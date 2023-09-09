@@ -1,29 +1,32 @@
-import ClientModel from "../Models/ClientMode.js";
+import RolModel from "../Models/RolModel.js";
 
-export const getAllClients = async (req, res) => {
+export const getAllRoles = async (req, res) => {
     try {
-        const clients = await ClientModel.findAll();
-        res.json(clients);
+        const rol = await RolModel.findAll();
+        res.json(rol);
     } catch (error) {
         res.json({ message: error.message });
     }
 }
 
-export const getClient = async (req, res) => {
+export const getRole = async (req, res) => {
     try {
-        const client = await ClientModel.findAll({
-            where: { idCliente: req.params.idCliente }
+        const rol = await RolModel.findAll({
+            where: { idRol: req.params.idRol }
         });
-        res.json(client[0]);
+        RolModel.findAll({
+            where: { idRol: req.params.idRol }
+        });
+        res.json(rol[0]);
     } catch (error) {
         res.json({ message: error.message });
     }
 }
 
-// Create Client
-export const createClient = async (req, res) => {
+// Create role
+export const createRole = async (req, res) => {
     try {
-        await ClientModel.create(req.body);
+        await RolModel.create(req.body);
         res.json({
             "message": "Registro creado correctamente"
         });
@@ -32,10 +35,10 @@ export const createClient = async (req, res) => {
     }
 }
 
-export const updateClient = async (req, res) => {
+export const updateRole = async (req, res) => {
     try {
-        await ClientModel.update(req.body, {
-            where: { idCliente: req.params.idCliente }
+        await RolModel.update(req.body, {
+            where: { idRol: req.params.idRol }
         });
         res.json({
             "message": "Registro actualizado correctamente"
@@ -45,11 +48,11 @@ export const updateClient = async (req, res) => {
     }
 }
 
-export const deleteClient = async (req, res) => {
+export const deleteRole = async (req, res) => {
     try {
-        await ClientModel.destroy({
+        await RolModel.destroy({
             where: {
-                idCliente: req.params.idCliente
+                idRol: req.params.idRol
             }
         });
         res.json({

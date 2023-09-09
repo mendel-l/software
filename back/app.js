@@ -1,24 +1,60 @@
-const express = require('express');
-const cors = require('cors');
-const Routes = require('./routers/route.js'); 
-const routerCliente = require('./routers/routerClientes.js'); 
-const routerProveedor = require('./routers/routerProveedor.js'); 
+import express from 'express';
+import cors from 'cors';
+import routerCliente from './routers/routerClientes.js';
+import Rolrouter from './routers/routesRol.js';
+import Medicamentroute from './routers/Medicamentroute.js';
+import ClientRoute from './routers/routerClientes.js';
+import ProveedorRoute from './routers/routerProveedor.js'
+
+
+
+import db from './DB/database.js';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-app.use(cors());
-
-
-// app.use('/api/Back', Routes);
+// las apis para los cruds
 app.use('/api/clientes', routerCliente);
-app.use('/api/proveedores', routerProveedor);
+app.use('/api/proveedores',  ProveedorRoute);
+app.use('/api/rol', Rolrouter);
+app.use('/api/medicamento', Medicamentroute);
+app.use('/api/cliente', ClientRoute);
 
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor Express en ejecución en el puerto ${PORT}`);
-});
 
 
-//Se ejecuta en el puerto 3001 el apartado del Backend
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Conexion a la DB
+const startServer = async () => {
+  try {
+    await db.authenticate();
+    console.log('Conexion exitosa a la DB');
+    
+    app.listen(3001, () => {
+      console.log('Server UP running in http://localhost:3001/');
+    });
+  } catch (error) {
+    console.log('Error de conexion a la DB:', error.message);
+  }
+};
+
+startServer();
