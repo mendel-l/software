@@ -1,13 +1,12 @@
-const express = require('express');
-const routerProveedor = express.Router();
-const controllerProveedor = require('../controllers/controllerProveedor.js');
+import express from 'express'
+import { getAllProveedores, getProveedor, createProveedor, updateProveedor, deleteProveedor } from '../controllers/controllerProveedor.js'
 
-routerProveedor.get("/", controllerProveedor.get);
-routerProveedor.post("/insert", controllerProveedor.post);
-routerProveedor.put("/update", controllerProveedor.put);
-routerProveedor.delete("/delete/:id", controllerProveedor.remove);
+const ProveedorRoute = express.Router()
 
+ProveedorRoute.get('/', getAllProveedores)
+ProveedorRoute.get('/:IDProveedor', getProveedor)
+ProveedorRoute.post('/', createProveedor)
+ProveedorRoute.put('/:IDProveedor', updateProveedor)
+ProveedorRoute.delete('/:IDProveedor', deleteProveedor)
 
-module.exports = routerProveedor;
-
-
+export default ProveedorRoute

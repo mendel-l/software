@@ -1,14 +1,11 @@
-const db = require('../DB/database'); 
+import db from '../DB/database.js';
 
-exports.obtenerDatos = (req, res) => {
-  db.query('SELECT * FROM cliente', (err, result) => {
-    if (err) {
-      console.error('Error al obtener datos de la base de datos: ' + err);
-      res.status(500).json({ error: 'Error al obtener datos' });
-    } else {
-      res.json(result);
-    }
-  });
+export const obtenerDatos = async (req, res) => {
+  try {
+    const result = await db.query('SELECT * FROM cliente');
+    res.json(result);
+  } catch (err) {
+    console.error('Error al obtener datos de la base de datos: ' + err);
+    res.status(500).json({ error: 'Error al obtener datos' });
+  }
 };
-
-//Se obtienen los datos de la tabla y se guarda en un json
