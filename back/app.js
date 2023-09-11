@@ -5,6 +5,8 @@ import Rolrouter from './routers/routesRol.js';
 import Medicamentroute from './routers/Medicamentroute.js';
 import ClientRoute from './routers/routerClientes.js';
 import ProveedorRoute from './routers/routerProveedor.js'
+import routerPersona from './routers/routerPersona.js'
+import routerTipoMov from './routers/routerTipoMov.js'
 
 
 
@@ -20,6 +22,8 @@ app.use('/api/proveedores',  ProveedorRoute);
 app.use('/api/rol', Rolrouter);
 app.use('/api/medicamento', Medicamentroute);
 app.use('/api/cliente', ClientRoute);
+app.use('/api/persona', routerPersona);
+app.use('/api/tipoMov', routerTipoMov);
 
 
 
