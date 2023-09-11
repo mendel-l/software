@@ -26,6 +26,8 @@ import Finance from "./components/Dashboard/Finance";
 import Employees from "./components/Dashboard/Employees";
 import Task from "./components/Dashboard/Task";
 import CoreHr from "./components/Dashboard/CoreHr";
+//Proveedor
+import Proveedor from "./components/Dashboard/Proveedor";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -118,6 +120,8 @@ const allroutes = [
     { url: "finance", component: <Finance /> },
     { url: "employee", component: <Employees /> },
     { url: "task", component: <Task /> },
+    //proveedor
+    { url: "proveedor", component: <Proveedor /> },
   //Apps
     { url: "contacts", component: <Contacts /> },
     { url: "user", component: <User /> },
