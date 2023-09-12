@@ -28,6 +28,8 @@ import Task from "./components/Dashboard/Task";
 import CoreHr from "./components/Dashboard/CoreHr";
 //Proveedor
 import Proveedor from "./components/Dashboard/Proveedor";
+//Medicamento
+import Medicamento from "./components/Dashboard/Medicamento";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -122,6 +124,8 @@ const allroutes = [
     { url: "task", component: <Task /> },
     //proveedor
     { url: "proveedor", component: <Proveedor /> },
+    //medicamento
+    { url: "medicamento", component: <Medicamento /> },
   //Apps
     { url: "contacts", component: <Contacts /> },
     { url: "user", component: <User /> },
