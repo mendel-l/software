@@ -1,5 +1,5 @@
 import ClientModel from "../Models/ClientMode.js";
-
+const tableName="cliente";
 export const getAllClients = async (req, res) => {
     try {
         const clients = await ClientModel.findAll();

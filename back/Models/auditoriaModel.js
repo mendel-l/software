@@ -1,3 +1,4 @@
+import { TIME } from "sequelize";
 import db from "../DB/database.js"
 
 import { DataTypes } from "sequelize";
@@ -9,8 +10,8 @@ const auditoriaModel = db.define('auditoria', {
         autoIncrement: true,
     },
 
-    FechaHora:          { type: DataTypes.DATE },
-    Descripcion:        { type: DataTypes.STRING },
+    Fecha:              { type: DataTypes.DATE },
+    Hora:               { type: DataTypes.TIME },
     nombreTablaMov:     { type: DataTypes.STRING },
     idRegistroMov:      { type: DataTypes.INTEGER },
     IDUsuarios:         { type: DataTypes.INTEGER },
