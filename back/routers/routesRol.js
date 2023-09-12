@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllRoles, getRole,createRole,updateRole,deleteRole} from '../controllers/RolControler.js'
+import { getAllRoles, getRole,createRole,updateRole,deleteRole} from '../controllers/controllerRol.js'
 
 const Rolrouter = express.Router()
 

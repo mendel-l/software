@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllMedicaments, getMedicament, createMedicament, updateMedicament, deleteMedicament } from '../controllers/MedicamentControler.js'
+import { getAllMedicaments, getMedicament, createMedicament, updateMedicament, deleteMedicament } from '../controllers/controllerMedicament.js'
 
 const Medicamentroute = express.Router()
 

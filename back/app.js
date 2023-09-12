@@ -8,6 +8,10 @@ import ProveedorRoute from './routers/routerProveedor.js'
 import routerPersona from './routers/routerPersona.js'
 import routerTipoMov from './routers/routerTipoMov.js'
 import routerUser from './routers/routerUser.js'
+import VentaRouter from './routers/routerVenta.js';
+import LoteRouter from './routers/routerLote.js';
+import InventarioRouter from './routers/routerInventario.js';
+import Detalle_FacturaRouter from './routers/routerDetalle_Factura.js';
 
 
 
@@ -26,6 +30,10 @@ app.use('/api/cliente', ClientRoute);
 app.use('/api/persona', routerPersona);
 app.use('/api/tipoMov', routerTipoMov);
 app.use('/api/user', routerUser);
+app.use('/api/venta', VentaRouter);
+app.use('/api/lote', LoteRouter);
+app.use('/api/inventario', InventarioRouter);
+app.use('/api/detalle_factura', Detalle_FacturaRouter);
 
 
 
