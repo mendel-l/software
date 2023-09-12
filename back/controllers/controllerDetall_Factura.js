@@ -27,22 +27,24 @@ export const createDetalle = async (req, res) => {
         const nuevoDetalle = await Detalle_FacturaModel.create(req.body);
         const idRegistroMov = nuevoDetalle.IdDetalle;
 
-        await Detalle_FacturaModel.findOne({
-            order: [['IdDetalle', 'DESC']]
-        }).then((ultimoRegistro) => {
-            let idRegistroMov;
-            if (ultimoRegistro) {
-                idRegistroMov = ultimoRegistro.IdDetalle;
-                registerMovi(tableName, idRegistroMov, 1, 1);
-            } else {
-                console.log('No se encontraron registros en la tabla detalle_factura.');
-            }
+            await Detalle_FacturaModel.findOne({
+                order: [['IdDetalle', 'DESC']]
+            }).then((ultimoRegistro) => {
+                let idRegistroMov;
+                if (ultimoRegistro) {
+                    idRegistroMov = ultimoRegistro.IdDetalle;
+                    registerMovi(tableName, idRegistroMov, 1, 1);
+                } else {
+                    console.log('No se encontraron registros en la tabla detalle_factura.');
+                }
 
-            res.json({
-                "message": "Auditoria registrada"
+                console.log("message: Auditoria registrada");
+            }).catch((error) => {
+                console.error('Error al registrar auditoria', error);
             });
-        }).catch((error) => {
-            console.error('Error al registrar auditoria', error);
+
+        res.json({
+            "message": "Registro Creado Exitosamente"
         });
     } catch (error) {
         res.json({ message: error.message });
@@ -52,7 +54,7 @@ export const createDetalle = async (req, res) => {
 export const updateDetalle = async (req, res) => {
     try {
         await Detalle_FacturaModel.update(req.body, {
-            where: {  IdDetalle: req.params. IdDetalle }
+            where: { IdDetalle: req.params.IdDetalle }
         });
 
         await registerMovi(tableName, req.params.idDetalle, 1, 2);

@@ -1,4 +1,6 @@
 import personModel from "../Models/personModel.js";
+import { registerMovi } from "./controllerAuditoria.js"
+const tableName = "persona";
 
 export const getAllPersons = async (req, res) => {
     try {
@@ -12,6 +14,11 @@ export const getAllPersons = async (req, res) => {
 export const createPerson = async (req, res) => {
     try {
         await personModel.create(req.body);
+
+            //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
+            await registerMovi(tableName, req.body.CUI, 1, 1);
+            //----------------------- FIN ----------------------------------------------------------------------------------
+
         res.json({
             "message": "Registro Creado Exitosamente"
         });
@@ -25,6 +32,7 @@ export const updatePerson = async (req, res) => {
         await personModel.update(req.body, {
             where: { CUI: req.params.CUI }
         });
+        await registerMovi(tableName, req.params.CUI, 1, 2);
         res.json({
             "message": "Registro Actualizado Exitosamente"
         });
@@ -40,6 +48,7 @@ export const deletePerson = async (req, res) => {
                 CUI: req.params.CUI
             }
         });
+        await registerMovi(tableName, req.params.CUI, 1, 3);
         res.json({
             "message": "Registro Eliminado Exitosamente"
         });

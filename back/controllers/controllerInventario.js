@@ -27,22 +27,24 @@ export const createInventario = async (req, res) => {
         const nuevoInventario = await InventarioModel.create(req.body);
         const idRegistroMov = nuevoInventario.IdInventario;
 
-        await InventarioModel.findOne({
-            order: [['IdInventario', 'DESC']]
-        }).then((ultimoRegistro) => {
-            let idRegistroMov;
-            if (ultimoRegistro) {
-                idRegistroMov = ultimoRegistro.IdInventario;
-                registerMovi(tableName, idRegistroMov, 1, 1);
-            } else {
-                console.log('No se encontraron registros en la tabla inventario.');
-            }
+            await InventarioModel.findOne({
+                order: [['IdInventario', 'DESC']]
+            }).then((ultimoRegistro) => {
+                let idRegistroMov;
+                if (ultimoRegistro) {
+                    idRegistroMov = ultimoRegistro.IdInventario;
+                    registerMovi(tableName, idRegistroMov, 1, 1);
+                } else {
+                    console.log('No se encontraron registros en la tabla inventario.');
+                }
 
-            res.json({
-                "message": "Auditoria registrada"
+                console.log("message: Auditoria registrada");
+            }).catch((error) => {
+                console.error('Error al registrar auditoria', error);
             });
-        }).catch((error) => {
-            console.error('Error al registrar auditoria', error);
+
+        res.json({
+            "message": "Registro Creado Exitosamente"
         });
     } catch (error) {
         res.json({ message: error.message });

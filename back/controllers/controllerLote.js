@@ -27,22 +27,24 @@ export const createLote = async (req, res) => {
         const nuevoLote = await LoteModel.create(req.body);
         const idRegistroMov = nuevoLote.IDLote;
 
-        await LoteModel.findOne({
-            order: [['IDLote', 'DESC']]
-        }).then((ultimoRegistro) => {
-            let idRegistroMov;
-            if (ultimoRegistro) {
-                idRegistroMov = ultimoRegistro.IDLote;
-                registerMovi(tableName, idRegistroMov, 1, 1);
-            } else {
-                console.log('No se encontraron registros en la tabla lote.');
-            }
+            await LoteModel.findOne({
+                order: [['IDLote', 'DESC']]
+            }).then((ultimoRegistro) => {
+                let idRegistroMov;
+                if (ultimoRegistro) {
+                    idRegistroMov = ultimoRegistro.IDLote;
+                    registerMovi(tableName, idRegistroMov, 1, 1);
+                } else {
+                    console.log('No se encontraron registros en la tabla lote.');
+                }
 
-            res.json({
-                "message": "Auditoria registrada"
+                console.log("message: Auditoria registrada");
+            }).catch((error) => {
+                console.error('Error al registrar auditoria', error);
             });
-        }).catch((error) => {
-            console.error('Error al registrar auditoria', error);
+
+        res.json({
+            "message": "Registro Creado Exitosamente"
         });
     } catch (error) {
         res.json({ message: error.message });

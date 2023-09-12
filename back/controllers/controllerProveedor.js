@@ -27,26 +27,27 @@ export const createProveedor = async (req, res) => {
     try {
         await ProveedorModel.create(req.body);
 
-        //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
-        await ProveedorModel.findOne({
-            order: [['IDProveedor', 'DESC']] // Ordena por la columna "IDProveedor" en orden descendente
-        }).then((ultimoRegistro) => {
-            let idRegistroMov;
-            if (ultimoRegistro) {
-                // Si se encontró un registro, obtén su IDProveedor
-                idRegistroMov = ultimoRegistro.IDProveedor;
-                registerMovi(tableName, idRegistroMov, 1, 1); // El tercer parametro "1", dejemolo asi mientras como prueba, ese es el usuario que hizo la modificacion, dejemolo 1 mientras
-            } else {
-                console.log('No se encontraron registros en la tabla proveedor.');
-            }
-
-            res.json({
-                "message": "Auditoria registrada"
+            //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
+            await ProveedorModel.findOne({
+                order: [['IDProveedor', 'DESC']] // Ordena por la columna "IDProveedor" en orden descendente
+            }).then((ultimoRegistro) => {
+                let idRegistroMov;
+                if (ultimoRegistro) {
+                    // Si se encontró un registro, obtén su IDProveedor
+                    idRegistroMov = ultimoRegistro.IDProveedor;
+                    registerMovi(tableName, idRegistroMov, 1, 1); // El tercer parametro "1", dejemolo asi mientras como prueba, ese es el usuario que hizo la modificacion, dejemolo 1 mientras
+                } else {
+                    console.log('No se encontraron registros en la tabla proveedor.');
+                }
+                console.log("message Auditoria registrada");
+            }).catch((error) => {
+                console.error('Error al registrar auditoria', error);
             });
-        }).catch((error) => {
-            console.error('Error al registrar auditoria', error);
+            //----------------------- FIN ----------------------------------------------------------------------------------
+            
+        res.json({
+            "message": "Registro Creado Exitosamente"
         });
-        //----------------------- FIN ----------------------------------------------------------------------------------
     } catch (error) {
         res.json({ message: error.message });
     }
