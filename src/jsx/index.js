@@ -30,6 +30,8 @@ import CoreHr from "./components/Dashboard/CoreHr";
 import Proveedor from "./components/Dashboard/Proveedor";
 //Medicamento
 import Medicamento from "./components/Dashboard/Medicamento";
+//proveedor2
+import CompProveedorShow from "./components/Dashboard/Proveedorshow";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -126,6 +128,8 @@ const allroutes = [
     { url: "proveedor", component: <Proveedor /> },
     //medicamento
     { url: "medicamento", component: <Medicamento /> },
+    //proveedor2
+    { url: "proveedor2", component: <CompProveedorShow /> },
   //Apps
     { url: "contacts", component: <Contacts /> },
     { url: "user", component: <User /> },
