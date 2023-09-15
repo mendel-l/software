@@ -28,11 +28,11 @@ const ProveedorOffcanvas = forwardRef((props, ref) => {
     //try {
       // Enviar los datos al servidor
       await axios.post(URI, {
-        nombre:nombre,
-        direccion:direccion,
-        telefono:telefono,
-        descripcion:descripcion,
-        estado:estado,
+        Nombre:nombre,
+        Direccion:direccion,
+        Telefono:telefono,
+        Descripcion:descripcion,
+        Estado:estado,
       });
       
       // Cerrar el modal después de guardar los datos
