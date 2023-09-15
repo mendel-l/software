@@ -13,8 +13,6 @@ import LoteRouter from './routers/routerLote.js';
 import InventarioRouter from './routers/routerInventario.js';
 import Detalle_FacturaRouter from './routers/routerDetalle_Factura.js';
 
-
-
 import db from './DB/database.js';
 
 const app = express();
@@ -22,6 +20,8 @@ app.use(cors());
 app.use(express.json());
 
 // las apis para los cruds
+// crear convencion para que solo empiezen con minusculas
+// buscar libreria que recibe las palabras que empiezan con Mayusculas
 app.use('/api/clientes', routerCliente);
 app.use('/api/proveedores',  ProveedorRoute);
 app.use('/api/rol', Rolrouter);

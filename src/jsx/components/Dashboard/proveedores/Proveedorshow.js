@@ -2,34 +2,37 @@ import React, {useState, useRef, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { Modal, Offcanvas } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
-import MainPagetitle from '../../layouts/MainPagetitle';
-import MedicamentoOffcanvas from '../../constant/MedicamentoOffcanvas';
+import MainPagetitle from '../../../layouts/MainPagetitle';
+import ProveedorOffcanvas from '../../../constant/ProveedorCreate';
+//import ProveedorOffcanvas from '../../constant/ProveedorOffcanvas';
 import axios from 'axios';
-
-//se incluye la URL para medicamentos
-const URI = 'http://localhost:3001/api/medicamento'
-
-const Medicamento = () => {
-  const [datos, setDatos] = useState([]);
-
+import Proveedor from '../Proveedor';
+const URI = 'http://localhost:3001/api/proveedores' //-----------------------
+//axios.get('http://localhost:3001/api/Back/api/proveedores')
+//axios.get('http://localhost:3001/api/proveedores') //prueba 2 
+const CompProveedorShow = () => {
+  const [proveedores, setProveedores] = useState([]); 
   useEffect(() => {
-    // Realizar una solicitud al servidor Express para obtener los datos
-    axios.get('http://localhost:3001/api/Back/obtener-datos')
-      .then((response) => {
-        setDatos(response.data); 
-      })
-      .catch((error) => {
-        console.error('Error al obtener los datos:', error);
-      });
-  }, []);
+    getProveedor()
+  }, [])
 
+  //Procedimiento para mostrar todos los proveedores
+  const getProveedor = async () =>{
+    const res = await axios.get(URI)
+    setProveedores(res.data)
+  }
+  //Procedimiento para eliminar un proveedor
+  const deleteProveedor = async (IDProveedor) => {
+    await axios.delete('${URI}${IDProveedor}')
+    getProveedor()
+  }
   
   const headers = [
-    { label: "idMedicamento", key: "idMedicamento" },
+    { label: "IDProveedor", key: "IDProveedor" },
     { label: "Nombre", key: "Nombre" },
+    { label: "Direccion", key: "Direccion" },
+    { label: "Telefono", key: "Telefono" },
     { label: "Descripcion", key: "Descripcion" },
-    { label: "Sustancias", key: "Sustancias" },
-    { label: "casaFarmaceutica", key: "casaFarmaceutica" },
     { label: "Estado", key: "Estado" },
     { label: "createAt", key: "createAt" },
 
@@ -37,7 +40,7 @@ const Medicamento = () => {
 
   const csvlink = {
     headers: headers,
-    data: datos,
+    data: proveedores,
     filename: "csvfile.csv"
   };
 
@@ -45,8 +48,8 @@ const Medicamento = () => {
   const recordsPage = 100;
   const lastIndex = currentPage * recordsPage;
   const firstIndex = lastIndex - recordsPage;
-  const records = datos.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(datos.length / recordsPage);
+  const records = proveedores.slice(firstIndex, lastIndex); //cambio 1
+  const npage = Math.ceil(proveedores.length / recordsPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
   function prePage() {
@@ -59,17 +62,17 @@ const Medicamento = () => {
     setCurrentPage(id);
   }
 
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
+   function nextPage() {
+     if (currentPage !== npage) {
+       setCurrentPage(currentPage + 1);
+     }
+   }
 
-  const medicamento = useRef();
+  const proveedor = useRef();
 
   return (
     <>
-      <MainPagetitle mainTitle="Medicamento" pageTitle={'Medicamento'} parentTitle={'Inicio'} />
+      <MainPagetitle mainTitle="Proveedor" pageTitle={'Proveedor'} parentTitle={'Inicio'} />
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-12">
@@ -77,53 +80,56 @@ const Medicamento = () => {
               <div className="card-body p-0">
                 <div className="table-responsive active-projects style-1 ItemsCheckboxSec shorting">
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
-                    <h4 className="heading mb-0">Medicamentos</h4>
+                    <h4 className="heading mb-0">Proveedores</h4>
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
                         Exportar reporte
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
-                        onClick={() => medicamento.current.showEmployeModal()}
-                      >+ Agregar Medicamento</Link> {" "}
+                        onClick={() => proveedor.current.showEmployeModal()}
+                      >+ Agregar Proveedor</Link> {" "}
                     </div>
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                          <th>idMedicamento</th>
+                          <th>IDProveedor</th>
                           <th>Nombre</th>
+                          <th>Direccion</th>
+                          <th>Telefono</th>
                           <th>Descripcion</th>
-                          <th>Sustancias</th>
-                          <th>casaFarmaceutica</th>
                           <th>Estado</th>
                           <th>createAt</th>
                        
                         </tr>
                       </thead>
                       <tbody>
-                        {records.map((item, index) => (
-                          <tr key={index}>
-                            <td>
-                              <div className="products">
-                                <div>
-                                  <h6>{item.Nombre}</h6>
-                                </div>
+                        {proveedores.map ( (proveedores) => (
+                            <tr key={ proveedores.IDProveedor}>
+                                <td>{ proveedores.IDProveedor}</td> 
+                                <td>{ proveedores.Nombre}</td>
+                                <td>{ proveedores.Direccion}</td>
+                                <td>{ proveedores.Telefono}</td>
+                                <td>{ proveedores.Descripcion}</td>
+                                {/* <td>{ proveedor.Estado}</td> */}
+                                <td>{ proveedores.createAt}</td>
+                              <div>
+                                <Link to={`/edit-proveedor/${proveedores.IDProveedor}`} className='btn btn-info'>Editar</Link>
+                                <button onClick={() => deleteProveedor(proveedores.IDProveedor)} className='btn btn-danger'>Eliminar</button>
                               </div>
-                            </td>
-                            <td><span>{item.idCliente}</span></td>
-                            <td>{item.Nit}</td>
-                            <td><span>{item.telefono}</span></td>
-                          </tr>
+                            </tr>
                         ))}
                       </tbody>
                     </table>
                     <div className="d-sm-flex text-center justify-content-between align-items-center">
                       <div className='dataTables_info'>
-                        Showing {lastIndex - recordsPage + 1} to{" "}
-                        {datos.length < lastIndex ? datos.length : lastIndex}
-                        {" "}of {datos.length} entries
+                        {/* cambio 2 */}
+                      Showing {lastIndex - recordsPage + 1} to{" "}  
+                      {proveedores.length < lastIndex ? proveedores.length : lastIndex}
+                      {" "}of {proveedores.length} entries
+
                       </div>
                       <div
                         className="dataTables_paginate paging_simple_numbers justify-content-center"
@@ -137,7 +143,7 @@ const Medicamento = () => {
                           <i className="fa-solid fa-angle-left" />
                         </Link>
                         <span>
-                          {number.map((n, i) => (
+                        {number.map((n, i) => (
                             <Link className={`paginate_button ${currentPage === n ? 'current' : ''} `} key={i}
                               onClick={() => changeCPage(n)}
                             >
@@ -161,12 +167,12 @@ const Medicamento = () => {
           </div>
         </div>
       </div>
-      <MedicamentoOffcanvas
-        ref={medicamento}
+      <ProveedorOffcanvas
+        ref={proveedor}
         Title="Add Inventario"
       />
     </>
   );
 };
 
-export default Medicamento;
+export default CompProveedorShow;

@@ -31,8 +31,9 @@ import Proveedor from "./components/Dashboard/Proveedor";
 //Medicamento
 import Medicamento from "./components/Dashboard/Medicamento";
 //proveedor2
-import CompProveedorShow from "./components/Dashboard/Proveedorshow";
-
+import CompProveedorShow from "./components/Dashboard/proveedores/Proveedorshow";
+//
+import CompEditarProveedor from "./components/Dashboard/proveedores/ProveedorEdit";
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
 import User from './components/AppsMenu/AppProfile/User';
@@ -130,6 +131,9 @@ const allroutes = [
     { url: "medicamento", component: <Medicamento /> },
     //proveedor2
     { url: "proveedor2", component: <CompProveedorShow /> },
+    //
+    { url: "edit-proveedor/:IDProveedor", component: <CompEditarProveedor /> },
+
   //Apps
     { url: "contacts", component: <Contacts /> },
     { url: "user", component: <User /> },
