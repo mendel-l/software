@@ -44,6 +44,16 @@ export const MenuList = [
         iconStyle: SVGICON.Employe,
         to: '/proveedor2',
     },
+    {
+        title: 'Medicamentos2',
+        iconStyle: SVGICON.Employe,
+        to: '/medicamento2',
+    },
+    {   
+        title: 'Inventario',
+        iconStyle: SVGICON.Employe,
+        to: '/inventario',
+    },
    /* {   
         title:'Core HR',
         iconStyle: SVGICON.CoreHr,

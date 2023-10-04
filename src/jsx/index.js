@@ -32,8 +32,14 @@ import Proveedor from "./components/Dashboard/Proveedor";
 import Medicamento from "./components/Dashboard/Medicamento";
 //proveedor2
 import CompProveedorShow from "./components/Dashboard/proveedores/Proveedorshow";
-//
 import CompEditarProveedor from "./components/Dashboard/proveedores/ProveedorEdit";
+// Nuevas importaciones medicamentos
+import CompMedicamentoShow from "./components/Dashboard/medicamentos/Medicamentoshow";
+import CompEditarMedicamento from "./components/Dashboard/medicamentos/MedicamentoEdit";
+//Inventarios
+import InventarioShow from "./components/Dashboard/inventarios/Inventarioshow";
+import InventarioEdit from "./components/Dashboard/inventarios/InventarioEdit";
+
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
 import User from './components/AppsMenu/AppProfile/User';
@@ -131,8 +137,14 @@ const allroutes = [
     { url: "medicamento", component: <Medicamento /> },
     //proveedor2
     { url: "proveedor2", component: <CompProveedorShow /> },
-    //
     { url: "edit-proveedor/:IDProveedor", component: <CompEditarProveedor /> },
+    // Medicamento
+    { url: 'medicamento2', component: <CompMedicamentoShow /> },
+    { url: 'edit-medicamento/:idMedicamento', component: <CompEditarMedicamento /> },
+    //Inventario
+    { url: 'inventario', component: <InventarioShow /> },
+    { url: 'edit-inventario/:idInventario', component: <InventarioEdit /> },
+    
 
   //Apps
     { url: "contacts", component: <Contacts /> },
