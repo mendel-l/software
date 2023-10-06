@@ -27,7 +27,7 @@ import Employees from "./components/Dashboard/Employees";
 import Task from "./components/Dashboard/Task";
 import CoreHr from "./components/Dashboard/CoreHr";
 //Proveedor
-import Proveedor from "./components/Dashboard/Proveedor";
+
 //Medicamento
 import Medicamento from "./components/Dashboard/Medicamento";
 //proveedor2
@@ -132,11 +132,11 @@ const allroutes = [
     { url: "employee", component: <Employees /> },
     { url: "task", component: <Task /> },
     //proveedor
-    { url: "proveedor", component: <Proveedor /> },
+    
     //medicamento
     { url: "medicamento", component: <Medicamento /> },
     //proveedor2
-    { url: "proveedor2", component: <CompProveedorShow /> },
+    { url: "proveedor", component: <CompProveedorShow /> },
     { url: "edit-proveedor/:IDProveedor", component: <CompEditarProveedor /> },
     // Medicamento
     { url: 'medicamento2', component: <CompMedicamentoShow /> },

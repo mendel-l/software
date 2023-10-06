@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const URI = 'http://localhost:3001/api/proveedores';
 //aun existe error al guardar datos
-const ProveedorOffcanvas = forwardRef((props, ref) => {
+const ProveedorCreate = forwardRef((props, ref) => {
   const [nombre, setNombre] = useState('')
   const [direccion, setDireccion] = useState('')
   const [telefono, setTelefono] = useState('')
@@ -96,5 +96,5 @@ const ProveedorOffcanvas = forwardRef((props, ref) => {
   );
 });
 
-export default ProveedorOffcanvas;
+export default ProveedorCreate;
 

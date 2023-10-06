@@ -3,13 +3,9 @@ import {Link} from 'react-router-dom';
 import { Modal, Offcanvas } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
 import MainPagetitle from '../../../layouts/MainPagetitle';
-import ProveedorOffcanvas from '../../../constant/ProveedorCreate';
-//import ProveedorOffcanvas from '../../constant/ProveedorOffcanvas';
+import ProveedorCreate from '../../../constant/ProveedorCreate';
 import axios from 'axios';
-import Proveedor from '../Proveedor';
-const URI = 'http://localhost:3001/api/proveedores' //-----------------------
-//axios.get('http://localhost:3001/api/Back/api/proveedores')
-//axios.get('http://localhost:3001/api/proveedores') //prueba 2 
+const URI = 'http://localhost:3001/api/proveedores' //prueba 2 
 const CompProveedorShow = () => {
   const [proveedores, setProveedores] = useState([]); 
   useEffect(() => {
@@ -167,7 +163,7 @@ const CompProveedorShow = () => {
           </div>
         </div>
       </div>
-      <ProveedorOffcanvas
+      <ProveedorCreate
         ref={proveedor}
         Title="Add Inventario"
       />
