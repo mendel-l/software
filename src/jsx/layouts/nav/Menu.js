@@ -3,7 +3,7 @@ import { SVGICON } from "../../constant/theme";
 export const MenuList = [
     //Content
     {
-        title: 'Tu Compañia',
+        title: 'La Predilecta',
         classsChange: 'menu-title'
     },
     //Dashboard
@@ -24,11 +24,11 @@ export const MenuList = [
             },            
         ],
     },
-    {   
-        title:'Clientes',
-        iconStyle: SVGICON.Employe,
-        to: '/employee',
-    },
+    // {   
+    //     title:'Clientes',
+    //     iconStyle: SVGICON.Employe,
+    //     to: '/employee',
+    // },
     {   
         title:'Medicamentos',
         iconStyle: SVGICON.Employe,
@@ -48,6 +48,11 @@ export const MenuList = [
         title: 'Inventario',
         iconStyle: SVGICON.Employe,
         to: '/inventario',
+    },
+    {   
+        title: 'Cliente',
+        iconStyle: SVGICON.Employe,
+        to: '/cliente',
     },
    /* {   
         title:'Core HR',

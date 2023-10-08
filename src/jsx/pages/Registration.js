@@ -120,7 +120,7 @@ function Register(props) {
 																className={`heart ${heartActive ? "" : "heart-blast"}`}														
 																onClick={()=>setHeartActive(!heartActive)}
 															></span>
-														<a href="https://www.dexignzone.com/" target="_blank"> DexignZone </a> All rights reserved.</span> 
+														<a href="https://www.dexignzone.com/" target="_blank"> MESO XELA </a> All rights reserved.</span> 
 													</div>
 												</div>
 											</div>	

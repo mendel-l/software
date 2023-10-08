@@ -30,7 +30,7 @@ import CoreHr from "./components/Dashboard/CoreHr";
 
 //Medicamento
 import Medicamento from "./components/Dashboard/Medicamento";
-//proveedor2
+//proveedor
 import CompProveedorShow from "./components/Dashboard/proveedores/Proveedorshow";
 import CompEditarProveedor from "./components/Dashboard/proveedores/ProveedorEdit";
 // Nuevas importaciones medicamentos
@@ -39,6 +39,9 @@ import CompEditarMedicamento from "./components/Dashboard/medicamentos/Medicamen
 //Inventarios
 import InventarioShow from "./components/Dashboard/inventarios/Inventarioshow";
 import InventarioEdit from "./components/Dashboard/inventarios/InventarioEdit";
+//clientes
+import CompClienteShow from "./components/Dashboard/Clientes/ClienteShow";
+import CompEditarCliente from "./components/Dashboard/Clientes/ClienteEdit";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -144,6 +147,9 @@ const allroutes = [
     //Inventario
     { url: 'inventario', component: <InventarioShow /> },
     { url: 'edit-inventario/:idInventario', component: <InventarioEdit /> },
+    //Cliente
+    { url: 'cliente', component: <CompClienteShow /> },
+    { url: 'edit-cliente/:idCliente', component: <CompEditarCliente /> },
     
 
   //Apps

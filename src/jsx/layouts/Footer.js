@@ -7,7 +7,7 @@ const Footer = () => {
 			<div className="copyright">
 				<p>Copyright © 
 					
-					{" "}Developed by{" "}
+					{" "}Desarrollado por{" Sexto Semestre Meso Xela "}
 					<a href="http://dexignzone.com/" target="_blank"  rel="noreferrer">
 						DexignZone
 					</a>{" "}
