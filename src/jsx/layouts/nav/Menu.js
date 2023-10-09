@@ -36,7 +36,7 @@ export const MenuList = [
     },
     {
         title: 'Medicamentos',
-        iconStyle: SVGICON.Employe,
+        iconStyle: SVGICON.Medicamento,
         to: '/medicamento',
     },
     {   

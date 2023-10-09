@@ -85,6 +85,13 @@ export const IMAGES = {
     Econimics : require('../../images/economics.png'),
 };
 export const SVGICON = {
+    //icono para los medicamentos - prueba de iconos
+    Medicamento:(        
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-box" viewBox="0 0 16 16">
+        <path d="M1.5 1.5a.5.5 0 0 0-1 0v12a.5.5 0 0 0 1 0v-12zm0-1h13a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-12A1.5 1.5 0 0 1 1.5.5zM14 2a.5.5 0 0 0-1 0v11a.5.5 0 0 0 1 0V2zM2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1H2V1z"/>
+    </svg>
+    ),
+    //------------------------
     HomeSvg : <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.125 6.375L8.5 1.41667L14.875 6.375V14.1667C14.875 14.5424 14.7257 14.9027 14.4601 15.1684C14.1944 15.4341 13.8341 15.5833 13.4583 15.5833H3.54167C3.16594 15.5833 2.80561 15.4341 2.53993 15.1684C2.27426 14.9027 2.125 14.5424 2.125 14.1667V6.375Z" stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M6.375 15.5833V8.5H10.625V15.5833" stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round"/>
