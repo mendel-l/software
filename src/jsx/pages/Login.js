@@ -49,10 +49,15 @@ function Login (props) {
 									<div className="login-form style-2">
 										<div className="card-body">
 											{/* Logos del login */}
-										 	<div className="logo-header">
-												<Link to={"#"} className="logo"><img src={logo} alt="" className="width-230 light-logo" /></Link>
-												<Link to={"#"} className="logo"><img src={LogoWhite} alt="" className="width-230 dark-logo" /></Link>
-											</div>	
+											{/* codigo para que el logo se adapte al tamaño de la pantalla */}
+											<div className="logo-header text-center">
+												<Link to={"#"} className="logo">
+													<img src={logo} alt="" className="img-fluid width-230 light-logo mx-auto" />
+												</Link>
+												<Link to={"#"} className="logo">
+													<img src={LogoWhite} alt="" className="img-fluid width-230 dark-logo mx-auto" />
+												</Link>
+											</div>
 											{/* Aqui termina el codigo del logo*/}										
 											<div className="nav nav-tabs border-bottom-0" >														
 												<div className="tab-content w-100" id="nav-tabContent">
@@ -113,7 +118,7 @@ function Login (props) {
 										<div className="card-footer">
 											<div className=" bottom-footer clearfix m-t10 m-b20 row text-center">
 												<div className="col-lg-12 text-center">
-													<span> © Copyright by Mendel, Francisco, Bladimir Galvez <span 
+													<span> © Copyright by Francisco, Mendel, Bladimir, Ajpop <span 
 														className={`heart ${heartActive ? "" : "heart-blast"}`}														
 														onClick={()=>setHeartActive(!heartActive)}
 													></span>

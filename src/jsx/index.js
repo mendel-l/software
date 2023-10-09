@@ -140,7 +140,7 @@ const allroutes = [
     { url: 'edit-medicamento/:idMedicamento', component: <CompEditarMedicamento /> },
     //Inventario
     { url: 'inventario', component: <InventarioShow /> },
-    { url: 'edit-inventario/:idInventario', component: <InventarioEdit /> },
+    { url: 'edit-inventario/:IdInventario', component: <InventarioEdit /> }, //importante ver las rutas y el ID
     //Cliente
     { url: 'cliente', component: <CompClienteShow /> },
     { url: 'edit-cliente/:idCliente', component: <CompEditarCliente /> },

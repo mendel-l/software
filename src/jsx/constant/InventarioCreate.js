@@ -1,19 +1,21 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
 
-const URI = 'http://localhost:3001/api/inventario'; // Cambié la URL a la de inventario
+const URI = 'http://localhost:3001/api/inventario'; // Cambiamos la URL a la de inventario
 
 const InventarioCreate = forwardRef((props, ref) => {
-  const [nombre, setNombre] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [cantidad, setCantidad] = useState(0);
-  const [precio, setPrecio] = useState(0);
+  const [cantidadDis, setCantidadDisponible] = useState('');
+  const [precioVenta, setPrecioVenta] = useState('');
+  const [IDmedi, setidMedicamento ] = useState('');
+  const [estado, setEstado] = useState('');
 
   const [addInventario, setAddInventario] = useState(false);
+  const navigate = useNavigate();
 
   useImperativeHandle(ref, () => ({
-    showInventarioModal() {
+    showEmployeModal() { //por si da error ver Inventarioshow line:92
       setAddInventario(true);
     },
   }));
@@ -25,56 +27,62 @@ const InventarioCreate = forwardRef((props, ref) => {
     try {
       // Enviar los datos al servidor
       await axios.post(URI, {
-        Nombre: nombre,
-        Descripcion: descripcion,
-        Cantidad: cantidad,
-        Precio: precio,
+        CantidadDisponible: cantidadDis,
+        PrecioVenta: precioVenta,
+        idMedicamento: IDmedi,
+        Estado: estado
       });
 
-      // Cerrar el modal después de guardar los datos
+      // Recargar la lista de inventario en la página principal
+      props.reloadInventario();
+
       setAddInventario(false);
 
-      // Recargar la lista de inventario en la página principal
-      // props.reloadInventario(); // Debes crear una función similar para recargar el inventario.
     } catch (error) {
-      console.error('Error al guardar en el inventario:', error);
+      console.error('Error al guardar el inventario:', error);
     }
   };
 
   return (
     <>
-      <Offcanvas
-        show={addInventario}
-        onHide={() => setAddInventario(false)}
-        className="offcanvas-end customeoff"
-        placement="end"
-      >
+      <Offcanvas show={addInventario} onHide={() => setAddInventario(false)} className="offcanvas-end customeoff" placement="end">
         <div className="offcanvas-header">
-          <h5 className="modal-title" id="inventarioModalLabel">Agregar Artículo al Inventario</h5>
-          <button type="button" className="btn-close" onClick={() => setAddInventario(false)} />
+          <h5 className="modal-title" id="#gridSystemModal">Agregar Elemento de Inventario</h5>
+          <button type="button" className="btn-close" onClick={() => setAddInventario(false)}>
+            <i className="fa-solid fa-xmark"></i>
+          </button>
         </div>
         <div className="offcanvas-body">
-          <form onSubmit={guardar}>
-            <div className="mb-3">
-              <label htmlFor="nombre" className="form-label">Nombre del Artículo</label>
-              <input type="text" className="form-control" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="descripcion" className="form-label">Descripción</label>
-              <textarea className="form-control" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="cantidad" className="form-label">Cantidad</label>
-              <input type="number" className="form-control" value={cantidad} onChange={(e) => setCantidad(e.target.value)} required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="precio" className="form-label">Precio</label>
-              <input type="number" className="form-control" value={precio} onChange={(e) => setPrecio(e.target.value)} required />
-            </div>
-            <div className="mb-3">
-              <button type="submit" className="btn btn-primary">Guardar</button>
-            </div>
-          </form>
+          <div className="container-fluid">
+            <form onSubmit={guardar}>
+              <div className="row">
+                <div className="col-xl-6 mb-3">
+                  <label htmlFor="nombre" className="form-label">Cantidad Disponible<span className="text-danger">*</span></label>
+                  <input type="text" className="form-control" placeholder="" value={cantidadDis} onChange={(e) => setCantidadDisponible(e.target.value)} required/>
+                </div>
+                <div className="col-xl-6 mb-3">
+                  <label htmlFor="descripcion" className="form-label">Precio de Venta<span className="text-danger">*</span> </label>
+                  <input type="text" className="form-control" placeholder="" value={precioVenta} onChange={(e) => setPrecioVenta(e.target.value)} required/>
+                </div>
+                <div className="col-xl-6 mb-3">
+                  <label htmlFor="sustancias" className="form-label">IDmedicamento<span className="text-danger">*</span>
+                  </label>
+                  <input type="text" className="form-control" placeholder="" value={IDmedi} onChange={(e) => setidMedicamento(e.target.value)} required/>
+                </div>
+                <div className="col-xl-6 mb-3">
+                  <label htmlFor="estado" className="form-label">Estado<span className="text-danger">*</span></label>
+                  <select className="form-select" value={estado} onChange={(e) => setEstado(e.target.value)} required>
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <button type="submit" className="btn btn-primary me-1">Guardar</button>
+                <button type="button" className="btn btn-danger light ms-1" onClick={() => setAddInventario(false)}>Cancelar</button>
+              </div>
+            </form>
+          </div>
         </div>
       </Offcanvas>
     </>

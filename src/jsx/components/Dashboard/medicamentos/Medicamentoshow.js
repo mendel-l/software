@@ -6,6 +6,7 @@ import MainPagetitle from '../../../layouts/MainPagetitle';
 import MedicamentoCreate from '../../../constant/MedicamentoCreate';
 import axios from 'axios';
 const URI = 'http://localhost:3001/api/medicamento' //-----------------------
+
 const CompMedicamentoShow = () => {
   const [medicamentos, setMedicamentos] = useState([]); 
   useEffect(() => {
@@ -96,11 +97,11 @@ const CompMedicamentoShow = () => {
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                        <th>idMedicamento</th>
+                        <th>id</th>
                       <th>Nombre</th>
                       <th>Descripcion</th>
                       <th>Sustancias</th>
-                      <th>casaFarmaceutica</th>
+                      <th>casa Farmaceutica</th>
                       <th>Estado</th>
                         </tr>
                       </thead>

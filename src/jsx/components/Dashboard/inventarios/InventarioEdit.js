@@ -4,27 +4,25 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const URI = 'http://localhost:3001/api/inventario'; // Cambiamos la URL a la de inventario
 
-const InventarioEdit = () => {
-  const [nombre, setNombre] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [cantidad, setCantidad] = useState(0);
-  const [precio, setPrecio] = useState(0);
+const CompInventarioEdit = () => {
+  const [cantidadDis, setCantidadDisponible] = useState('');
+  const [precioVenta, setPrecioVenta] = useState('');
+  const [IDmedi, setidMedicamento] = useState('');
   const [estado, setEstado] = useState('');
-  const { idInventario } = useParams();
+  const { IdInventario } = useParams();
 
   const navigate = useNavigate();
 
   // Procedimiento para Actualizar
   const Actualizar = async (e) => {
     e.preventDefault();
-    await axios.put(URI + '/' + idInventario, {
-      Nombre: nombre,
-      Descripcion: descripcion,
-      Cantidad: cantidad,
-      Precio: precio,
-      Estado: estado,
+    await axios.put(URI + '/' + IdInventario, {
+      CantidadDisponible: cantidadDis,
+      PrecioVenta: precioVenta,
+      idMedicamento: IDmedi, 
+      Estado: estado
     });
-    navigate('/inventario2');
+    navigate('/inventario');
   };
 
   useEffect(() => {
@@ -32,70 +30,56 @@ const InventarioEdit = () => {
   }, []);
 
   const getInventarioByID = async () => {
-    const res = await axios.get(URI + '/' + idInventario);
-    setNombre(res.data.Nombre);
-    setDescripcion(res.data.Descripcion);
-    setCantidad(res.data.Cantidad);
-    setPrecio(res.data.Precio);
+    const res = await axios.get(URI + '/' + IdInventario);
+    setCantidadDisponible(res.data.CantidadDisponible);
+    setPrecioVenta(res.data.PrecioVenta);
+    setidMedicamento(res.data.idMedicamento);
     setEstado(res.data.Estado);
   };
 
   return (
     <div>
-      <h3>Editar Artículo del Inventario</h3>
+      <h3>Editar Elemento de Inventario</h3>
       <div className="offcanvas-body">
         <div className="container-fluid">
           <form onSubmit={Actualizar}>
             <div className="row">
               <div className="col-xl-6 mb-3">
-                <label htmlFor="nombre" className="form-label">
-                  Nombre<span className="text-danger">*</span>
+                <label htmlFor="cantidadDisponible" className="form-label">
+                  Cantidad Disponible<span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
                   className="form-control"
                   placeholder=""
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
+                  value={cantidadDis}
+                  onChange={(e) => setCantidadDisponible(e.target.value)}
                   required
                 />
               </div>
               <div className="col-xl-6 mb-3">
-                <label htmlFor="descripcion" className="form-label">
-                  Descripción<span className="text-danger">*</span>
+                <label htmlFor="precioVenta" className="form-label">
+                  Precio de Venta<span className="text-danger">*</span>{" "}
                 </label>
                 <input
                   type="text"
                   className="form-control"
                   placeholder=""
-                  value={descripcion}
-                  onChange={(e) => setDescripcion(e.target.value)}
+                  value={precioVenta}
+                  onChange={(e) => setPrecioVenta(e.target.value)}
                   required
                 />
               </div>
               <div className="col-xl-6 mb-3">
-                <label htmlFor="cantidad" className="form-label">
-                  Cantidad<span className="text-danger">*</span>
+                <label htmlFor="idMedicamento" className="form-label">
+                  ID Medicamento<span className="text-danger">*</span>
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
                   placeholder=""
-                  value={cantidad}
-                  onChange={(e) => setCantidad(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="col-xl-6 mb-3">
-                <label htmlFor="precio" className="form-label">
-                  Precio<span className="text-danger">*</span>{" "}
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder=""
-                  value={precio}
-                  onChange={(e) => setPrecio(e.target.value)}
+                  value={IDmedi}
+                  onChange={(e) => setidMedicamento(e.target.value)}
                   required
                 />
               </div>
@@ -126,4 +110,5 @@ const InventarioEdit = () => {
   );
 };
 
-export default InventarioEdit;
+export default CompInventarioEdit;
+
