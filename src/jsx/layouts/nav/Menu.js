@@ -30,19 +30,14 @@ export const MenuList = [
     //     to: '/employee',
     // },
     {   
-        title:'Medicamentos',
-        iconStyle: SVGICON.Employe,
-        to: '/medicamento',
-    },
-    {   
         title:'Proveedores',
         iconStyle: SVGICON.Employe,
         to: '/proveedor',
     },
     {
-        title: 'Medicamentos2',
+        title: 'Medicamentos',
         iconStyle: SVGICON.Employe,
-        to: '/medicamento2',
+        to: '/medicamento',
     },
     {   
         title: 'Inventario',

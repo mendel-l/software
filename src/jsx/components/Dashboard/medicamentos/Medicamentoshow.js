@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { Modal, Offcanvas } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
 import MainPagetitle from '../../../layouts/MainPagetitle';
-import MedicamentoOffcanvas from '../../../constant/MedicamentoCreate';
+import MedicamentoCreate from '../../../constant/MedicamentoCreate';
 import axios from 'axios';
 const URI = 'http://localhost:3001/api/medicamento' //-----------------------
 const CompMedicamentoShow = () => {
@@ -11,6 +11,13 @@ const CompMedicamentoShow = () => {
   useEffect(() => {
     getmedicamento()
   }, [])
+
+  //esto es para recargar la pagina al momento de crear un medicamento
+  const reloadMedicamentos = () => {
+    // Esta función se pasará a MedicamentoCreate
+    // y se llamará para actualizar el estado local
+    getmedicamento();
+  };
 
   //Procedimiento para mostrar todos los proveedores
   const getmedicamento = async () =>{
@@ -158,9 +165,10 @@ const CompMedicamentoShow = () => {
           </div>
         </div>
       </div>
-      <MedicamentoOffcanvas
+      <MedicamentoCreate
         ref={medicamento}
         Title="Add Inventario"
+        reloadMedicamentos={reloadMedicamentos} // Pasar la función aquí
       />
     </>
   );

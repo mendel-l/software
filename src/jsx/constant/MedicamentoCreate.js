@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const URI = 'http://localhost:3001/api/medicamento'; // Cambiamos la URL a la de medicamentos
 
-const MedicamentoOffcanvas = forwardRef((props, ref) => {
+const MedicamentoCreate = forwardRef((props, ref) => {
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [sustancias, setSustancias] = useState('');
@@ -35,11 +35,13 @@ const MedicamentoOffcanvas = forwardRef((props, ref) => {
         Estado: estado
       });
 
+      // Recargar la lista de medicamentos en la página principal
+      //al darle al boton guardar no hay necesidad de recargar la pagina para mostrar el nuevo medicamento
+      props.reloadMedicamentos(); // Debes crear una función similar para recargar los medicamentos.
+
       // Cerrar el modal después de guardar los datos
       setAddMedicamento(false);
 
-      // Recargar la lista de medicamentos en la página principal
-      // props.reloadMedicamentos(); // Debes crear una función similar para recargar los medicamentos.
     } catch (error) {
       console.error('Error al guardar el medicamento:', error);
     }
@@ -97,4 +99,4 @@ return (
 );
 });
 
-export default MedicamentoOffcanvas;
+export default MedicamentoCreate;

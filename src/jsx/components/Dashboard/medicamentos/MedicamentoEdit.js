@@ -24,7 +24,7 @@ const CompEditarMedicamento = () => {
       casaFarmaceutica: casafarma,
       Estado: estado
     });
-    navigate('/medicamento2');
+    navigate('/medicamento');
   };
 
   useEffect(() => {
