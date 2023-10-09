@@ -1,21 +1,36 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
 
-const URI = 'http://localhost:3001/api/inventario'; // Cambiamos la URL a la de inventario
+const URI = 'http://localhost:3001/api/inventario';
 
 const InventarioCreate = forwardRef((props, ref) => {
   const [cantidadDis, setCantidadDisponible] = useState('');
   const [precioVenta, setPrecioVenta] = useState('');
-  const [IDmedi, setidMedicamento ] = useState('');
+  const [IDmedi, setidMedicamento] = useState('');
   const [estado, setEstado] = useState('');
+  const [medicamentos, setMedicamentos] = useState([]); // Lista de medicamentos disponibles
 
   const [addInventario, setAddInventario] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Obtener la lista de medicamentos disponibles al cargar el componente
+    async function fetchMedicamentos() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/medicamento'); // Cambia la URL según tu API
+        setMedicamentos(res.data);
+      } catch (error) {
+        console.error('Error al obtener la lista de medicamentos:', error);
+      }
+    }
+
+    fetchMedicamentos();
+  }, []);
+
   useImperativeHandle(ref, () => ({
-    showEmployeModal() { //por si da error ver Inventarioshow line:92
+    showEmployeModal() {
       setAddInventario(true);
     },
   }));
@@ -30,14 +45,13 @@ const InventarioCreate = forwardRef((props, ref) => {
         CantidadDisponible: cantidadDis,
         PrecioVenta: precioVenta,
         idMedicamento: IDmedi,
-        Estado: estado
+        Estado: estado,
       });
 
       // Recargar la lista de inventario en la página principal
       props.reloadInventario();
 
       setAddInventario(false);
-
     } catch (error) {
       console.error('Error al guardar el inventario:', error);
     }
@@ -58,16 +72,27 @@ const InventarioCreate = forwardRef((props, ref) => {
               <div className="row">
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="nombre" className="form-label">Cantidad Disponible<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={cantidadDis} onChange={(e) => setCantidadDisponible(e.target.value)} required/>
+                  <input type="text" className="form-control" placeholder="" value={cantidadDis} onChange={(e) => setCantidadDisponible(e.target.value)} required />
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="descripcion" className="form-label">Precio de Venta<span className="text-danger">*</span> </label>
-                  <input type="text" className="form-control" placeholder="" value={precioVenta} onChange={(e) => setPrecioVenta(e.target.value)} required/>
+                  <input type="text" className="form-control" placeholder="" value={precioVenta} onChange={(e) => setPrecioVenta(e.target.value)} required />
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="sustancias" className="form-label">IDmedicamento<span className="text-danger">*</span>
-                  </label>
-                  <input type="text" className="form-control" placeholder="" value={IDmedi} onChange={(e) => setidMedicamento(e.target.value)} required/>
+                  <label htmlFor="sustancias" className="form-label">ID Medicamento<span className="text-danger">*</span></label>
+                  <select
+                    className="form-select"
+                    value={IDmedi}
+                    onChange={(e) => setidMedicamento(e.target.value)}
+                    required
+                  >
+                    <option value="">Selecciona un medicamento</option>
+                    {medicamentos.map((medicamento) => (
+                      <option key={medicamento.idMedicamento} value={medicamento.idMedicamento}>
+                        {medicamento.idMedicamento} - {medicamento.Nombre}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="estado" className="form-label">Estado<span className="text-danger">*</span></label>

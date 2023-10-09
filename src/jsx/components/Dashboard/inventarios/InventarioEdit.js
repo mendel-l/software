@@ -2,24 +2,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const URI = 'http://localhost:3001/api/inventario'; // Cambiamos la URL a la de inventario
+const URI = 'http://localhost:3001/api/inventario';
 
 const CompInventarioEdit = () => {
   const [cantidadDis, setCantidadDisponible] = useState('');
   const [precioVenta, setPrecioVenta] = useState('');
   const [IDmedi, setidMedicamento] = useState('');
   const [estado, setEstado] = useState('');
+  const [medicamentos, setMedicamentos] = useState([]); // Lista de medicamentos disponibles
   const { IdInventario } = useParams();
-
   const navigate = useNavigate();
 
   // Procedimiento para Actualizar
   const Actualizar = async (e) => {
     e.preventDefault();
-    await axios.put(URI + '/' + IdInventario, {
+    await axios.put(`${URI}/${IdInventario}`, {
       CantidadDisponible: cantidadDis,
       PrecioVenta: precioVenta,
-      idMedicamento: IDmedi, 
+      idMedicamento: IDmedi,
       Estado: estado
     });
     navigate('/inventario');
@@ -27,10 +27,21 @@ const CompInventarioEdit = () => {
 
   useEffect(() => {
     getInventarioByID();
+    // Obtener la lista de medicamentos disponibles al cargar el componente
+    async function fetchMedicamentos() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/medicamento'); // Cambia la URL según tu API
+        setMedicamentos(res.data);
+      } catch (error) {
+        console.error('Error al obtener la lista de medicamentos:', error);
+      }
+    }
+
+    fetchMedicamentos();
   }, []);
 
   const getInventarioByID = async () => {
-    const res = await axios.get(URI + '/' + IdInventario);
+    const res = await axios.get(`${URI}/${IdInventario}`);
     setCantidadDisponible(res.data.CantidadDisponible);
     setPrecioVenta(res.data.PrecioVenta);
     setidMedicamento(res.data.idMedicamento);
@@ -74,14 +85,19 @@ const CompInventarioEdit = () => {
                 <label htmlFor="idMedicamento" className="form-label">
                   ID Medicamento<span className="text-danger">*</span>
                 </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder=""
+                <select
+                  className="form-select"
                   value={IDmedi}
                   onChange={(e) => setidMedicamento(e.target.value)}
                   required
-                />
+                >
+                  <option value="">Selecciona un medicamento</option>
+                  {medicamentos.map((medicamento) => (
+                    <option key={medicamento.idMedicamento} value={medicamento.idMedicamento}>
+                      {medicamento.idMedicamento} - {medicamento.Nombre}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="col-xl-6 mb-3">
                 <label htmlFor="estado" className="form-label">
@@ -111,4 +127,5 @@ const CompInventarioEdit = () => {
 };
 
 export default CompInventarioEdit;
+
 
