@@ -42,7 +42,9 @@ function Login (props) {
   	return (        
 		<div className="page-wraper">
 			<div className="browse-job login-style3">
-				<div className="bg-img-fix overflow-hidden" style={{background:'#fff url('+ lapredilecta + ')',  height: "100vh"}}>
+				{/* imagen del login */}
+				<div className="bg-img-fix overflow-hidden" style={{ background: `url(${lapredilecta})`, backgroundSize: 'cover', height: '100vh' }}>
+				{/* termina imagen del login */}	
 					<div className="row gx-0">
 						<div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 vh-100 bg-white ">
 							<div id="mCSB_1" className="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style={{maxHeight: "653px"}}>

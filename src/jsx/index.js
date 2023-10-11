@@ -42,6 +42,9 @@ import CompEditarCliente from "./components/Dashboard/Clientes/ClienteEdit";
 //roles
 import CompRolShow from "./components/Dashboard/Rol/RolShow";
 import CompEditarRol from "./components/Dashboard/Rol/RolEdit";
+//lotes
+import LoteShow from "./components/Dashboard/Lotes/Loteshow";
+import LoteEdit from "./components/Dashboard/Lotes/LoteEdit";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -150,6 +153,9 @@ const allroutes = [
     //Rol
     { url: 'rol', component: <CompRolShow /> },
     { url: 'edit-rol/:idRol', component: <CompEditarRol /> },
+    // Lote
+    { url: 'lote', component: <LoteShow />},
+    { url: '/edit-lote/:IdLote', component: <LoteEdit/>},
     
 
   //Apps
