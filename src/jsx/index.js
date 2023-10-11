@@ -39,6 +39,9 @@ import InventarioEdit from "./components/Dashboard/inventarios/InventarioEdit";
 //clientes
 import CompClienteShow from "./components/Dashboard/Clientes/ClienteShow";
 import CompEditarCliente from "./components/Dashboard/Clientes/ClienteEdit";
+//roles
+import CompRolShow from "./components/Dashboard/Rol/RolShow";
+import CompEditarRol from "./components/Dashboard/Rol/RolEdit";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -132,7 +135,7 @@ const allroutes = [
     { url: "employee", component: <Employees /> },
     { url: "task", component: <Task /> },
 
-    //proveedor2
+    //proveedor
     { url: "proveedor", component: <CompProveedorShow /> },
     { url: "edit-proveedor/:IDProveedor", component: <CompEditarProveedor /> },
     // Medicamento
@@ -144,6 +147,9 @@ const allroutes = [
     //Cliente
     { url: 'cliente', component: <CompClienteShow /> },
     { url: 'edit-cliente/:idCliente', component: <CompEditarCliente /> },
+    //Rol
+    { url: 'rol', component: <CompRolShow /> },
+    { url: 'edit-rol/:idRol', component: <CompEditarRol /> },
     
 
   //Apps

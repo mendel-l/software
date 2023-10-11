@@ -8,6 +8,7 @@ import { loadingToggleAction,loginAction,
 import logo from '../../images/logo/logofullfarmacia-login.png';
 import LogoWhite from '../../images/logo/logofullfarmacia-login.png';
 import bg6 from '../../images/background/bg6.jpg';
+import lapredilecta from '../../images/background/lapredilecta.jpg';
 
 function Login (props) {
 	const [heartActive, setHeartActive] = useState(true);	
@@ -41,7 +42,7 @@ function Login (props) {
   	return (        
 		<div className="page-wraper">
 			<div className="browse-job login-style3">
-				<div className="bg-img-fix overflow-hidden" style={{background:'#fff url('+ bg6 + ')',  height: "100vh"}}>
+				<div className="bg-img-fix overflow-hidden" style={{background:'#fff url('+ lapredilecta + ')',  height: "100vh"}}>
 					<div className="row gx-0">
 						<div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 vh-100 bg-white ">
 							<div id="mCSB_1" className="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style={{maxHeight: "653px"}}>
