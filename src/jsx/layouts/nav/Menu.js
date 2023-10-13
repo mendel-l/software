@@ -64,6 +64,11 @@ export const MenuList = [
         iconStyle: SVGICON.Employe,
         to: '/Usuario',
     },
+    {   
+        title: 'Venta', //venta
+        iconStyle: SVGICON.Employe,
+        to: '/venta',
+    },
    /* {   
         title:'Core HR',
         iconStyle: SVGICON.CoreHr,

@@ -16,7 +16,7 @@ const ToDoList = () => {
         <>
             <div className="card">
                 <div className="card-header border-0">
-                    <h4 className="heading mb-0">My To Do Items</h4>
+                    <h4 className="heading mb-0">Ajpop Weco</h4>
                     <div>
                         <Link to="#" className="text-primary me-2">View All</Link>
                         <Link to="#" className="text-black"> + Add To Do</Link>

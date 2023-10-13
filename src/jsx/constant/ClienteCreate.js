@@ -63,7 +63,7 @@ const ClienteCreate = forwardRef((props, ref) => {
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="nit" className="form-label">Nit<span className="text-danger">*</span>
                   </label>
-                  <input type="text" className="form-control" placeholder="" value={nit} onChange={(e) => setNit(e.target.value)} required/>
+                  <input type="number" className="form-control" placeholder="" value={nit} onChange={(e) => setNit(e.target.value)} required/>
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="telefono" className="form-label">Teléfono<span className="text-danger">*</span></label>
