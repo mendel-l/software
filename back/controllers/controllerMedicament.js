@@ -96,3 +96,19 @@ export const deleteMedicament = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getNotAppearInventory = async (req, res) => {
+    try {
+        const query = `
+            SELECT m.*
+            FROM medicamento AS m
+            LEFT JOIN inventario AS i
+            ON m.idMedicamento = i.idMedicamento
+            WHERE i.idMedicamento IS NULL
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
