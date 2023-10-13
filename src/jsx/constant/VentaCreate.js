@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
@@ -39,7 +39,7 @@ const VentaCreate = forwardRef((props, ref) => {
   const guardar = async (e) => {
     e.preventDefault();
     
-    //try {
+    try {
       // Enviar los datos al servidor
       await axios.post(URI, {
         Fecha:fecha,
@@ -54,9 +54,9 @@ const VentaCreate = forwardRef((props, ref) => {
 
       // Recargar la lista de clientes en la página principal
       //props.reloadProveedores();
-    // } catch (error) {
-    //   console.error('Error al guardar el proveedor:', error);
-    // }
+    } catch (error) {
+       console.error('Error al guardar el proveedor:', error);
+    }
   };
   
   return (
@@ -64,7 +64,7 @@ const VentaCreate = forwardRef((props, ref) => {
       <Offcanvas show={addVenta} onHide={() => setAddVenta(false)} className="offcanvas-end customeoff" placement="end">
         <div className="offcanvas-header">
           <h5 className="modal-title" id="#gridSystemModal">Agregar Venta</h5>
-          <button type="button" className="btn-close" onClick={() => setAddCliente(false)}>
+          <button type="button" className="btn-close" onClick={() => setAddVenta(false)}>
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -79,7 +79,7 @@ const VentaCreate = forwardRef((props, ref) => {
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="montototal" className="form-label">Monto Total<span className="text-danger">*</span>
                   </label>
-                  <input type="number" className="form-control" placeholder="" value={nit} onChange={(e) => setMontototal(e.target.value)} required/>
+                  <input type="number" className="form-control" placeholder="" value={montototal} onChange={(e) => setMontototal(e.target.value)} required/>
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="cliente" className="form-label">ID Cliente<span className="text-danger">*</span></label>

@@ -38,14 +38,15 @@ app.use('/api/detalle_factura', Detalle_FacturaRouter);
 
 
 
-
-
-
-
-
-
-
-
+///Reportes
+// Ventas desde fecha especifica hasta actual
+// Cantidad de Prouctos desechados hasta actual
+// 
+// 
+// 
+// 
+// 
+// 
 
 
 
