@@ -1,5 +1,6 @@
 import MedicamentModel from "../Models/MedicamentModel.js";
 import { registerMovi } from "./controllerAuditoria.js";
+import sequelize from '../DB/database.js';
 const tableName = "medicamento"; // NOMBRE DE TABLA PARA LA AUDITORIA
 
 export const getAllMedicaments = async (req, res) => {

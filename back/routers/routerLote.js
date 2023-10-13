@@ -1,9 +1,10 @@
 import express from 'express';
-import { getAllLotes, getLote, createLote, updateLote, deleteLote } from '../controllers/controllerLote.js';
+import { getAllLotes, getLote, createLote, updateLote, deleteLote, getSumLotes } from '../controllers/controllerLote.js';
 
 const LoteRouter = express.Router();
 
 LoteRouter.get('/', getAllLotes);
+LoteRouter.get('/getSumLotes/:idMedicamento', getSumLotes);// Obtener la "cantidadDisponible" que se guarda al crear nuevo inventario, que se hace automaticamente
 LoteRouter.get('/:IDLote', getLote);
 LoteRouter.post('/', createLote);
 LoteRouter.put('/:IDLote', updateLote);

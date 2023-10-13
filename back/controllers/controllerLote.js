@@ -84,3 +84,22 @@ export const deleteLote = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getSumLotes = async (req, res) => {
+    try {
+        const idMedicamento = req.params.idMedicamento;
+
+        const lotes = await LoteModel.findAll({
+            where: { idMedicamento: idMedicamento }
+        });
+
+        let totalCantidadDisponible = 0;
+        lotes.forEach((lote) => {
+            totalCantidadDisponible += lote.cantidadDisponible;
+        });
+
+        res.json({ totalCantidadDisponible });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}

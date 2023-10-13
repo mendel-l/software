@@ -5,10 +5,10 @@ from '../controllers/controllerMedicament.js'
 const Medicamentroute = express.Router()
 
 Medicamentroute.get('/', getAllMedicaments)
+Medicamentroute.get('/getNotAppearInventory', getNotAppearInventory) //Esto para comboBox medicamento de ingresar nuevo inventario
 Medicamentroute.get('/:idMedicamento', getMedicament)
 Medicamentroute.post('/', createMedicament)
 Medicamentroute.put('/:idMedicamento', updateMedicament)
 Medicamentroute.delete('/:idMedicamento', deleteMedicament)
-Medicamentroute.get('/getNotAppearInventory', getNotAppearInventory)
 
 export default Medicamentroute
