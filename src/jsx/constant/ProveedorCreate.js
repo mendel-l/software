@@ -25,24 +25,24 @@ const ProveedorCreate = forwardRef((props, ref) => {
   const guardar = async (e) => {
     e.preventDefault();
     
-    //try {
+    try {
       // Enviar los datos al servidor
       await axios.post(URI, {
-        Nombre:nombre,
-        Direccion:direccion,
-        Telefono:telefono,
-        Descripcion:descripcion,
-        Estado:estado,
+        Nombre: nombre,
+        Direccion: direccion,
+        Telefono: telefono,
+        Descripcion: descripcion,
+        Estado: estado,
       });
-      
+
       // Cerrar el modal después de guardar los datos
       setAddProveedor(false);
 
       // Recargar la lista de proveedores en la página principal
-      //props.reloadProveedores();
-    // } catch (error) {
-    //   console.error('Error al guardar el proveedor:', error);
-    // }
+      props.reloadProveedores();
+    } catch (error) {
+      console.error('Error al guardar el proveedor:', error);
+    }
   };
   
   return (

@@ -64,6 +64,10 @@ const CompProveedorShow = () => {
      }
    }
 
+   const reloadProveedores = () => {
+    getProveedor();
+  };
+
   const proveedor = useRef();
 
   return (
@@ -166,6 +170,7 @@ const CompProveedorShow = () => {
       <ProveedorCreate
         ref={proveedor}
         Title="Add Inventario"
+        reloadProveedores={reloadProveedores}
       />
     </>
   );

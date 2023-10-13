@@ -5,8 +5,8 @@ import axios from 'axios';
 const URI = 'http://localhost:3001/api/persona';
 
 const PersonaEdit = () => {
-  const [IDRol, setIDRol] = useState('');
-  const [nombre, setNombre] = useState('');
+  const [IDRol, setidRol] = useState('');
+  const [nombre, setNombres] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [direccion, setDireccion] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -22,8 +22,8 @@ const PersonaEdit = () => {
     e.preventDefault();
     try {
       await axios.put(`${URI}/${CUI}`, {
-        IDRol: IDRol,
-        Nombre: nombre,
+        idRol: IDRol,
+        Nombres: nombre,
         FechaNacimiento: fechaNacimiento,
         Direccion: direccion,
         Telefono: telefono,
@@ -55,8 +55,8 @@ const PersonaEdit = () => {
   const obtenerPersonaPorID = async () => {
     try {
       const res = await axios.get(`${URI}/${CUI}`);
-      setIDRol(res.data.IDRol);
-      setNombre(res.data.Nombre);
+      setidRol(res.data.idRol); // Cambiado
+      setNombres(res.data.Nombres);
       setFechaNacimiento(res.data.FechaNacimiento);
       setDireccion(res.data.Direccion);
       setTelefono(res.data.Telefono);
@@ -76,19 +76,19 @@ const PersonaEdit = () => {
           <form onSubmit={actualizarPersona}>
             <div className="row">
               <div className="col-xl-6 mb-3">
-                <label htmlFor="IDRol" className="form-label">ID Rol<span className="text-danger">*</span></label>
-                <select className="form-select" value={IDRol} onChange={(e) => setIDRol(e.target.value)} required>
+                <label htmlFor="idRol" className="form-label">ID Rol<span className="text-danger">*</span></label>
+                <select className="form-select" value={IDRol} onChange={(e) => setidRol(e.target.value)} required>
                   <option value="">Selecciona un rol</option>
                   {roles.map((rol) => (
-                    <option key={rol.IDRol} value={rol.IDRol}>
-                      {rol.IDRol} - {rol.NombreRol}
+                    <option key={rol.idRol} value={rol.idRol}>
+                      {rol.idRol} - {rol.NombreRol}
                     </option>
                   ))}
                 </select>
               </div>
               <div className="col-xl-6 mb-3">
                 <label htmlFor="nombre" className="form-label">Nombre<span className="text-danger">*</span></label>
-                <input type="text" className="form-control" placeholder="" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+                <input type="text" className="form-control" placeholder="" value={nombre} onChange={(e) => setNombres(e.target.value)} required />
               </div>
               <div className="col-xl-6 mb-3">
                 <label htmlFor="fechaNacimiento" className="form-label">Fecha de Nacimiento<span className="text-danger">*</span></label>

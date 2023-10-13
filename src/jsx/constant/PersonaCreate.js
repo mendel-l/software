@@ -2,12 +2,16 @@ import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'rea
 import { Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import InputMask from 'react-input-mask';
+
 const URI = 'http://localhost:3001/api/persona';
 
 const PersonaCreate = forwardRef((props, ref) => {
-  const [IDRol, setIDRol] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [IDRol, setidRol] = useState('');
+  const [nombre, setNombres] = useState('');
+  const [fechaNacimiento, setFechaNacimiento] = useState(new Date());
   const [direccion, setDireccion] = useState('');
   const [telefono, setTelefono] = useState('');
   const [salario, setSalario] = useState('');
@@ -37,12 +41,12 @@ const PersonaCreate = forwardRef((props, ref) => {
   }));
 
   const guardar = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  
 
     try {
       await axios.post(URI, {
-        IDRol: IDRol,
-        Nombre: nombre,
+        idRol: IDRol,
+        Nombres: nombre,
         FechaNacimiento: fechaNacimiento,
         Direccion: direccion,
         Telefono: telefono,
@@ -74,22 +78,22 @@ const PersonaCreate = forwardRef((props, ref) => {
               <div className="row">
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="IDRol" className="form-label">ID Rol<span className="text-danger">*</span></label>
-                  <select className="form-select" value={IDRol} onChange={(e) => setIDRol(e.target.value)} required>
+                  <select className="form-select" value={IDRol} onChange={(e) => setidRol(e.target.value)} required>
                     <option value="">Selecciona un rol</option>
                     {roles.map((rol) => (
-                      <option key={rol.IDRol} value={rol.IDRol}>
-                        {rol.IDRol} - {rol.NombreRol}
+                      <option key={rol.idRol} value={rol.idRol}>
+                        {rol.idRol} - {rol.Rol}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="nombre" className="form-label">Nombre<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+                  <input type="text" className="form-control" placeholder="" value={nombre} onChange={(e) => setNombres(e.target.value)} required />
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="fechaNacimiento" className="form-label">Fecha de Nacimiento<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} required />
+                  <label htmlFor="fecha" className="form-label">Fecha Nacimiento<span className="text-danger">*</span></label>
+                  <input type="date" className="form-control" placeholder="" value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} required/>
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="direccion" className="form-label">Direccion<span className="text-danger">*</span></label>
@@ -97,11 +101,27 @@ const PersonaCreate = forwardRef((props, ref) => {
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="telefono" className="form-label">Telefono<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={telefono} onChange={(e) => setTelefono(e.target.value)} required />
+                  <InputMask
+                    mask="9999 9999" // Define tu máscara según tus necesidades
+                    className="form-control"
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="salario" className="form-label">Salario<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={salario} onChange={(e) => setSalario(e.target.value)} required />
+                  <div className="input-group">
+                    <span className="input-group-text">Q</span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder=""
+                      value={salario}
+                      onChange={(e) => setSalario(e.target.value.replace(/[^0-9]/g, ''))}
+                      required
+                    />
+                  </div>
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="titulacion" className="form-label">Titulacion<span className="text-danger">*</span></label>
@@ -117,7 +137,24 @@ const PersonaCreate = forwardRef((props, ref) => {
               </div>
               <div>
                 <button type="submit" className="btn btn-primary me-1">Guardar</button>
-                <button type="button" className="btn btn-danger light ms-1" onClick={() => setAddPersona(false)}>Cancelar</button>
+                <button
+                      type="button"
+                      className="btn btn-danger light ms-1"
+                      onClick={() => {
+                        setAddPersona(false);
+                        // Restablecer los estados al valor inicial
+                        setidRol('');
+                        setNombres('');
+                        setFechaNacimiento(new Date());
+                        setDireccion('');
+                        setTelefono('');
+                        setSalario('');
+                        setTitulacion('');
+                        setEstado('');
+                      }}
+                    >
+                      Cancelar
+                </button>
               </div>
             </form>
           </div>

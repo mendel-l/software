@@ -13,29 +13,26 @@ const PersonaShow = () => {
     getPersonas(); // Cambiado
   }, []);
 
-  // Esto es para recargar la página al momento de crear una persona
+// AREGLEN LA BASE DE DATOS AAAAAAAAAAAAAAAAAAAAAAAA
   const reloadPersonas = () => {
-    // Esta función se pasará a PersonaCreate
-    // y se llamará para actualizar el estado local
+
     getPersonas(); // Cambiado
   };
 
-  // Procedimiento para mostrar todas las personas
   const getPersonas = async () => {
     const res = await axios.get(URI);
     setPersonas(res.data);
   };
 
-  // Procedimiento para eliminar una persona
   const deletePersona = async (CUI) => {
     await axios.delete(`${URI}/${CUI}`);
     getPersonas(); // Cambiado
   };
 
   const headers = [
-    { label: "ID Rol", key: "IDRol" },
     { label: "CUI", key: "CUI" },
-    { label: "Nombre", key: "Nombre" },
+    { label: "ID Rol", key: "idRol" },
+    { label: "Nombre", key: "Nombres" },
     { label: "Fecha de Nacimiento", key: "FechaNacimiento" },
     { label: "Direccion", key: "Direccion" },
     { label: "Telefono", key: "Telefono" },
@@ -101,8 +98,8 @@ const PersonaShow = () => {
                     <table id="persona-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
+                        <th>ID</th>
                           <th>ID Rol</th>
-                          <th>ID</th>
                           <th>Nombre</th>
                           <th>Fecha de Nacimiento</th>
                           <th>Direccion</th>
@@ -115,13 +112,13 @@ const PersonaShow = () => {
                       <tbody>
                         {personas.map((dato) => (
                           <tr key={dato.CUI}>
-                            <td>{dato.IDRol}</td>
                             <td>{dato.CUI}</td>
-                            <td>{dato.Nombre}</td>
+                            <td>{dato.idRol}</td>
+                            <td>{dato.Nombres}</td>
                             <td>{dato.FechaNacimiento}</td>
                             <td>{dato.Direccion}</td>
                             <td>{dato.Telefono}</td>
-                            <td>{dato.Salario}</td>
+                            <td>{`Q ${dato.Salario}`}</td> {/* Modificado para agregar "Q" */}
                             <td>{dato.Titulacion}</td>
                             <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
                             <div>

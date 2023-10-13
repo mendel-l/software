@@ -22,6 +22,10 @@ const CompRolShow = () => {
     await axios.delete('${URI}${idRol}')
     getRol()
   }
+
+  const reloadRoles = () => {
+    getRol();
+  };
   
   const headers = [
     { label: "idRol", key: "idRol" },
@@ -160,6 +164,7 @@ const CompRolShow = () => {
       <RolCreate
         ref={rol}
         Title="Add Inventario"
+        reloadRoles={reloadRoles}
       />
     </>
   );

@@ -32,7 +32,7 @@ const LoteEdit = () => {
         idMedicamento: IDmedi,
         Estado: estado,
       });
-      navigate('/lotes'); // Redirige a la página de lotes después de actualizar
+      navigate('/lote'); // Ver bien que sea la ruta para F5 automatico :D
     } catch (error) {
       console.error('Error al actualizar el lote:', error);
     }

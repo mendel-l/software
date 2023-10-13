@@ -23,22 +23,20 @@ const RolCreate = forwardRef((props, ref) => {
   const guardar = async (e) => {
     e.preventDefault();
     
-    //try {
+    try {
       // Enviar los datos al servidor
       await axios.post(URI, {
-        Rol:rol,
-        Descripcion:descripcion,
-        NivelAcceso:nivelacceso,
+        Rol: rol,
+        Descripcion: descripcion,
+        NivelAcceso: nivelacceso,
       });
-      
-      // Cerrar el modal después de guardar los datos
-      setAddRol(false);
 
-      // Recargar la lista de roles en la página principal
-      //props.reloadProveedores();
-    // } catch (error) {
-    //   console.error('Error al guardar el proveedor:', error);
-    // }
+      props.reloadRoles();
+
+      setAddRol(false);
+    } catch (error) {
+      console.error('Error al guardar el rol:', error);
+    }
   };
   
   return (

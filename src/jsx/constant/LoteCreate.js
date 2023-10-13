@@ -73,6 +73,19 @@ const LoteCreate = forwardRef((props, ref) => {
     }
   };
 
+  //para limpiar el modal al darle cancelar al boton
+  const limpiarFormulario = () => {
+    // Restablecer los estados al valor inicial
+    setPrecioCompra('');
+    setFecha_Ingreso('');
+    setFecha_Vencimiento('');
+    setCantidadCompra('');
+    setcantidadDisponible('');
+    setIDProveedor('');
+    setidMedicamento('');
+    setEstado('');
+  };
+
   return (
     <>
   <Offcanvas show={addLote} onHide={() => setAddLote(false)} className="offcanvas-end customeoff" placement="end">
@@ -86,25 +99,28 @@ const LoteCreate = forwardRef((props, ref) => {
           <div className="container-fluid">
             <form onSubmit={guardar}>
               <div className="row">
-                <div className="col-xl-6 mb-3">
+              <div className="col-xl-6 mb-3">
                   <label htmlFor="precioCompra" className="form-label">Precio de Compra<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={preciosComp} onChange={(e) => setPrecioCompra(e.target.value)} required />
+                  <div className="input-group">
+                    <span className="input-group-text">Q</span>
+                    <input type="text" className="form-control" placeholder="" value={preciosComp} onChange={(e) => setPrecioCompra(e.target.value.replace(/\D/, ''))} required />
+                  </div>
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="precioVenta" className="form-label">Fecha de Ingreso<span className="text-danger">*</span> </label>
-                  <input type="text" className="form-control" placeholder="" value={fechaIng} onChange={(e) => setFecha_Ingreso(e.target.value)} required />
+                  <label htmlFor="fecha" className="form-label">Fecha de Ingreso<span className="text-danger">*</span></label>
+                  <input type="date" className="form-control" placeholder="" value={fechaIng} onChange={(e) => setFecha_Ingreso(e.target.value)} required/>
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="fechaVencimiento" className="form-label">Fecha de Vencimiento<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={fechaVen} onChange={(e) => setFecha_Vencimiento(e.target.value)} required />
+                  <label htmlFor="fecha" className="form-label">Fecha de Vencimiento<span className="text-danger">*</span></label>
+                  <input type="date" className="form-control" placeholder="" value={fechaVen} onChange={(e) => setFecha_Vencimiento(e.target.value)} required/>
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="cantidadCompra" className="form-label">Cantidad de Compra<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={cantComp} onChange={(e) => setCantidadCompra(e.target.value)} required />
+                  <input type="text" className="form-control" placeholder="" value={cantComp} onChange={(e) => setCantidadCompra(e.target.value.replace(/\D/, ''))} required />
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="cantidadDisponible" className="form-label">Cantidad Disponible<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={cantDis} onChange={(e) => setcantidadDisponible(e.target.value)} required />
+                  <input type="text" className="form-control" placeholder="" value={cantDis} onChange={(e) => setcantidadDisponible(e.target.value.replace(/\D/, ''))} required />
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="IDProveedor" className="form-label">ID Proveedor<span className="text-danger">*</span></label>
@@ -138,7 +154,7 @@ const LoteCreate = forwardRef((props, ref) => {
               </div>
               <div>
                 <button type="submit" className="btn btn-primary me-1">Guardar</button>
-                <button type="button" className="btn btn-danger light ms-1" onClick={() => setAddLote(false)}>Cancelar</button>
+                <button type="button" className="btn btn-danger light ms-1" onClick={() => { setAddLote(false); limpiarFormulario(); }}>Cancelar</button>
               </div>
             </form>
           </div>

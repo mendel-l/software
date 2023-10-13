@@ -23,7 +23,7 @@ const CompEditarProveedor = () => {
             Descripcion:descripcion,
             Estado:estado,
         })
-        navigate('/proveedor2')
+        navigate('/proveedor')
     }
 
     useEffect(()=>{
