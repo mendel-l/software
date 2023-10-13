@@ -24,7 +24,7 @@ export const MenuList = [
             },            
         ],
     },
-    // {   
+    // {
     //     title:'Clientes',
     //     iconStyle: SVGICON.Employe,
     //     to: '/employee',
@@ -32,22 +32,22 @@ export const MenuList = [
     {   
         title:'Proveedores',
         iconStyle: SVGICON.Employe,
-        to: '/proveedor',
+        to: '/Proveedor',
     },
     {
         title: 'Medicamentos',
         iconStyle: SVGICON.Medicamento,
-        to: '/medicamento',
+        to: '/Medicamento',
     },
     {   
         title: 'Inventario',
         iconStyle: SVGICON.Employe,
-        to: '/inventario',
+        to: '/Inventario',
     },
     {   
         title: 'Cliente',
         iconStyle: SVGICON.Employe,
-        to: '/cliente',
+        to: '/Cliente',
     },
     {   
         title: 'Rol',
@@ -69,6 +69,12 @@ export const MenuList = [
         iconStyle: SVGICON.Employe,
         to: '/Venta',
     },
+    //Persona Menu
+    {
+        title: 'Persona',
+        iconStyle: SVGICON.Employe,
+        to: '/Persona',
+    }, 
    /* {   
         title:'Core HR',
         iconStyle: SVGICON.CoreHr,

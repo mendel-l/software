@@ -51,6 +51,9 @@ import CompEditarUsuario from "./components/Dashboard/Usuario/UsuarioEdit";
 //Venta
 import CompVentaShow from "./components/Dashboard/Venta/VentaShow";
 import CompVentaEdit from "./components/Dashboard/Venta/VentaEdit";
+//persona
+import PersonaShow from "./components/Dashboard/Personas/Personashow";
+import PersonaEdit from "./components/Dashboard/Personas/PersonasEdit";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -145,8 +148,8 @@ const allroutes = [
     { url: "task", component: <Task /> },
 
     //proveedor
-    { url: "proveedor", component: <CompProveedorShow /> },
-    { url: "edit-proveedor/:IDProveedor", component: <CompEditarProveedor /> },
+    { url: 'proveedor', component: <CompProveedorShow /> },
+    { url: 'edit-proveedor/:IDProveedor', component: <CompEditarProveedor /> },
     // Medicamento
     { url: 'medicamento', component: <CompMedicamentoShow /> },
     { url: 'edit-medicamento/:idMedicamento', component: <CompEditarMedicamento /> },
@@ -168,6 +171,9 @@ const allroutes = [
     // venta
     { url: 'venta', component: <CompVentaShow />},
     { url: '/edit-venta/:Idventa', component: <CompVentaEdit/>},
+    // persona
+    { url: 'persona', component: <PersonaShow />},
+    { url: '/edit-persona/:CUI', component: <PersonaEdit/>},
     
 
   //Apps
