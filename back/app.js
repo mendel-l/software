@@ -12,6 +12,7 @@ import VentaRouter from './routers/routerVenta.js';
 import LoteRouter from './routers/routerLote.js';
 import InventarioRouter from './routers/routerInventario.js';
 import Detalle_FacturaRouter from './routers/routerDetalle_Factura.js';
+import routeUSRV from './routers/routeUSRVC.js';
 
 import db from './DB/database.js';
 
@@ -34,6 +35,7 @@ app.use('/api/venta', VentaRouter);
 app.use('/api/lote', LoteRouter);
 app.use('/api/inventario', InventarioRouter);
 app.use('/api/detalle_factura', Detalle_FacturaRouter);
+app.use('/api/Usrv', routeUSRV);
 
 
 

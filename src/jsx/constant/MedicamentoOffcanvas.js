@@ -34,7 +34,7 @@ const MedicamentoOffcanvas =forwardRef((props, ref) => {
                         <form onClick={(e)=>handleSubmit(e)}>
                             <div className="row">
                                 <div className="col-xl-6 mb-3">
-                                    <label htmlFor="exampleFormControlInput3" className="form-label">Nombre<span className="text-danger">*</span></label>
+                                    <label htmlFor="exampleFormControlInput3" className="form-label">NombreMed<span className="text-danger">*</span></label>
                                     <input type="email" className="form-control" id="exampleFormControlInput3" placeholder="" />
                                 </div>
                                 {/* Direccion */}
