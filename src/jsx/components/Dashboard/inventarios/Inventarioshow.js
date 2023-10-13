@@ -8,7 +8,7 @@ import axios from 'axios';
 const URI = 'http://localhost:3001/api/inventario'; // Cambiado
 
 const CompInventarioShow = () => {
-  const [inventario, setInventario] = useState([]); // Cambiado
+  const [inventario, setInventario] = useState([]);
   useEffect(() => {
     getInventario(); // Cambiado
   }, []);
@@ -23,8 +23,18 @@ const CompInventarioShow = () => {
   // Procedimiento para mostrar todos los elementos de inventario
   const getInventario = async () => {
     const res = await axios.get(URI);
-    setInventario(res.data);
+    // Combina información del medicamento con los datos de inventario
+    const inventarioData = res.data.map(async (item) => {
+      const medicamentoRes = await axios.get(`http://localhost:3001/api/medicamento/${item.idMedicamento}`);
+      return {
+        ...item,
+        medicamento: medicamentoRes.data,
+      };
+    });
+    const inventarioWithData = await Promise.all(inventarioData);
+    setInventario(inventarioWithData);
   };
+  
 
   // Procedimiento para eliminar un elemento de inventario
   const deleteInventario = async (IdInventario) => {
@@ -100,7 +110,7 @@ const CompInventarioShow = () => {
                           <th>id</th>
                           <th>Cantidad Disponible</th>
                           <th>Precio de Venta</th>
-                          <th>ID Medicamento</th>
+                          <th>Medicamento</th>
                           <th>Estado</th>
                         </tr>
                       </thead>
@@ -110,7 +120,7 @@ const CompInventarioShow = () => {
                             <td>{dato.IdInventario}</td>
                             <td>{dato.CantidadDisponible}</td>
                             <td>{dato.PrecioVenta}</td>
-                            <td>{dato.idMedicamento}</td>
+                            <td>{dato.medicamento ? `${dato.medicamento.idMedicamento} - ${dato.medicamento.Nombre}` : ''}</td>
                             <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
                             <div>
                               <Link to={`/edit-inventario/${dato.IdInventario}`} className='btn btn-info'>Editar</Link>

@@ -83,7 +83,7 @@ const CompInventarioEdit = () => {
               </div>
               <div className="col-xl-6 mb-3">
                 <label htmlFor="idMedicamento" className="form-label">
-                  ID Medicamento<span className="text-danger">*</span>
+                  Medicamento<span className="text-danger">*</span>
                 </label>
                 <select
                   className="form-select"

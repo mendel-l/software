@@ -8,7 +8,7 @@ const URI = 'http://localhost:3001/api/inventario';
 const InventarioCreate = forwardRef((props, ref) => {
   const [cantidadDis, setCantidadDisponible] = useState('');
   const [precioVenta, setPrecioVenta] = useState('');
-  const [IDmedi, setidMedicamento] = useState('');
+  const [medicamentoId, setMedicamentoId] = useState('');// para la ruta + nombre
   const [estado, setEstado] = useState('');
   const [medicamentos, setMedicamentos] = useState([]); // Lista de medicamentos disponibles
 
@@ -44,9 +44,10 @@ const InventarioCreate = forwardRef((props, ref) => {
       await axios.post(URI, {
         CantidadDisponible: cantidadDis,
         PrecioVenta: precioVenta,
-        idMedicamento: IDmedi,
+        idMedicamento: medicamentoId,
         Estado: estado,
       });
+      
 
       // Recargar la lista de inventario en la página principal
       props.reloadInventario();
@@ -79,11 +80,11 @@ const InventarioCreate = forwardRef((props, ref) => {
                   <input type="text" className="form-control" placeholder="" value={precioVenta} onChange={(e) => setPrecioVenta(e.target.value)} required />
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="sustancias" className="form-label">ID Medicamento<span className="text-danger">*</span></label>
+                  <label htmlFor="sustancias" className="form-label">Medicamento<span className="text-danger">*</span></label>
                   <select
                     className="form-select"
-                    value={IDmedi}
-                    onChange={(e) => setidMedicamento(e.target.value)}
+                    value={medicamentoId} // para el id + nombre
+                    onChange={(e) => setMedicamentoId(e.target.value)} // para el id + nombre
                     required
                   >
                     <option value="">Selecciona un medicamento</option>
