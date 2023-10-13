@@ -67,7 +67,7 @@ export const MenuList = [
     {   
         title: 'Venta', //venta
         iconStyle: SVGICON.Employe,
-        to: '/Venta',
+        to: '/venta',
     },
    /* {   
         title:'Core HR',

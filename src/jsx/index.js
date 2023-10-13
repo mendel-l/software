@@ -49,8 +49,8 @@ import LoteEdit from "./components/Dashboard/Lotes/LoteEdit";
 import CompUsuarioShow from "./components/Dashboard/Usuario/UsuarioShow";
 import CompEditarUsuario from "./components/Dashboard/Usuario/UsuarioEdit";
 //Venta
-//importacioncomonete show
-//importacio componente editar venta
+import CompVentaShow from "./components/Dashboard/Venta/VentaShow";
+import CompVentaEdit from "./components/Dashboard/Venta/VentaEdit";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -166,8 +166,8 @@ const allroutes = [
     { url: 'usuario', component: <CompUsuarioShow />},
     { url: '/edit-usuario/:IDUsuarios', component: <CompEditarUsuario/>},
     // venta
-    { url: 'venta', component: <CompUsuarioShow />},
-    { url: '/edit-venta/:Idventa', component: <CompEditarUsuario/>},
+    { url: 'venta', component: <CompVentaShow />},
+    { url: '/edit-venta/:Idventa', component: <CompVentaEdit/>},
     
 
   //Apps
