@@ -2,27 +2,34 @@ import React, {useState, useRef, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { Modal, Offcanvas } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
-import MainPagetitle from '../../layouts/MainPagetitle';
-import MedicamentoOffcanvas from '../../constant/MedicamentoOffcanvas';
+import MainPagetitle from '../../../layouts/MainPagetitle';
+import MedicamentoCreate from '../../../constant/MedicamentoCreate';
 import axios from 'axios';
+const URI = 'http://localhost:3001/api/medicamento' //-----------------------
 
-//se incluye la URL para medicamentos
-const URI = 'http://localhost:3001/api/medicamento'
-
-const Medicamento = () => {
-  const [datos, setDatos] = useState([]);
-
+const CompMedicamentoShow = () => {
+  const [medicamentos, setMedicamentos] = useState([]); 
   useEffect(() => {
-    // Realizar una solicitud al servidor Express para obtener los datos
-    axios.get('http://localhost:3001/api/Back/obtener-datos')
-      .then((response) => {
-        setDatos(response.data); 
-      })
-      .catch((error) => {
-        console.error('Error al obtener los datos:', error);
-      });
-  }, []);
+    getmedicamento()
+  }, [])
 
+  //esto es para recargar la pagina al momento de crear un medicamento
+  const reloadMedicamentos = () => {
+    // Esta función se pasará a MedicamentoCreate
+    // y se llamará para actualizar el estado local
+    getmedicamento();
+  };
+
+  //Procedimiento para mostrar todos los proveedores
+  const getmedicamento = async () =>{
+    const res = await axios.get(URI)
+    setMedicamentos(res.data)
+  }
+  //Procedimiento para eliminar un proveedor
+  const deleteMedicamento = async (idMedicamento) => {
+    await axios.delete('${URI}${idMedicamento}')
+    getmedicamento()
+  }
   
   const headers = [
     { label: "idMedicamento", key: "idMedicamento" },
@@ -31,13 +38,11 @@ const Medicamento = () => {
     { label: "Sustancias", key: "Sustancias" },
     { label: "casaFarmaceutica", key: "casaFarmaceutica" },
     { label: "Estado", key: "Estado" },
-    { label: "createAt", key: "createAt" },
-
   ];
 
   const csvlink = {
     headers: headers,
-    data: datos,
+    data: medicamentos,
     filename: "csvfile.csv"
   };
 
@@ -45,8 +50,8 @@ const Medicamento = () => {
   const recordsPage = 100;
   const lastIndex = currentPage * recordsPage;
   const firstIndex = lastIndex - recordsPage;
-  const records = datos.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(datos.length / recordsPage);
+  const records = medicamentos.slice(firstIndex, lastIndex); //cambio 1
+  const npage = Math.ceil(medicamentos.length / recordsPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
   function prePage() {
@@ -59,11 +64,11 @@ const Medicamento = () => {
     setCurrentPage(id);
   }
 
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
+   function nextPage() {
+     if (currentPage !== npage) {
+       setCurrentPage(currentPage + 1);
+     }
+   }
 
   const medicamento = useRef();
 
@@ -92,38 +97,38 @@ const Medicamento = () => {
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                          <th>idMedicamento</th>
-                          <th>Nombre</th>
-                          <th>Descripcion</th>
-                          <th>Sustancias</th>
-                          <th>casaFarmaceutica</th>
-                          <th>Estado</th>
-                          <th>createAt</th>
-                       
+                        <th>id</th>
+                      <th>Nombre</th>
+                      <th>Descripcion</th>
+                      <th>Sustancias</th>
+                      <th>casa Farmaceutica</th>
+                      <th>Estado</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {records.map((item, index) => (
-                          <tr key={index}>
-                            <td>
-                              <div className="products">
-                                <div>
-                                  <h6>{item.Nombre}</h6>
-                                </div>
+                        {medicamentos.map ( (dato) => (
+                            <tr key={ dato.idMedicamento}>
+                                <td>{ dato.idMedicamento}</td> 
+                                <td>{ dato.Nombre}</td>
+                                <td>{ dato.Descripcion}</td>
+                                <td>{ dato.Sustancias}</td>
+                                <td>{ dato.casaFarmaceutica}</td>
+                                <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
+                              <div>
+                                <Link to={`/edit-medicamento/${dato.idMedicamento}`} className='btn btn-info'>Editar</Link>
+                                <button onClick={() => deleteMedicamento(dato.idMedicamento)} className='btn btn-danger'>Eliminar</button>
                               </div>
-                            </td>
-                            <td><span>{item.idCliente}</span></td>
-                            <td>{item.Nit}</td>
-                            <td><span>{item.telefono}</span></td>
-                          </tr>
+                            </tr>
                         ))}
                       </tbody>
                     </table>
                     <div className="d-sm-flex text-center justify-content-between align-items-center">
                       <div className='dataTables_info'>
-                        Showing {lastIndex - recordsPage + 1} to{" "}
-                        {datos.length < lastIndex ? datos.length : lastIndex}
-                        {" "}of {datos.length} entries
+                        {/* cambio 2 */}
+                      Showing {lastIndex - recordsPage + 1} to{" "}  
+                      {medicamentos.length < lastIndex ? medicamentos.length : lastIndex}
+                      {" "}of {medicamentos.length} entries
+
                       </div>
                       <div
                         className="dataTables_paginate paging_simple_numbers justify-content-center"
@@ -137,7 +142,7 @@ const Medicamento = () => {
                           <i className="fa-solid fa-angle-left" />
                         </Link>
                         <span>
-                          {number.map((n, i) => (
+                        {number.map((n, i) => (
                             <Link className={`paginate_button ${currentPage === n ? 'current' : ''} `} key={i}
                               onClick={() => changeCPage(n)}
                             >
@@ -161,12 +166,14 @@ const Medicamento = () => {
           </div>
         </div>
       </div>
-      <MedicamentoOffcanvas
+      <MedicamentoCreate
         ref={medicamento}
         Title="Add Inventario"
+        reloadMedicamentos={reloadMedicamentos} // Pasar la función aquí
       />
     </>
   );
 };
 
-export default Medicamento;
+export default CompMedicamentoShow;
+

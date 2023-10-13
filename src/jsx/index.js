@@ -26,14 +26,35 @@ import Finance from "./components/Dashboard/Finance";
 import Employees from "./components/Dashboard/Employees";
 import Task from "./components/Dashboard/Task";
 import CoreHr from "./components/Dashboard/CoreHr";
-//Proveedor
-import Proveedor from "./components/Dashboard/Proveedor";
-//Medicamento
-import Medicamento from "./components/Dashboard/Medicamento";
-//proveedor2
+
+//proveedor
 import CompProveedorShow from "./components/Dashboard/proveedores/Proveedorshow";
-//
 import CompEditarProveedor from "./components/Dashboard/proveedores/ProveedorEdit";
+//Medicamentos
+import CompMedicamentoShow from "./components/Dashboard/medicamentos/Medicamentoshow";
+import CompEditarMedicamento from "./components/Dashboard/medicamentos/MedicamentoEdit";
+//Inventarios
+import InventarioShow from "./components/Dashboard/inventarios/Inventarioshow";
+import InventarioEdit from "./components/Dashboard/inventarios/InventarioEdit";
+//clientes
+import CompClienteShow from "./components/Dashboard/Clientes/ClienteShow";
+import CompEditarCliente from "./components/Dashboard/Clientes/ClienteEdit";
+//roles
+import CompRolShow from "./components/Dashboard/Rol/RolShow";
+import CompEditarRol from "./components/Dashboard/Rol/RolEdit";
+//lotes
+import LoteShow from "./components/Dashboard/Lotes/Loteshow";
+import LoteEdit from "./components/Dashboard/Lotes/LoteEdit";
+//usuarios
+import CompUsuarioShow from "./components/Dashboard/Usuario/UsuarioShow";
+import CompEditarUsuario from "./components/Dashboard/Usuario/UsuarioEdit";
+//Venta
+import CompVentaShow from "./components/Dashboard/Venta/VentaShow";
+import CompVentaEdit from "./components/Dashboard/Venta/VentaEdit";
+//persona
+import PersonaShow from "./components/Dashboard/Personas/Personashow";
+import PersonaEdit from "./components/Dashboard/Personas/PersonasEdit";
+
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
 import User from './components/AppsMenu/AppProfile/User';
@@ -125,14 +146,35 @@ const allroutes = [
     { url: "finance", component: <Finance /> },
     { url: "employee", component: <Employees /> },
     { url: "task", component: <Task /> },
+
     //proveedor
-    { url: "proveedor", component: <Proveedor /> },
-    //medicamento
-    { url: "medicamento", component: <Medicamento /> },
-    //proveedor2
-    { url: "proveedor2", component: <CompProveedorShow /> },
-    //
-    { url: "edit-proveedor/:IDProveedor", component: <CompEditarProveedor /> },
+    { url: 'proveedor', component: <CompProveedorShow /> },
+    { url: 'edit-proveedor/:IDProveedor', component: <CompEditarProveedor /> },
+    // Medicamento
+    { url: 'medicamento', component: <CompMedicamentoShow /> },
+    { url: 'edit-medicamento/:idMedicamento', component: <CompEditarMedicamento /> },
+    //Inventario
+    { url: 'inventario', component: <InventarioShow /> },
+    { url: 'edit-inventario/:IdInventario', component: <InventarioEdit /> }, //importante ver las rutas y el ID
+    //Cliente
+    { url: 'cliente', component: <CompClienteShow /> },
+    { url: 'edit-cliente/:idCliente', component: <CompEditarCliente /> },
+    //Rol
+    { url: 'rol', component: <CompRolShow /> },
+    { url: 'edit-rol/:idRol', component: <CompEditarRol /> },
+    // Lote
+    { url: 'lote', component: <LoteShow />},
+    { url: '/edit-lote/:IdLote', component: <LoteEdit/>},
+    // Usuario
+    { url: 'usuario', component: <CompUsuarioShow />},
+    { url: '/edit-usuario/:IDUsuarios', component: <CompEditarUsuario/>},
+    // venta
+    { url: 'venta', component: <CompVentaShow />},
+    { url: '/edit-venta/:Idventa', component: <CompVentaEdit/>},
+    // persona
+    { url: 'persona', component: <PersonaShow />},
+    { url: '/edit-persona/:CUI', component: <PersonaEdit/>},
+    
 
   //Apps
     { url: "contacts", component: <Contacts /> },

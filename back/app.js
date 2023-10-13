@@ -40,14 +40,15 @@ app.use('/api/Usrv', routeUSRV);
 
 
 
-
-
-
-
-
-
-
-
+///Reportes
+// Ventas desde fecha especifica hasta actual
+// Cantidad de Prouctos desechados hasta actual
+// 
+// 
+// 
+// 
+// 
+// 
 
 
 

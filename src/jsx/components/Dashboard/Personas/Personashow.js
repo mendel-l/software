@@ -1,42 +1,52 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import { Modal, Offcanvas } from 'react-bootstrap';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import MainPagetitle from '../../../layouts/MainPagetitle';
-import ProveedorCreate from '../../../constant/ProveedorCreate';
+import PersonaCreate from '../../../constant/PersonaCreate'; // Cambiado
 import axios from 'axios';
-const URI = 'http://localhost:3001/api/proveedores' //prueba 2 
-const CompProveedorShow = () => {
-  const [proveedores, setProveedores] = useState([]); 
-  useEffect(() => {
-    getProveedor()
-  }, [])
 
-  //Procedimiento para mostrar todos los proveedores
-  const getProveedor = async () =>{
-    const res = await axios.get(URI)
-    setProveedores(res.data)
-  }
-  //Procedimiento para eliminar un proveedor
-  const deleteProveedor = async (IDProveedor) => {
-    await axios.delete('${URI}${IDProveedor}')
-    getProveedor()
-  }
-  
+const URI = 'http://localhost:3001/api/persona'; // Cambiado
+
+const PersonaShow = () => {
+  const [personas, setPersonas] = useState([]); // Cambiado
+  useEffect(() => {
+    getPersonas(); // Cambiado
+  }, []);
+
+  // Esto es para recargar la página al momento de crear una persona
+  const reloadPersonas = () => {
+    // Esta función se pasará a PersonaCreate
+    // y se llamará para actualizar el estado local
+    getPersonas(); // Cambiado
+  };
+
+  // Procedimiento para mostrar todas las personas
+  const getPersonas = async () => {
+    const res = await axios.get(URI);
+    setPersonas(res.data);
+  };
+
+  // Procedimiento para eliminar una persona
+  const deletePersona = async (CUI) => {
+    await axios.delete(`${URI}/${CUI}`);
+    getPersonas(); // Cambiado
+  };
+
   const headers = [
-    { label: "IDProveedor", key: "IDProveedor" },
+    { label: "ID Rol", key: "IDRol" },
+    { label: "CUI", key: "CUI" },
     { label: "Nombre", key: "Nombre" },
+    { label: "Fecha de Nacimiento", key: "FechaNacimiento" },
     { label: "Direccion", key: "Direccion" },
     { label: "Telefono", key: "Telefono" },
-    { label: "Descripcion", key: "Descripcion" },
+    { label: "Salario", key: "Salario" },
+    { label: "Titulacion", key: "Titulacion" },
     { label: "Estado", key: "Estado" },
-    { label: "createAt", key: "createAt" },
-
   ];
 
   const csvlink = {
     headers: headers,
-    data: proveedores,
+    data: personas,
     filename: "csvfile.csv"
   };
 
@@ -44,8 +54,8 @@ const CompProveedorShow = () => {
   const recordsPage = 100;
   const lastIndex = currentPage * recordsPage;
   const firstIndex = lastIndex - recordsPage;
-  const records = proveedores.slice(firstIndex, lastIndex); //cambio 1
-  const npage = Math.ceil(proveedores.length / recordsPage);
+  const records = personas.slice(firstIndex, lastIndex); // Cambiado
+  const npage = Math.ceil(personas.length / recordsPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
   function prePage() {
@@ -58,17 +68,17 @@ const CompProveedorShow = () => {
     setCurrentPage(id);
   }
 
-   function nextPage() {
-     if (currentPage !== npage) {
-       setCurrentPage(currentPage + 1);
-     }
-   }
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
 
-  const proveedor = useRef();
+  const elemento = useRef(); // Cambiado
 
   return (
     <>
-      <MainPagetitle mainTitle="Proveedor" pageTitle={'Proveedor'} parentTitle={'Inicio'} />
+      <MainPagetitle mainTitle="Persona" pageTitle={'Persona'} parentTitle={'Inicio'} />
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-12">
@@ -76,56 +86,57 @@ const CompProveedorShow = () => {
               <div className="card-body p-0">
                 <div className="table-responsive active-projects style-1 ItemsCheckboxSec shorting">
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
-                    <h4 className="heading mb-0">Proveedores</h4>
+                    <h4 className="heading mb-0">Persona</h4>
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
                         Exportar reporte
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
-                        onClick={() => proveedor.current.showEmployeModal()}
-                      >+ Agregar Proveedor</Link> {" "}
+                        onClick={() => elemento.current.showPersonaModal()} // Cambiado
+                      >+ Agregar Persona</Link> {" "}
                     </div>
                   </div>
-                  <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
-                    <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
+                  <div id="persona-tbl_wrapper" className="dataTables_wrapper no-footer">
+                    <table id="persona-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                          <th>IDProveedor</th>
+                          <th>ID Rol</th>
+                          <th>ID</th>
                           <th>Nombre</th>
+                          <th>Fecha de Nacimiento</th>
                           <th>Direccion</th>
                           <th>Telefono</th>
-                          <th>Descripcion</th>
+                          <th>Salario</th>
+                          <th>Titulacion</th>
                           <th>Estado</th>
-                          <th>createAt</th>
-                       
                         </tr>
                       </thead>
                       <tbody>
-                        {proveedores.map ( (proveedores) => (
-                            <tr key={ proveedores.IDProveedor}>
-                                <td>{ proveedores.IDProveedor}</td> 
-                                <td>{ proveedores.Nombre}</td>
-                                <td>{ proveedores.Direccion}</td>
-                                <td>{ proveedores.Telefono}</td>
-                                <td>{ proveedores.Descripcion}</td>
-                                {/* <td>{ proveedor.Estado}</td> */}
-                                <td>{ proveedores.createAt}</td>
-                              <div>
-                                <Link to={`/edit-proveedor/${proveedores.IDProveedor}`} className='btn btn-info'>Editar</Link>
-                                <button onClick={() => deleteProveedor(proveedores.IDProveedor)} className='btn btn-danger'>Eliminar</button>
-                              </div>
-                            </tr>
+                        {personas.map((dato) => (
+                          <tr key={dato.CUI}>
+                            <td>{dato.IDRol}</td>
+                            <td>{dato.CUI}</td>
+                            <td>{dato.Nombre}</td>
+                            <td>{dato.FechaNacimiento}</td>
+                            <td>{dato.Direccion}</td>
+                            <td>{dato.Telefono}</td>
+                            <td>{dato.Salario}</td>
+                            <td>{dato.Titulacion}</td>
+                            <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
+                            <div>
+                              <Link to={`/edit-persona/${dato.CUI}`} className='btn btn-info'>Editar</Link>
+                              <button onClick={() => deletePersona(dato.CUI)} className='btn btn-danger'>Eliminar</button>
+                            </div>
+                          </tr>
                         ))}
                       </tbody>
                     </table>
                     <div className="d-sm-flex text-center justify-content-between align-items-center">
                       <div className='dataTables_info'>
-                        {/* cambio 2 */}
-                      Showing {lastIndex - recordsPage + 1} to{" "}  
-                      {proveedores.length < lastIndex ? proveedores.length : lastIndex}
-                      {" "}of {proveedores.length} entries
-
+                        Showing {lastIndex - recordsPage + 1} to{" "}
+                        {personas.length < lastIndex ? personas.length : lastIndex}
+                        {" "}of {personas.length} entries
                       </div>
                       <div
                         className="dataTables_paginate paging_simple_numbers justify-content-center"
@@ -139,7 +150,7 @@ const CompProveedorShow = () => {
                           <i className="fa-solid fa-angle-left" />
                         </Link>
                         <span>
-                        {number.map((n, i) => (
+                          {number.map((n, i) => (
                             <Link className={`paginate_button ${currentPage === n ? 'current' : ''} `} key={i}
                               onClick={() => changeCPage(n)}
                             >
@@ -163,12 +174,13 @@ const CompProveedorShow = () => {
           </div>
         </div>
       </div>
-      <ProveedorCreate
-        ref={proveedor}
-        Title="Add Inventario"
+      <PersonaCreate
+        ref={elemento}
+        Title="Add Persona"
+        reloadPersonas={reloadPersonas} // Cambiado
       />
     </>
   );
 };
 
-export default CompProveedorShow;
+export default PersonaShow;

@@ -3,7 +3,7 @@ import { SVGICON } from "../../constant/theme";
 export const MenuList = [
     //Content
     {
-        title: 'Tu Compañia',
+        title: 'La Predilecta',
         classsChange: 'menu-title'
     },
     //Dashboard
@@ -24,26 +24,57 @@ export const MenuList = [
             },            
         ],
     },
-    {   
-        title:'Clientes',
-        iconStyle: SVGICON.Employe,
-        to: '/employee',
-    },
+    // {
+    //     title:'Clientes',
+    //     iconStyle: SVGICON.Employe,
+    //     to: '/employee',
+    // },
     {   
         title:'Proveedores',
         iconStyle: SVGICON.Employe,
-        to: '/proveedor',
+        to: '/Proveedor',
+    },
+    {
+        title: 'Medicamentos',
+        iconStyle: SVGICON.Medicamento,
+        to: '/Medicamento',
     },
     {   
-        title:'Medicamentos',
+        title: 'Inventario',
         iconStyle: SVGICON.Employe,
-        to: '/medicamento',
+        to: '/Inventario',
     },
     {   
-        title:'Proveedores2',
+        title: 'Cliente',
         iconStyle: SVGICON.Employe,
-        to: '/proveedor2',
+        to: '/Cliente',
     },
+    {   
+        title: 'Rol',
+        iconStyle: SVGICON.Employe,
+        to: '/Rol',
+    },
+    {   
+        title: 'Lote',
+        iconStyle: SVGICON.Employe,
+        to: '/Lote',
+    },
+    {   
+        title: 'Usuario',
+        iconStyle: SVGICON.Employe,
+        to: '/Usuario',
+    },
+    {   
+        title: 'Venta', //venta
+        iconStyle: SVGICON.Employe,
+        to: '/Venta',
+    },
+    //Persona Menu
+    {
+        title: 'Persona',
+        iconStyle: SVGICON.Employe,
+        to: '/Persona',
+    }, 
    /* {   
         title:'Core HR',
         iconStyle: SVGICON.CoreHr,

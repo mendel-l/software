@@ -2,31 +2,32 @@ import React, {useState, useRef, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { Modal, Offcanvas } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
-import MainPagetitle from '../../layouts/MainPagetitle';
-import ProveedorOffcanvas from '../../constant/ProveedorOffcanvas';
+import MainPagetitle from '../../../layouts/MainPagetitle';
+import ClienteCreate from '../../../constant/ClienteCreate';
 import axios from 'axios';
-
-const Proveedor = () => {
-  const [datos, setDatos] = useState([]); 
-
+const URI = 'http://localhost:3001/api/cliente'
+const CompClienteShow = () => {
+  const [clientes, setClientes] = useState([]); 
   useEffect(() => {
-    // Realizar una solicitud al servidor Express para obtener los datos
-    axios.get('http://localhost:3001/api/Back/obtener-datos') 
-      .then((response) => {
-        setDatos(response.data); 
-      })
-      .catch((error) => {
-        console.error('Error al obtener los datos:', error);
-      });
-  }, []);
+    getCliente()
+  }, [])
 
+  //Procedimiento para mostrar todos los clientes
+  const getCliente = async () =>{
+    const res = await axios.get(URI)
+    setClientes(res.data)
+  }
+  //Procedimiento para eliminar un cliente
+  const deleteCliente = async (idCliente) => {
+    await axios.delete('${URI}${idCliente}')
+    getCliente()
+  }
   
   const headers = [
-    { label: "IDProveedor", key: "IDProveedor" },
+    { label: "idCliente", key: "idCliente" },
     { label: "Nombre", key: "Nombre" },
-    { label: "Direccion", key: "Direccion" },
+    { label: "Nit", key: "Nit" },
     { label: "Telefono", key: "Telefono" },
-    { label: "Descripcion", key: "Descripcion" },
     { label: "Estado", key: "Estado" },
     { label: "createAt", key: "createAt" },
 
@@ -34,7 +35,7 @@ const Proveedor = () => {
 
   const csvlink = {
     headers: headers,
-    data: datos,
+    data: clientes,
     filename: "csvfile.csv"
   };
 
@@ -42,8 +43,8 @@ const Proveedor = () => {
   const recordsPage = 100;
   const lastIndex = currentPage * recordsPage;
   const firstIndex = lastIndex - recordsPage;
-  const records = datos.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(datos.length / recordsPage);
+  const records = clientes.slice(firstIndex, lastIndex); //cambio 1
+  const npage = Math.ceil(clientes.length / recordsPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
   function prePage() {
@@ -56,17 +57,17 @@ const Proveedor = () => {
     setCurrentPage(id);
   }
 
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
+   function nextPage() {
+     if (currentPage !== npage) {
+       setCurrentPage(currentPage + 1);
+     }
+   }
 
-  const proveedor = useRef();
+  const cliente = useRef();
 
   return (
     <>
-      <MainPagetitle mainTitle="Proveedor" pageTitle={'Proveedor'} parentTitle={'Inicio'} />
+      <MainPagetitle mainTitle="Cliente" pageTitle={'Cliente'} parentTitle={'Inicio'} />
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-12">
@@ -74,53 +75,54 @@ const Proveedor = () => {
               <div className="card-body p-0">
                 <div className="table-responsive active-projects style-1 ItemsCheckboxSec shorting">
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
-                    <h4 className="heading mb-0">Proveedores</h4>
+                    <h4 className="heading mb-0">Clientes</h4>
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
                         Exportar reporte
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
-                        onClick={() => proveedor.current.showEmployeModal()}
-                      >+ Agregar Proveedor</Link> {" "}
+                        onClick={() => cliente.current.showEmployeModal()}
+                      >+ Agregar Cliente</Link> {" "}
                     </div>
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                          <th>IDProveedor</th>
+                          <th>IDCliente</th>
                           <th>Nombre</th>
-                          <th>Direccion</th>
+                          <th>Nit</th>
                           <th>Telefono</th>
-                          <th>Descripcion</th>
                           <th>Estado</th>
                           <th>createAt</th>
                        
                         </tr>
                       </thead>
                       <tbody>
-                        {records.map((item, index) => (
-                          <tr key={index}>
-                            <td>
-                              <div className="products">
-                                <div>
-                                  <h6>{item.Nombre}</h6>
-                                </div>
+                        {clientes.map ( (clientes) => (
+                            <tr key={ clientes.idCliente}>
+                                <td>{ clientes.idCliente}</td> 
+                                <td>{ clientes.Nombre}</td>
+                                <td>{ clientes.Nit}</td>
+                                <td>{ clientes.Telefono}</td>
+                                {/* <td>{ clientes.Estado}</td> */}
+                                <td>{ clientes.createAt}</td>
+                              <div>
+                                <Link to={`/edit-cliente/${clientes.idCliente}`} className='btn btn-info'>Editar</Link>
+                                <button onClick={() => deleteCliente(clientes.idCliente)} className='btn btn-danger'>Eliminar</button>
                               </div>
-                            </td>
-                            <td><span>{item.idCliente}</span></td>
-                            <td>{item.Nit}</td>
-                            <td><span>{item.telefono}</span></td>
-                          </tr>
+                            </tr>
                         ))}
                       </tbody>
                     </table>
                     <div className="d-sm-flex text-center justify-content-between align-items-center">
                       <div className='dataTables_info'>
-                        Showing {lastIndex - recordsPage + 1} to{" "}
-                        {datos.length < lastIndex ? datos.length : lastIndex}
-                        {" "}of {datos.length} entries
+                        {/* cambio 2 */}
+                      Mostrado {lastIndex - recordsPage + 1} to{" "}  
+                      {clientes.length < lastIndex ? clientes.length : lastIndex}
+                      {" "}of {clientes.length} entries
+
                       </div>
                       <div
                         className="dataTables_paginate paging_simple_numbers justify-content-center"
@@ -134,7 +136,7 @@ const Proveedor = () => {
                           <i className="fa-solid fa-angle-left" />
                         </Link>
                         <span>
-                          {number.map((n, i) => (
+                        {number.map((n, i) => (
                             <Link className={`paginate_button ${currentPage === n ? 'current' : ''} `} key={i}
                               onClick={() => changeCPage(n)}
                             >
@@ -158,12 +160,12 @@ const Proveedor = () => {
           </div>
         </div>
       </div>
-      <ProveedorOffcanvas
-        ref={proveedor}
+      <ClienteCreate
+        ref={cliente}
         Title="Add Inventario"
       />
     </>
   );
 };
 
-export default Proveedor;
+export default CompClienteShow;

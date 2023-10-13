@@ -8,6 +8,7 @@ import { loadingToggleAction,loginAction,
 import logo from '../../images/logo/logofullfarmacia-login.png';
 import LogoWhite from '../../images/logo/logofullfarmacia-login.png';
 import bg6 from '../../images/background/bg6.jpg';
+import lapredilecta from '../../images/background/lapredilecta.jpg';
 
 function Login (props) {
 	const [heartActive, setHeartActive] = useState(true);	
@@ -41,7 +42,9 @@ function Login (props) {
   	return (        
 		<div className="page-wraper">
 			<div className="browse-job login-style3">
-				<div className="bg-img-fix overflow-hidden" style={{background:'#fff url('+ bg6 + ')',  height: "100vh"}}>
+				{/* imagen del login */}
+				<div className="bg-img-fix overflow-hidden" style={{ background: `url(${lapredilecta})`, backgroundSize: 'cover', height: '100vh' }}>
+				{/* termina imagen del login */}	
 					<div className="row gx-0">
 						<div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 vh-100 bg-white ">
 							<div id="mCSB_1" className="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style={{maxHeight: "653px"}}>
@@ -49,10 +52,15 @@ function Login (props) {
 									<div className="login-form style-2">
 										<div className="card-body">
 											{/* Logos del login */}
-										 	<div className="logo-header">
-												<Link to={"#"} className="logo"><img src={logo} alt="" className="width-230 light-logo" /></Link>
-												<Link to={"#"} className="logo"><img src={LogoWhite} alt="" className="width-230 dark-logo" /></Link>
-											</div>	
+											{/* codigo para que el logo se adapte al tamaño de la pantalla */}
+											<div className="logo-header text-center">
+												<Link to={"#"} className="logo">
+													<img src={logo} alt="" className="img-fluid width-230 light-logo mx-auto" />
+												</Link>
+												<Link to={"#"} className="logo">
+													<img src={LogoWhite} alt="" className="img-fluid width-230 dark-logo mx-auto" />
+												</Link>
+											</div>
 											{/* Aqui termina el codigo del logo*/}										
 											<div className="nav nav-tabs border-bottom-0" >														
 												<div className="tab-content w-100" id="nav-tabContent">
@@ -113,11 +121,11 @@ function Login (props) {
 										<div className="card-footer">
 											<div className=" bottom-footer clearfix m-t10 m-b20 row text-center">
 												<div className="col-lg-12 text-center">
-													<span> © Copyright by Mendel, Francisco, Bladimir Galvez <span 
+													<span> © Copyright by Francisco, Mendel, Bladimir, Ajpop <span 
 														className={`heart ${heartActive ? "" : "heart-blast"}`}														
 														onClick={()=>setHeartActive(!heartActive)}
 													></span>
-													<a href="https://www.dexignzone.com/" target="_blank"> DexignZone </a> All rights reserved.</span> 
+													<a href="https://www.dexignzone.com/" target="_blank"> MESO XELA </a> All rights reserved.</span> 
 												</div>
 											</div>
 										</div>													
