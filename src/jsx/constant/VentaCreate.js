@@ -9,8 +9,13 @@ const VentaCreate = forwardRef((props, ref) => {
   const [fecha, setFecha] = useState('')
   const [montototal, setMontototal] = useState('')
   const [idcliente, setidCliente] = useState('')
+  const [medicamentoId, setLoteId] = useState('');// para la ruta + nombre lotes
+  const [loteId, setMedicamentoId] = useState('');// para la ruta + nombre
   const [cui, setCui] = useState('')
   const [clientes, setClientes] = useState([]); //lista de clientes disponibles
+  const [medicamentos, setMedicamentos] = useState([]); // Lista de medicamentos disponibles
+  const [lotes, setLotes] = useState([]); // Lista de lotes disponibles
+  const [cantidad, setCantidad] = useState('')
 
   const [addVenta, setAddVenta] = useState(false);
   const navigate = useNavigate();
@@ -27,6 +32,34 @@ const VentaCreate = forwardRef((props, ref) => {
     }
 
     fetchClientes();
+  }, []);
+
+  useEffect(() => {
+    // Obtener la lista de medicamentos disponibles al cargar el componente
+    async function fetchMedicamentos() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/medicamento'); // Cambia la URL según tu API
+        setMedicamentos(res.data);
+      } catch (error) {
+        console.error('Error al obtener la lista de medicamentos:', error);
+      }
+    }
+
+    fetchMedicamentos();
+  }, []);
+
+  useEffect(() => {
+    // Obtener la lista de lotes disponibles al cargar el componente
+    async function fetchLotes() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/lote'); // Cambia la URL según tu API
+        setLotes(res.data);
+      } catch (error) {
+        console.error('Error al obtener la lista de lotes:', error);
+      }
+    }
+
+    fetchLotes();
   }, []);
 
   useImperativeHandle(ref, () => ({
@@ -46,6 +79,8 @@ const VentaCreate = forwardRef((props, ref) => {
         MontoTotal:montototal,
         idCliente:idcliente,
         CUI:cui,
+        idMedicamento: medicamentoId,
+        IDLote: loteId,
       });
       
       props.reloadVenta();
@@ -55,7 +90,7 @@ const VentaCreate = forwardRef((props, ref) => {
       // Recargar la lista de clientes en la página principal
       //props.reloadProveedores();
     } catch (error) {
-       console.error('Error al guardar el proveedor:', error);
+       console.error('Error al guardar el Venta:', error);
     }
   };
   
@@ -76,11 +111,7 @@ const VentaCreate = forwardRef((props, ref) => {
                   <label htmlFor="fecha" className="form-label">Fecha<span className="text-danger">*</span></label>
                   <input type="date" className="form-control" placeholder="" value={fecha} onChange={(e) => setFecha(e.target.value)} required/>
                 </div>
-                <div className="col-xl-6 mb-3">
-                  <label htmlFor="montototal" className="form-label">Monto Total<span className="text-danger">*</span>
-                  </label>
-                  <input type="number" className="form-control" placeholder="" value={montototal} onChange={(e) => setMontototal(e.target.value)} required/>
-                </div>
+                
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="cliente" className="form-label">ID Cliente<span className="text-danger">*</span></label>
                   <select
@@ -102,6 +133,50 @@ const VentaCreate = forwardRef((props, ref) => {
                   </label>
                   <input type="number" className="form-control" placeholder="" value={cui} onChange={(e) => setCui(e.target.value)} required/>
                 </div>
+                <div className="col-xl-6 mb-3">
+                  <label htmlFor="sustancias" className="form-label">Medicamento<span className="text-danger">*</span></label>
+                  <select
+                    className="form-select"
+                    value={medicamentoId} // para el id + nombre
+                    onChange={(e) => setMedicamentoId(e.target.value)} // para el id + nombre
+                    required
+                  >
+                    <option value="">Selecciona un medicamento</option>
+                    {medicamentos.map((medicamento) => (
+                      <option key={medicamento.idMedicamento} value={medicamento.idMedicamento}>
+                        {medicamento.idMedicamento} - {medicamento.Nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-xl-6 mb-3">
+                  <label htmlFor="lote" className="form-label">Lote<span className="text-danger">*</span></label>
+                  <select
+                    className="form-select"
+                    value={loteId} // para el id + nombre
+                    onChange={(e) => setLoteId(e.target.value)} // para el id + nombre
+                    required
+                  >
+                    <option value="">Selecciona un lote</option>
+                    {lotes.map((lote) => (
+                      <option key={lote.IDLote} value={lote.IDLote}>
+                        {lote.IDLote} - {lote.Fecha_Vencimiento}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-xl-6 mb-3">
+                  <label htmlFor="cantidad" className="form-label">Cantidad<span className="text-danger">*</span>
+                  </label>
+                  <input type="number" className="form-control" placeholder="" value={cantidad} onChange={(e) => setCantidad(e.target.value)} required/>
+                </div>
+                <div className="col-xl-6 mb-3">
+                <label htmlFor="montototal" className="form-label">Monto Total<span className="text-danger">*</span></label>
+                <input type="number" className="form-control" placeholder="" value={montototal} // variable donde se almacenara la suma de productos
+                readOnly 
+                required
+                />
+              </div>
 
               </div>
               <div>

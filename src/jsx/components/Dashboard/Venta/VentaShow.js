@@ -22,7 +22,16 @@ const CompVentaShow = () => {
   // Procedimiento para mostrar todos los elementos de venta
   const getVenta = async () => {
     const res = await axios.get(URI);
-    setVenta(res.data);
+    // Combina información del cliente con los datos de venta
+    const clienteData = res.data.map(async (item) => {
+      const clienteRes = await axios.get(`http://localhost:3001/api/cliente/${item.idCliente}`);
+      return {
+        ...item,
+        cliente: clienteRes.data,
+      };
+    });
+    const clienteWithData = await Promise.all(clienteData);
+    setVenta(clienteWithData);
   };
 
   // Procedimiento para eliminar un elemento de venta
@@ -91,7 +100,7 @@ const CompVentaShow = () => {
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
                         onClick={() => elemento.current.showEmployeModal()} // Cambiado
-                      >+ Agregar Elemento de Venta</Link> {" "}
+                      >+ Agregar Venta</Link> {" "}
                     </div>
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
@@ -101,7 +110,7 @@ const CompVentaShow = () => {
                           <th>ID</th>
                           <th>Fecha</th>
                           <th>Monto Total</th>
-                          <th>ID Cliente</th>
+                          <th>Cliente</th>
                           <th>CUI</th>
                         </tr>
                       </thead>
@@ -111,11 +120,12 @@ const CompVentaShow = () => {
                             <td>{dato.Idventa}</td>
                             <td>{dato.Fecha}</td>
                             <td>{dato.MontoTotal}</td>
-                            <td>{dato.idCliente}</td>
+                            <td>{dato.cliente ? `${dato.cliente.idCliente} - ${dato.cliente.Nombre}` : ''}</td>
                             <td>{dato.CUI}</td>
                             <div>
                               <Link to={`/edit-venta/${dato.Idventa}`} className='btn btn-info'>Editar</Link>
                               <button onClick={() => deleteVenta(dato.Idventa)} className='btn btn-danger'>Eliminar</button>
+                              <button onClick={() => deleteVenta(dato.Idventa)} className='btn btn-success'>Generar Factura</button>
                             </div>
                           </tr>
                         ))}
