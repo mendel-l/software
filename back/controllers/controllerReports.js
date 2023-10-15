@@ -1,5 +1,6 @@
 import LoteModel from "../Models/LoteModel.js";
 import sequelize from '../DB/database.js';
+
 export const getExpiredLots= async (req, res) => {
     try {
         const query = `

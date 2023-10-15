@@ -113,3 +113,16 @@ export const getNotAppearInventory = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const deactivateExpired= async (req, res) => {
+    try {
+        const query = `
+            UPDATE lote SET Estado = 0 
+            WHERE Fecha_Vencimiento<now()
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
