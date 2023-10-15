@@ -12,7 +12,7 @@ const  USRVCModel = db.define('usuario', {
     Usuario: { type: DataTypes.STRING },
     Contraseña: { type: DataTypes.STRING },
     CUI: { type: DataTypes.INTEGER },
-    Estado: { type: DataTypes.INTEGER }
+    Estado: { type: DataTypes.BOOLEAN }
  }, { tableName: 'usuario' }); 
  
 
