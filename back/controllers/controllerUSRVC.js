@@ -3,6 +3,16 @@ import USRVCModel from '../Models/USRVCModel.js';
 import { registerMovi } from './controllerAuditoria.js';
 const tableName = 'usuario';
 
+export const getAllUsers = async (req, res) => {
+    try {
+        const user = await USRVCModel.findAll();
+        res.json(user);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+
 export const createUSRV = async (req, res) => {
     try {
         const { Usuario, Contraseña, CUI, Estado } = req.body;
