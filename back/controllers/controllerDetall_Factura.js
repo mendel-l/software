@@ -13,10 +13,14 @@ export const getAllDetalles = async (req, res) => {
 
 export const getDetalle = async (req, res) => {
     try {
-        const detalle = await Detalle_FacturaModel.findAll({
+        const [detalle] = await Detalle_FacturaModel.findAll({
             where: { idDetalle: req.params.idDetalle }
         });
-        res.json(detalle[0]);
+        if(!detalle)
+        {
+            return res.status(404).json({ message: "Detalle no Registrado" });
+        }
+        res.json(detalle);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -53,8 +57,15 @@ export const createDetalle = async (req, res) => {
 
 export const updateDetalle = async (req, res) => {
     try {
+        const [detalle] = await Detalle_FacturaModel.findAll({
+            where: { IdDetalle: req.params.idDetalle }
+        });
+        if(!detalle)
+        {
+            return res.status(404).json({ message: "Detalle no Registrado" });
+        }
         await Detalle_FacturaModel.update(req.body, {
-            where: { IdDetalle: req.params.IdDetalle }
+            where: { IdDetalle: req.params.idDetalle }
         });
 
         await registerMovi(tableName, req.params.idDetalle, 1, 2);
@@ -69,6 +80,13 @@ export const updateDetalle = async (req, res) => {
 
 export const deleteDetalle = async (req, res) => {
     try {
+        const [detalle] = await Detalle_FacturaModel.findAll({
+            where: { idDetalle: req.params.idDetalle }
+        });
+        if(!detalle)
+        {
+            return res.status(404).json({ message: "Detalle no Registrado" });
+        }
         await Detalle_FacturaModel.destroy({
             where: {
                 idDetalle: req.params.idDetalle

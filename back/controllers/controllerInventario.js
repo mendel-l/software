@@ -14,10 +14,14 @@ export const getAllInventarios = async (req, res) => {
 
 export const getInventario = async (req, res) => {
     try {
-        const inventario = await InventarioModel.findAll({
+        const [inventario] = await InventarioModel.findAll({
             where: { IdInventario: req.params.IdInventario }
         });
-        res.json(inventario[0]);
+        if(!inventario)
+        {
+            return res.status(404).json({ message: "Elemento en Inventario no Registrado" });
+        }
+        res.json(inventario);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -25,6 +29,13 @@ export const getInventario = async (req, res) => {
 
 export const createInventario = async (req, res) => {
     try {
+        const [inventario] = await InventarioModel.findAll({
+            where: { idMedicamento: req.body.idMedicamento }
+        });
+        if(inventario)
+        {
+            return res.json({ message: "El medicamento Ya tiene un Registro en Inventario" });
+        }
         const nuevoInventario = await InventarioModel.create(req.body);
         const idRegistroMov = nuevoInventario.IdInventario;
 
@@ -54,6 +65,13 @@ export const createInventario = async (req, res) => {
 
 export const updateInventario = async (req, res) => {
     try {
+        const [inventario] = await InventarioModel.findAll({
+            where: { IdInventario: req.params.IdInventario }
+        });
+        if(!inventario)
+        {
+            return res.status(404).json({ message: "Elemento en Inventario no Registrado" });
+        }
         await InventarioModel.update(req.body, {
             where: { IdInventario: req.params.IdInventario }
         });
@@ -70,6 +88,13 @@ export const updateInventario = async (req, res) => {
 
 export const deleteInventario = async (req, res) => {
     try {
+        const [inventario] = await InventarioModel.findAll({
+            where: { IdInventario: req.params.IdInventario }
+        });
+        if(!inventario)
+        {
+            return res.status(404).json({ message: "Elemento en Inventario no Registrado" });
+        }
         await InventarioModel.destroy({
             where: {
                 IdInventario: req.params.IdInventario
