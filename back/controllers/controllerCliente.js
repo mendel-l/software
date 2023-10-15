@@ -33,7 +33,7 @@ export const createClient = async (req, res) => {
         });
         if(client)
         {
-            return res.json({ message: "Nit Existente en BD" });
+            return res.json({ message: "Datos Duplicados: Ya Hay Un Registro Con Este NIT" });
         }
         await ClientModel.create(req.body);
         

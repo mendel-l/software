@@ -13,6 +13,13 @@ export const getAllPersons = async (req, res) => {
 
 export const createPerson = async (req, res) => {
     try {
+        const [persona] = await personModel.findAll({
+            where: { CUI: req.body.CUI }
+        });
+        if(persona)
+        {
+            return res.json({ message: "Datos Duplicados: Ya Hay Un Registro Con Este CUI" });
+        }
         await personModel.create(req.body);
 
             //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
@@ -29,6 +36,13 @@ export const createPerson = async (req, res) => {
 
 export const updatePerson = async (req, res) => {
     try {
+        const [persona] = await personModel.findAll({
+            where: { CUI: req.params.CUI }
+        });
+        if(!persona)
+        {
+            return res.status(404).json({ message: "Persona no Registrada" });
+        }
         await personModel.update(req.body, {
             where: { CUI: req.params.CUI }
         });
@@ -43,6 +57,13 @@ export const updatePerson = async (req, res) => {
 
 export const deletePerson = async (req, res) => {
     try {
+        const [persona] = await personModel.findAll({
+            where: { CUI: req.params.CUI }
+        });
+        if(!persona)
+        {
+            return res.status(404).json({ message: "Persona no Registrada" });
+        }
         await personModel.destroy({
             where: {
                 CUI: req.params.CUI

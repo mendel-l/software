@@ -13,10 +13,14 @@ export const getAllLotes = async (req, res) => {
 
 export const getLote = async (req, res) => {
     try {
-        const lote = await LoteModel.findAll({
+        const [lote] = await LoteModel.findAll({
             where: { IDLote: req.params.IDLote }
         });
-        res.json(lote[0]);
+        if(!lote)
+        {
+            return res.status(404).json({ message: "Lote no Registrado" });
+        }
+        res.json(lote);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -44,7 +48,8 @@ export const createLote = async (req, res) => {
             });
 
         res.json({
-            "message": "Registro Creado Exitosamente"
+            message: "Registro Creado Exitosamente",
+            ID: "ID Lote: "+idRegistroMov
         });
     } catch (error) {
         res.json({ message: error.message });
@@ -53,6 +58,13 @@ export const createLote = async (req, res) => {
 
 export const updateLote = async (req, res) => {
     try {
+        const [lote] = await LoteModel.findAll({
+            where: { IDLote: req.params.IDLote }
+        });
+        if(!lote)
+        {
+            return res.status(404).json({ message: "Lote no Registrado" });
+        }
         await LoteModel.update(req.body, {
             where: { IDLote: req.params.IDLote }
         });
@@ -69,6 +81,13 @@ export const updateLote = async (req, res) => {
 
 export const deleteLote = async (req, res) => {
     try {
+        const [lote] = await LoteModel.findAll({
+            where: { IDLote: req.params.IDLote }
+        });
+        if(!lote)
+        {
+            return res.status(404).json({ message: "Lote no Registrado" });
+        }
         await LoteModel.destroy({
             where: {
                 IDLote: req.params.IDLote

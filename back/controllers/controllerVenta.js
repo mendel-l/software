@@ -1,4 +1,5 @@
 import VentaModel from "../Models/VentaModel.js";
+import Detalle_FacturaModel from "../Models/Detalle_FacturaModel.js";
 import { registerMovi } from "./controllerAuditoria.js";
 const tableName = "venta";
 
@@ -13,10 +14,14 @@ export const getAllVentas = async (req, res) => {
 
 export const getVenta = async (req, res) => {
     try {
-        const venta = await VentaModel.findAll({
+        const [venta] = await VentaModel.findAll({
             where: { Idventa: req.params.Idventa }
         });
-        res.json(venta[0]);
+        if(!venta)
+        {
+            return res.status(404).json({ message: "Venta no Registrada" });
+        }
+        res.json(venta);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -53,6 +58,13 @@ export const createVenta = async (req, res) => {
 
 export const updateVenta = async (req, res) => {
     try {
+        const [venta] = await VentaModel.findAll({
+            where: { Idventa: req.params.Idventa }
+        });
+        if(!venta)
+        {
+            return res.status(404).json({ message: "Venta no Registrada" });
+        }
         await VentaModel.update(req.body, {
             where: { Idventa: req.params.Idventa }
         });
@@ -69,6 +81,18 @@ export const updateVenta = async (req, res) => {
 
 export const deleteVenta = async (req, res) => {
     try {
+        const [venta] = await VentaModel.findAll({
+            where: { Idventa: req.params.Idventa }
+        });
+        if(!venta)
+        {
+            return res.status(404).json({ message: "Venta no Registrada" });
+        }
+        await Detalle_FacturaModel.destroy({
+            where: {
+                Idventa: req.params.Idventa
+            }
+        });
         await VentaModel.destroy({
             where: {
                 Idventa: req.params.Idventa

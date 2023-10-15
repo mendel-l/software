@@ -13,10 +13,14 @@ export const getAllProveedores = async (req, res) => {
 
 export const getProveedor = async (req, res) => {
     try {
-        const proveedor = await ProveedorModel.findAll({
+        const [proveedor] = await ProveedorModel.findAll({
             where: { IDProveedor: req.params.IDProveedor }
         });
-        res.json(proveedor[0]);
+        if(!proveedor)
+        {
+            return res.status(404).json({ message: "Cliente no Registrado" });
+        }
+        res.json(proveedor);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -55,6 +59,13 @@ export const createProveedor = async (req, res) => {
 
 export const updateProveedor = async (req, res) => {
     try {
+        const [verifyProveedor] = await ProveedorModel.findAll({
+            where: { IDProveedor: req.params.IDProveedor }
+        });
+        if(!verifyProveedor)
+        {
+            return res.status(404).json({ message: "Cliente no Registrado" });
+        }
         await ProveedorModel.update(req.body, {
             where: { IDProveedor: req.params.IDProveedor }
         });
@@ -75,6 +86,13 @@ export const updateProveedor = async (req, res) => {
 
 export const deleteProveedor = async (req, res) => {
     try {
+        const [verifyProveedor] = await ProveedorModel.findAll({
+            where: { IDProveedor: req.params.IDProveedor }
+        });
+        if(!verifyProveedor)
+        {
+            return res.status(404).json({ message: "Cliente no Registrado" });
+        }
         await ProveedorModel.destroy({
             where: {
                 IDProveedor: req.params.IDProveedor

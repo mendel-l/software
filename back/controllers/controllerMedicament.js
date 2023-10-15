@@ -14,10 +14,14 @@ export const getAllMedicaments = async (req, res) => {
 
 export const getMedicament = async (req, res) => {
     try {
-        const medicament = await MedicamentModel.findAll({
+        const [medicament] = await MedicamentModel.findAll({
             where: { idMedicamento: req.params.idMedicamento }
         });
-        res.json(medicament[0]);
+        if(!medicament)
+        {
+            return res.status(404).json({ message: "Medicamento no Registrado" });
+        }
+        res.json(medicament);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -58,6 +62,13 @@ export const createMedicament = async (req, res) => {
 
 export const updateMedicament = async (req, res) => {
     try {
+        const [medicament] = await MedicamentModel.findAll({
+            where: { idMedicamento: req.params.idMedicamento }
+        });
+        if(!medicament)
+        {
+            return res.status(404).json({ message: "Medicamento no Registrado" });
+        }
         await MedicamentModel.update(req.body, {
             where: { idMedicamento: req.params.idMedicamento }
         });
@@ -78,6 +89,13 @@ export const updateMedicament = async (req, res) => {
 
 export const deleteMedicament = async (req, res) => {
     try {
+        const [medicament] = await MedicamentModel.findAll({
+            where: { idMedicamento: req.params.idMedicamento }
+        });
+        if(!medicament)
+        {
+            return res.status(404).json({ message: "Medicamento no Registrado" });
+        }
         await MedicamentModel.destroy({
             where: {
                 idMedicamento: req.params.idMedicamento
