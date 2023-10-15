@@ -26,6 +26,21 @@ export const getLote = async (req, res) => {
     }
 }
 
+export const getAllLotesById = async (req, res) => {
+    try {
+        const lotes = await LoteModel.findAll({
+            where: { idMedicamento: req.params.idMedicamento }
+        });
+        if(!lotes)
+        {
+            return res.status(404).json({ message: "No exiten Lotes Para el Medicamento" });
+        }
+        res.json(lotes);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
 export const createLote = async (req, res) => {
     try {
         const nuevoLote = await LoteModel.create(req.body);

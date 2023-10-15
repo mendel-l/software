@@ -24,9 +24,10 @@ export const registerIn = async (idUser) => {
 }
 
 export const registerOut = async (req, res) => {
-    const {IDUsuarios} = req.body; //BUSCAR INVESTIGAR forma de obtener el ID del usuario que cierra sesión
 
     try {
+        const {IDUsuarios} = req.body; //BUSCAR INVESTIGAR forma de obtener el ID del usuario que cierra sesión
+
         let currentDateHour = new Date();
         let year = currentDateHour.getFullYear();
         let month = currentDateHour.getMonth() + 1; // Corrige aquí, utiliza getMonth() y suma 1
