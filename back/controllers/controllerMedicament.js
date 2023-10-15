@@ -114,7 +114,7 @@ export const getNotAppearInventory = async (req, res) => {
     }
 }
 
-export const deactivateExpired= async (req, res) => {
+export const desactivateExpired= async (req, res) => {
     try {
         const query = `
             UPDATE lote SET Estado = 0 
