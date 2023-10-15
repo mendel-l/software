@@ -12,10 +12,14 @@ export const getAllClients = async (req, res) => {
 
 export const getClient = async (req, res) => {
     try {
-        const client = await ClientModel.findAll({
+        const [client] = await ClientModel.findAll({
             where: { idCliente: req.params.idCliente }
         });
-        res.json(client[0]);
+        if(!client)
+        {
+            return res.status(404).json({ message: "Cliente no Registrado" });
+        }
+        res.json(client);
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -24,6 +28,13 @@ export const getClient = async (req, res) => {
 // Create Client
 export const createClient = async (req, res) => {
     try {
+        const [client] = await ClientModel.findAll({
+            where: { Nit: req.body.Nit }
+        });
+        if(client)
+        {
+            return res.json({ message: "Nit Existente en BD" });
+        }
         await ClientModel.create(req.body);
         
             //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
@@ -54,6 +65,13 @@ export const createClient = async (req, res) => {
 
 export const updateClient = async (req, res) => {
     try {
+        const [client] = await ClientModel.findAll({
+            where: { idCliente: req.params.idCliente }
+        });
+        if(!client)
+        {
+            return res.status(404).json({ message: "Cliente no Registrado" });
+        }
         await ClientModel.update(req.body, {
             where: { idCliente: req.params.idCliente }
         });
@@ -72,6 +90,13 @@ export const updateClient = async (req, res) => {
 
 export const deleteClient = async (req, res) => {
     try {
+        const [client] = await ClientModel.findAll({
+            where: { idCliente: req.params.idCliente }
+        });
+        if(!client)
+        {
+            return res.status(404).json({ message: "Cliente no Registrado" });
+        }
         await ClientModel.destroy({
             where: {
                 idCliente: req.params.idCliente
