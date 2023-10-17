@@ -1,67 +1,104 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import { Modal, Offcanvas } from 'react-bootstrap';
+import {Link, useNavigate} from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import MainPagetitle from '../../../layouts/MainPagetitle';
 import VentaCreate from '../../../constant/VentaCreate';
 import axios from 'axios';
-const URI = 'http://localhost:3001/api/venta'
+
+const URII = 'http://localhost:3001/api/venta'
+const URI = 'http://localhost:3001/api/detalle_factura'
+
+//Creacion Venta
 const CompVentaShow = () => {
-  const [venta, setVenta] = useState([]); 
+  //Ventas
+  const [fecha, setFecha] = useState('')
+  const [montototal, setMontoTotal] = useState('')
+  const [idcliente, setidCliente] = useState('')       //variable donde se guaradara el idcliente
+  const [clientes, setClientes] = useState([]);        //lista de clientes disponibles
+  const [cui, setCUI] = useState('')
+  
+  const [addVenta, setAddVenta] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
-    getVenta()
+    //getVenta()
   }, [])
-
-  // Esto es para recargar la página al momento de crear un elemento de venta
-  const reloadVenta = () => {
-    // Esta función se pasará a  Venta Create
-    // y se llamará para actualizar el estado local
-    getVenta(); // Cambiado
+  
+ //procedimietno para guardar los datos
+  const guardarVenta = async (e) => {
+    e.preventDefault();
+    try {
+      //Envia los datos al servidor
+      await axios.post(URII, {
+        Fecha:fecha,
+        MontoTotal:montototal,
+        idCliente:idcliente,
+        CUI:cui,
+      });
+      
+      //props.reloadVentas();
+      setAddVenta(false);
+    } catch (error) {
+       console.error('Error al guardar el Venta:', error);
+    }
   };
 
-  // Procedimiento para mostrar todos los elementos de venta
-  const getVenta = async () => {
-    const res = await axios.get(URI);
-    // Combina información del cliente con los datos de venta
-    const clienteData = res.data.map(async (item) => {
-      const clienteRes = await axios.get(`http://localhost:3001/api/cliente/${item.idCliente}`);
-      return {
-        ...item,
-        cliente: clienteRes.data,
-      };
-    });
-    const clienteWithData = await Promise.all(clienteData);
-    setVenta(clienteWithData);
-  };
+  useEffect(() => {
+    // Obtener la lista de clientes disponibles al cargar el componente
+    async function fetchClientes() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/cliente'); // Cambia la URL según tu API
+        setClientes(res.data);
+      } catch (error) {
+        console.error('Error al obtener la lista de clientes:', error);
+      }
+    }
+    fetchClientes();
+  }, []);
 
-  // Procedimiento para eliminar un elemento de venta
-  const deleteVenta = async (Idventa) => {
-    await axios.delete(`${URI}/${Idventa}`);
-    getVenta(); // Cambiado
+
+  //DETALLE FACTURA----------------------------------------------------------------
+  const [detalles, setDetalle] = useState([]);
+  useEffect(() => {
+    getDetalle();
+  }, []);
+
+  const reloadDetalle= () => {
+    getDetalle(); 
   };
   
+  // Procedimiento para mostrar todos los elementos del detalle
+  const getDetalle = async () => {
+    const res = await axios.get(URI);
+    setDetalle(res.data);
+    };
+
+    // Procedimiento para eliminar un elemento de detalle
+  const deleteDetalle = async (IdDetalle) => {
+    await axios.delete(`${URI}/${IdDetalle}`);
+    getDetalle(); 
+  };
+
   const headers = [
-    { label: "Idventa", key: "idventa" },
-    { label: "Fecha", key: "Fecha" },
-    { label: "MontoTotal", key: "MontoTotal" },
-    { label: "idCliente", key: "idCliente" },
-    { label: "CUI", key: "CUI" },
-    { label: "createAt", key: "createAt" },
+    { label: "IdDetalle", key: "IdDetalle" },
+    { label: "Cantidad", key: "Cantidad" },
+    { label: "subTotal", key: "subTotal" },
+    { label: "Idventa", key: "Idventa" }, 
+    { label: "IdInventario", key: "IdInventario" },
 
   ];
 
   const csvlink = {
     headers: headers,
-    data: venta,
-    filename: "csvfile.csv"
+    data: detalles,
+    filename: "factura.csv"
   };
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPage = 100;
   const lastIndex = currentPage * recordsPage;
   const firstIndex = lastIndex - recordsPage;
-  const records = venta.slice(firstIndex, lastIndex); //cambio 1
-  const npage = Math.ceil(venta.length / recordsPage);
+  const records = detalles.slice(firstIndex, lastIndex); //cambio 1
+  const npage = Math.ceil(detalles.length / recordsPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
   function prePage() {
@@ -92,40 +129,89 @@ const CompVentaShow = () => {
               <div className="card-body p-0">
                 <div className="table-responsive active-projects style-1 ItemsCheckboxSec shorting">
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
-                    <h4 className="heading mb-0">Ventas</h4>
+                    <h4 className="heading mb-0">Productos</h4>
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
-                        Exportar reporte
+                        Generar Factura
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
                         onClick={() => elemento.current.showEmployeModal()} // Cambiado
-                      >+ Agregar Venta</Link> {" "}
+                      >+ Agregar Producto</Link> {" "}
                     </div>
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
+                    <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0"> 
+                    {/* datos donde se mostraran fecha, Nombre Cliente y CUI */}
+                      <thead>
+                      <tr>
+                        <th>
+                          <div className="col-xl-6 mb-3">
+                          <label htmlFor="fecha" className="form-label">Fecha<span className="text-danger">*</span></label>
+                          <input type="date" className="form-control" placeholder="" value={fecha} onChange={(e) => setFecha(e.target.value)} required/>
+                          </div>
+                        </th>
+                        <th>
+                          <div className="col-xl-6 mb-3">
+                          <label htmlFor="montototal" className="form-label">Monto Total<span className="text-danger">*</span></label>
+                          <input type="number" className="form-control" placeholder="" value={montototal} onChange={(e) => setMontoTotal(e.target.value)} required/>
+                          </div>
+                        </th>
+                        <th>
+                          <div className="col-xl-6 mb-3">
+                          <label htmlFor="cliente" className="form-label">ID Cliente<span className="text-danger">*</span></label>
+                          <select
+                          className="form-select"
+                          value={idcliente}
+                          onChange={(e) => setidCliente(e.target.value)}
+                          required
+                          >
+                          <option value="">Selecciona al Cliente</option>
+                          {clientes.map((cliente) => (
+                          <option key={cliente.idCliente} value={cliente.idCliente}>
+                          {cliente.idCliente} - {cliente.Nombre}
+                          </option>
+                          ))}
+                          </select>
+                          </div>
+                        </th>
+                        <th>
+                          <div className="col-xl-6 mb-3">
+                          <label htmlFor="cui" className="form-label">CUI<span className="text-danger">*</span>
+                          </label>
+                          <input type="number" className="form-control" placeholder="" value={cui} onChange={(e) => setCUI(e.target.value)} required/>
+                          </div>
+                        </th>
+                        <th>
+                          <div>
+                            {/* <Link to={`/edit-venta/${dato1.Idventa}`} className='btn btn-info'>Editar</Link> falta ver que guarde*/} 
+                          </div>
+                        </th>
+                      </tr>
+                      </thead>
+                      {/* Termina de mostraran fecha, Nombre Cliente y CUI */}
+                    </table>
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>Fecha</th>
-                          <th>Monto Total</th>
-                          <th>Cliente</th>
-                          <th>CUI</th>
+                          <th>ID Detalle</th>
+                          <th>Cantidad</th>
+                          <th>Subtotal</th>
+                          <th>ID Venta</th>
+                          <th>ID Inventario</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {venta.map((dato) => (
-                          <tr key={dato.Idventa}>
+                        {detalles.map((dato) => (
+                          <tr key={dato.IdDetalle}>
+                            <td>{dato.IdDetalle}</td>
+                            <td>{dato.Cantidad}</td>
+                            <td>{dato.subTotal}</td>
                             <td>{dato.Idventa}</td>
-                            <td>{dato.Fecha}</td>
-                            <td>{dato.MontoTotal}</td>
-                            <td>{dato.cliente ? `${dato.cliente.idCliente} - ${dato.cliente.Nombre}` : ''}</td>
-                            <td>{dato.CUI}</td>
+                            <td>{dato.IdInventario}</td>
                             <div>
-                              <Link to={`/edit-venta/${dato.Idventa}`} className='btn btn-info'>Editar</Link>
-                              <button onClick={() => deleteVenta(dato.Idventa)} className='btn btn-danger'>Eliminar</button>
-                              <button onClick={() => deleteVenta(dato.Idventa)} className='btn btn-success'>Generar Factura</button>
+                              <Link to={`/edit-venta/${dato.IdDetalle}`} className='btn btn-info'>Editar</Link>
+                              <button onClick={() => deleteDetalle(dato.IdDetalle)} className='btn btn-danger'>Eliminar</button>
                             </div>
                           </tr>
                         ))}
@@ -134,8 +220,8 @@ const CompVentaShow = () => {
                     <div className="d-sm-flex text-center justify-content-between align-items-center">
                       <div className='dataTables_info'>
                         Showing {lastIndex - recordsPage + 1} to{" "}
-                        {venta.length < lastIndex ? venta.length : lastIndex}
-                        {" "}of {venta.length} entries
+                        {detalles.length < lastIndex ? detalles.length : lastIndex}
+                        {" "}of {detalles.length} entries
                       </div>
                       <div
                         className="dataTables_paginate paging_simple_numbers justify-content-center"
@@ -176,7 +262,7 @@ const CompVentaShow = () => {
       <VentaCreate
         ref={elemento}
         Title="Add Inventario"
-        reloadVenta={reloadVenta} // Cambiado
+        reloadDetalle={reloadDetalle} // Cambiado
       />
     </>
   );
