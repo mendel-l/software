@@ -1,16 +1,18 @@
 import { SVGICON } from "../../constant/theme";
+const tokenData = localStorage.getItem('userDetails');
+const tokenParse = JSON.parse(tokenData);
 
 const Mdashboard = true;
-const Mproveedores = true;
-const Mmedicamentos = true;
-const Minventario = true;
-const Mclientes = true;
-const Mrol = true;
-const Mlote = true;
-const Musuario = true;
-const Mventa = true;
-const Mpersona = true;
-const Mreportes = true;
+const Mproveedores = tokenParse ? tokenParse.vProveedores : false; // Verifica si tokenParse es nulo
+const Mmedicamentos = tokenParse ? tokenParse.vMedicamentos : false;
+const Minventario = tokenParse ? tokenParse.vInventario : false;
+const Mclientes = tokenParse ? tokenParse.vCliente : false;
+const Mrol = tokenParse ? tokenParse.vRol : false;
+const Mlote = tokenParse ? tokenParse.vLote : false;
+const Musuario = tokenParse ? tokenParse.vUsuario : false;
+const Mventa = tokenParse ? tokenParse.vVenta : false;
+const Mpersona = tokenParse ? tokenParse.vPersona : false;
+const Mreportes = tokenParse ? tokenParse.vReportes : false;
 const McontrCli = true;
 
 export const MenuList = [

@@ -207,8 +207,8 @@ const generateAuthToken = async (user,persona)=>{
         user_id: user.IDUsuarios,
         email: user.Usuario,
         sign_in_provider: "password",
-        verified: false,
-        v
+        verified: false
+        
     };
     return jwt.sign(payload, 'proyectoFinal');
 }
