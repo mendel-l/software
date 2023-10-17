@@ -19,6 +19,11 @@ export const MenuList = [
         title: 'La Predilecta',
         classsChange: 'menu-title',
     },
+    {
+        title: 'Inicio',
+        iconStyle: SVGICON.Home,
+        to: '/bienvenida',
+    },
     // Dashboard (condicional)
     Mdashboard
         ? {
@@ -41,7 +46,7 @@ export const MenuList = [
     Mproveedores
         ? {
               title: 'Proveedores',
-              iconStyle: SVGICON.Employe,
+              iconStyle: SVGICON.Proveedores,
               to: '/Proveedor',
           }
         : null,
@@ -57,15 +62,15 @@ export const MenuList = [
     Minventario
         ? {
               title: 'Inventario',
-              iconStyle: SVGICON.Employe,
+              iconStyle: SVGICON.Inventario,
               to: '/Inventario',
           }
         : null,
     // Cliente (condicional)
     Mclientes
         ? {
-              title: 'Cliente',
-              iconStyle: SVGICON.Employe,
+              title: 'Clientes',
+              iconStyle: SVGICON.Clientes,
               to: '/Cliente',
           }
         : null,
@@ -73,22 +78,22 @@ export const MenuList = [
     Mrol
         ? {
               title: 'Rol',
-              iconStyle: SVGICON.Employe,
+              iconStyle: SVGICON.Roles,
               to: '/Rol',
           }
         : null,
     // Lote (condicional)
     Mlote
         ? {
-              title: 'Lote',
-              iconStyle: SVGICON.Employe,
+              title: 'Lotes',
+              iconStyle: SVGICON.Lotes,
               to: '/Lote',
           }
         : null,
     // Usuario (condicional)
     Musuario
         ? {
-              title: 'Usuario',
+              title: 'Usuarios',
               iconStyle: SVGICON.Employe,
               to: '/Usuario',
           }
@@ -96,16 +101,16 @@ export const MenuList = [
     // Venta (condicional)
     Mventa
         ? {
-              title: 'Venta', //venta
-              iconStyle: SVGICON.Employe,
+              title: 'Ventas', //venta
+              iconStyle: SVGICON.Venta,
               to: '/Venta',
           }
         : null,
     // Persona Menu (condicional)
     Mpersona
         ? {
-              title: 'Persona',
-              iconStyle: SVGICON.Employe,
+              title: 'Personas',
+              iconStyle: SVGICON.Persona,
               to: '/Persona',
           }
         : null,

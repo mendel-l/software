@@ -55,6 +55,9 @@ import CompVentaEdit from "./components/Dashboard/Venta/VentaEdit";
 import PersonaShow from "./components/Dashboard/Personas/Personashow";
 import PersonaEdit from "./components/Dashboard/Personas/PersonasEdit";
 
+//vista para el usuario
+import VistaUsuarioShow from "./components/Dashboard/VistaUsuarios/VistaUsuarioShow";
+
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
 import User from './components/AppsMenu/AppProfile/User';
@@ -174,6 +177,10 @@ const allroutes = [
     // persona
     { url: 'persona', component: <PersonaShow />},
     { url: '/edit-persona/:CUI', component: <PersonaEdit/>},
+    //vista para usuarios
+    { url: '/bienvenida', component: <VistaUsuarioShow /> },
+
+
     
 
   //Apps

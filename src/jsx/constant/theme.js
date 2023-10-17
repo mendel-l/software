@@ -85,13 +85,123 @@ export const IMAGES = {
     Econimics : require('../../images/economics.png'),
 };
 export const SVGICON = {
-    //icono para los medicamentos - prueba de iconos
-    Medicamento:(        
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-box" viewBox="0 0 16 16">
-        <path d="M1.5 1.5a.5.5 0 0 0-1 0v12a.5.5 0 0 0 1 0v-12zm0-1h13a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-12A1.5 1.5 0 0 1 1.5.5zM14 2a.5.5 0 0 0-1 0v11a.5.5 0 0 0 1 0V2zM2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1H2V1z"/>
+    //------------------
+    Proveedores:(        
+        <svg
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        height="1.8em"
+        width="1.8em"
+        >
+        <path
+            fill="currentColor"
+            d="M5 3a3 3 0 116 0 3 3 0 01-6 0zm7.001 4h-.553l-3.111 6.316L9.5 7.5 8 6 6.5 7.5l1.163 5.816L4.552 7h-.554c-1.999 0-1.999 1.344-1.999 3v5h12v-5c0-1.656 0-3-1.999-3z"
+        />
     </svg>
     ),
     //------------------------
+    //icono para los medicamentos - prueba de iconos
+    Medicamento:(        
+        <svg
+        viewBox="0 0 1024 1024"
+        fill="currentColor"
+        height="1.8em"
+        width="1.8em"
+        >
+        <path d="M839.2 278.1a32 32 0 00-30.4-22.1H736V144c0-17.7-14.3-32-32-32H320c-17.7 0-32 14.3-32 32v112h-72.8a31.9 31.9 0 00-30.4 22.1L112 502v378c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V502l-72.8-223.9zM360 184h304v72H360v-72zm480 656H184V513.4L244.3 328h535.4L840 513.4V840zM652 572H544V464c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v108H372c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h108v108c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V636h108c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z" />
+    </svg>
+    ),
+    //--------------------------------------
+    Inventario:(        
+        <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        height="1.8em"
+        width="1.8em"
+      >
+        <path d="M4 7v14h14v2H4c-1.1 0-2-.9-2-2V7h2m16-4c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h3.18C11.6 1.84 12.7 1 14 1c1.3 0 2.4.84 2.82 2H20m-6 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1m-4 4V5H8v12h12V5h-2v2m-3 8h-5v-2h5m3-2h-8V9h8v2z" />
+    </svg>
+    ),
+    //------------------------
+    Clientes:(        
+        <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        height="1.8em"
+        width="1.8em"
+      >
+        <path d="M21.5 9h-5l1.86-1.86A7.991 7.991 0 0012 4c-4.42 0-8 3.58-8 8 0 1.83.61 3.5 1.64 4.85 1.22-1.4 3.51-2.35 6.36-2.35 2.85 0 5.15.95 6.36 2.35A7.945 7.945 0 0020 12h2c0 5.5-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2c3.14 0 5.95 1.45 7.78 3.72L21.5 4v5M12 7c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z" />
+    </svg>
+    ),
+    //------------------------
+    Roles:(        
+        <svg
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        viewBox="0 0 24 24"
+        height="1.8em"
+        width="1.8em"
+
+        >
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <path d="M16 21h3c.81 0 1.48-.67 1.48-1.48l.02-.02c0-.82-.69-1.5-1.5-1.5h-3v3zM16 15h2.5c.84-.01 1.5.66 1.5 1.5s-.66 1.5-1.5 1.5H16v-3zM4 9V5c0-1.036.895-2 2-2s2 .964 2 2v4M2.99 11.98a9 9 0 009 9m9-9a9 9 0 00-9-9M8 7H4" />
+    </svg>
+    ),
+    //------------------------
+    Lotes:(        
+    <svg
+        viewBox="0 0 21 21"
+        fill="currentColor"
+        height="1.8em"
+        width="1.8em"
+        >
+        <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+        <path d="M3.5 7.5l7-4 5.992 3.424A2 2 0 0117.5 8.661v4.678a2 2 0 01-1.008 1.737l-5 2.857a2 2 0 01-1.984 0l-5-2.857A2 2 0 013.5 13.339v-2.802" />
+        <path d="M9.552 10.99a2 2 0 001.896 0L17 8M10.5 11.5V18" />
+        <path d="M3.5 7.5l7 4-3 1-7-4zM10.5 3.5l7 4 2-2-7-4z" />
+      </g>
+    </svg>
+    ),
+    //------------------------
+    Usuarios:(        
+        <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        height="1.8em"
+        width="1.8em"
+      >
+        <path d="M21.5 9h-5l1.86-1.86A7.991 7.991 0 0012 4c-4.42 0-8 3.58-8 8 0 1.83.61 3.5 1.64 4.85 1.22-1.4 3.51-2.35 6.36-2.35 2.85 0 5.15.95 6.36 2.35A7.945 7.945 0 0020 12h2c0 5.5-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2c3.14 0 5.95 1.45 7.78 3.72L21.5 4v5M12 7c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z" />
+    </svg>
+    ),
+    //------------------------
+    Venta:(        
+        <svg fill="none" viewBox="0 0 15 15" height="1.7em" width="1.7em">
+        <path
+          fill="currentColor"
+          d="M.5 14.5H0v.5h.5v-.5zm6-9l.4-.3a.5.5 0 00-.816.023L6.5 5.5zm3 4l-.4.3a.5.5 0 00.807-.01L9.5 9.5zM0 0v14.5h1V0H0zm.5 15H15v-1H.5v1zm2.416-3.223l4-6-.832-.554-4 6 .832.554zM6.1 5.8l3 4 .8-.6-3-4-.8.6zm3.807 3.99l5-7-.814-.58-5 7 .814.58z"
+        />
+      </svg>
+    ),
+    //------------------------
+    Persona:(        
+        <svg fill="none" viewBox="0 0 15 15" height="1.7em" width="1.7em">
+        <path
+          fill="currentColor"
+          d="M2 12.5v.5h1v-.5H2zm5 0v.5h1v-.5H7zm-4 0V12H2v.5h1zm4-.5v.5h1V12H7zm-2-2a2 2 0 012 2h1a3 3 0 00-3-3v1zm-2 2a2 2 0 012-2V9a3 3 0 00-3 3h1zm2-8a2 2 0 00-2 2h1a1 1 0 011-1V4zm2 2a2 2 0 00-2-2v1a1 1 0 011 1h1zM5 8a2 2 0 002-2H6a1 1 0 01-1 1v1zm0-1a1 1 0 01-1-1H3a2 2 0 002 2V7zM1.5 3h12V2h-12v1zm12.5.5v8h1v-8h-1zm-.5 8.5h-12v1h12v-1zM1 11.5v-8H0v8h1zm.5.5a.5.5 0 01-.5-.5H0A1.5 1.5 0 001.5 13v-1zm12.5-.5a.5.5 0 01-.5.5v1a1.5 1.5 0 001.5-1.5h-1zM13.5 3a.5.5 0 01.5.5h1A1.5 1.5 0 0013.5 2v1zm-12-1A1.5 1.5 0 000 3.5h1a.5.5 0 01.5-.5V2zM9 6h3V5H9v1zm0 3h3V8H9v1zm-9 6h15v-1H0v1zM3 0v2.5h1V0H3zm8 0v2.5h1V0h-1z"
+        />
+      </svg>
+    ),
+    //------------------------
+
     HomeSvg : <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.125 6.375L8.5 1.41667L14.875 6.375V14.1667C14.875 14.5424 14.7257 14.9027 14.4601 15.1684C14.1944 15.4341 13.8341 15.5833 13.4583 15.5833H3.54167C3.16594 15.5833 2.80561 15.4341 2.53993 15.1684C2.27426 14.9027 2.125 14.5424 2.125 14.1667V6.375Z" stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M6.375 15.5833V8.5H10.625V15.5833" stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round"/>
@@ -176,9 +286,17 @@ export const SVGICON = {
         <path d="M2.5 7.49999L10 1.66666L17.5 7.49999V16.6667C17.5 17.1087 17.3244 17.5326 17.0118 17.8452C16.6993 18.1577 16.2754 18.3333 15.8333 18.3333H4.16667C3.72464 18.3333 3.30072 18.1577 2.98816 17.8452C2.67559 17.5326 2.5 17.1087 2.5 16.6667V7.49999Z" stroke="#888888" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M7.5 18.3333V10H12.5V18.3333" stroke="#888888" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>,
-    Employe : <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fillRule="evenodd" clipRule="evenodd" d="M10.986 14.0673C7.4407 14.0673 4.41309 14.6034 4.41309 16.7501C4.41309 18.8969 7.4215 19.4521 10.986 19.4521C14.5313 19.4521 17.5581 18.9152 17.5581 16.7693C17.5581 14.6234 14.5505 14.0673 10.986 14.0673Z" stroke="#888888" strokeLinecap="round" strokeLinejoin="round"/>
-        <path fillRule="evenodd" clipRule="evenodd" d="M10.986 11.0054C13.3126 11.0054 15.1983 9.11881 15.1983 6.79223C15.1983 4.46564 13.3126 2.57993 10.986 2.57993C8.65944 2.57993 6.77285 4.46564 6.77285 6.79223C6.76499 9.11096 8.63849 10.9975 10.9563 11.0054H10.986Z" stroke="#888888" strokeLinecap="round" strokeLinejoin="round"/>
+    Employe : <svg
+        fill="currentColor"
+        viewBox="0 0 16 16"
+        height="1.5em"
+        width="1.5em"
+        >
+        <path d="M11 6a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path
+        fillRule="evenodd"
+        d="M0 8a8 8 0 1116 0A8 8 0 010 8zm8-7a7 7 0 00-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 008 1z"
+        />
     </svg>,
     CoreHr : <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fillRule="evenodd" clipRule="evenodd" d="M15.8381 12.7317C16.4566 12.7317 16.9757 13.2422 16.8811 13.853C16.3263 17.4463 13.2502 20.1143 9.54009 20.1143C5.43536 20.1143 2.10834 16.7873 2.10834 12.6835C2.10834 9.30245 4.67693 6.15297 7.56878 5.44087C8.19018 5.28745 8.82702 5.72455 8.82702 6.36429C8.82702 10.6987 8.97272 11.8199 9.79579 12.4297C10.6189 13.0396 11.5867 12.7317 15.8381 12.7317Z" stroke="#888888" strokeLinecap="round" strokeLinejoin="round"/>
