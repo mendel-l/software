@@ -1,6 +1,7 @@
 import Detalle_FacturaModel from "../Models/Detalle_FacturaModel.js";
 import { registerMovi } from "./controllerAuditoria.js";
 const tableName = "detalle_factura";
+import sequelize from '../DB/database.js';
 
 export const getAllDetalles = async (req, res) => {
     try {
@@ -21,6 +22,46 @@ export const getDetalle = async (req, res) => {
             return res.status(404).json({ message: "Detalle no Registrado" });
         }
         res.json(detalle);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+export const getDetallesByIdVenta = async (req, res) => {
+    try {
+        const { IdVenta } = req.params;
+        const query = `
+            SELECT det.IdDetalle,med.Nombre,inv.PrecioVenta,det.Cantidad,det.subTotal 
+            FROM detalle_factura as det
+            INNER JOIN inventario as inv ON det.IdInventario = inv.IdInventario
+            INNER JOIN medicamento as med ON inv.idMedicamento = med.idMedicamento 
+            WHERE det.Idventa = :IdVenta
+        `;
+        const results = await sequelize.query(query,{
+            replacements: { IdVenta },
+            type: sequelize.QueryTypes.SELECT
+        });
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+export const getDetalleTemp = async (req, res) => {
+    try {
+        const { IdVenta } = req.params;
+        const query = `
+            SELECT det.IdDetalle,med.Nombre,inv.PrecioVenta,det.Cantidad,det.subTotal 
+            FROM detalle_factura as det
+            INNER JOIN inventario as inv ON det.IdInventario = inv.IdInventario
+            INNER JOIN medicamento as med ON inv.idMedicamento = med.idMedicamento 
+            WHERE det.Idventa = :IdVenta
+        `;
+        const results = await sequelize.query(query,{
+            replacements: { IdVenta },
+            type: sequelize.QueryTypes.SELECT
+        });
+        res.json(results);
     } catch (error) {
         res.json({ message: error.message });
     }
