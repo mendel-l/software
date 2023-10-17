@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import USRVCModel from '../Models/USRVCModel.js';
 import personModel from '../Models/personModel.js';
+import RolModel from '../Models/RolModel.js';
 import {registerIn,registerOut} from "./controllerEntradas.js";
 import { registerMovi } from './controllerAuditoria.js';
 import jwt from 'jsonwebtoken';
@@ -156,6 +157,9 @@ export const loginUser = async (req, res) => {
         const [persona] = await personModel.findAll({
             where: { idPersona: user.idPersona }
         });
+        const [rol] = await RolModel.findAll({
+            where: { idRol: persona.idRol }
+        });
         const token = await generateAuthToken(user,persona);
         registerIn(user.IDUsuarios)
         console.log('en teoria jalo' ) 
@@ -170,8 +174,17 @@ export const loginUser = async (req, res) => {
             idToken: token,
             registered: true,
             expiresIn: expireDate,
-            rol:persona.idRol,
-            idpersona:persona.idPersona
+            idpersona:persona.idPersona,
+            vProveedores:rol.vProveedores,
+            vMedicamentos:rol.vMedicamentos,
+            vInventario:rol.vInventario,
+            vCliente:rol.vCliente,
+            vRol:rol.vRol,
+            vLote:rol.vLote,
+            vUsuario:rol.vUsuario,
+            vVenta:rol.vVenta,
+            vPersona:rol.vPersona,
+            vReportes:rol.vReportes
         });
         // return res.status(200).json({ token });
     } catch (error) {
@@ -194,8 +207,8 @@ const generateAuthToken = async (user,persona)=>{
         user_id: user.IDUsuarios,
         email: user.Usuario,
         sign_in_provider: "password",
-        verified: false
-
+        verified: false,
+        v
     };
     return jwt.sign(payload, 'proyectoFinal');
 }
