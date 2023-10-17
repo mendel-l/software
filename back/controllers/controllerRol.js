@@ -53,6 +53,7 @@ export const createRole = async (req, res) => {
                 }
 
                 console.log("message: Auditoria registrada");
+                console.log(registerMovi.data)
             }).catch((error) => {
                 console.error('Error al registrar auditoria', error);
             });

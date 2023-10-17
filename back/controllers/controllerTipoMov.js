@@ -14,28 +14,24 @@ export const getAllTipoMov = async (req, res) => {
 export const createTipoMov = async (req, res) => {
     try {
         await tipoMovModel.create(req.body);
-        
-                //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
-                await tipoMovModel.findOne({
-                    order: [['idTipoMovimiento', 'DESC']]
-                }).then((ultimoRegistro) => {
-                    let idRegistroMov;
-                    if (ultimoRegistro) {
-                        idRegistroMov = ultimoRegistro.idTipoMovimiento;
-                        registerMovi(tableName, idRegistroMov, 1, 1);
-                    } else {
-                        console.log('No se encontraron registros en la tabla TipoMovimiento.');
-                    }
 
-                    console.log("message Auditoria registrada");
-                }).catch((error) => {
-                    console.error('Error al registrar auditoria', error);
-                });
-                //----------------------- FIN ----------------------------------------------------------------------------------
+        //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
+        await tipoMovModel.findOne({
+            order: [['idTipoMovimiento', 'DESC']]
+        }).then((ultimoRegistro) => {
+            let idRegistroMov;
+            if (ultimoRegistro) {
+                idRegistroMov = ultimoRegistro.idTipoMovimiento;
+                registerMovi(tableName, idRegistroMov, 1, 1);
+            } else {
+                console.log('No se encontraron registros en la tabla TipoMovimiento.');
+            }
 
-            res.json({
-                "message": "Registro Creado Exitosamente"
-            });
+            console.log("message Auditoria registrada");
+        }).catch((error) => {
+            console.error('Error al registrar auditoria', error);
+        });
+        //----------------------- FIN ----------------------------------------------------------------------------------
 
         res.json({
             "message": "Registro Creado Exitosamente"
@@ -44,6 +40,7 @@ export const createTipoMov = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
 
 export const updateTipoMov = async (req, res) => {
     try {

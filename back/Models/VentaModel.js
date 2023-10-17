@@ -11,7 +11,7 @@ const VentaModel = db.define('venta', {
     Fecha: { type: DataTypes.DATE},
     MontoTotal: { type: DataTypes.NUMBER },
     idCliente: { type: DataTypes.NUMBER },
-    CUI:{ type: DataTypes.NUMBER }  
+    idPersona:{ type: DataTypes.NUMBER }  
  }, { tableName: 'venta' }); 
  
 

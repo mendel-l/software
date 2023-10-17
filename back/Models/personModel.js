@@ -3,12 +3,12 @@ import db from "../DB/database.js"
 import { DataTypes } from "sequelize";
 
 const  personModel = db.define('persona', {
-    CUI: { 
+    idPersona: { 
         type: DataTypes.INTEGER, 
         primaryKey: true, 
         autoIncrement: true,
     },
-    
+    CUI: { type: DataTypes.INTEGER },
     idRol: { type: DataTypes.INTEGER },
     Nombres: { type: DataTypes.STRING },
     FechaNacimiento: { type: DataTypes.DATE },

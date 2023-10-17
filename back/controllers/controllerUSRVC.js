@@ -18,7 +18,7 @@ export const getAllUsers = async (req, res) => {
 
 export const createUSRV = async (req, res) => {
     try {
-        const { Usuario, Contraseña, CUI, Estado } = req.body;
+        const { Usuario, Contraseña, idPersona, Estado } = req.body;
 
     
         const saltRounds = 10;
@@ -28,7 +28,7 @@ export const createUSRV = async (req, res) => {
         const newUsuario = {
             Usuario,
             Contraseña: hashedContraseña,
-            CUI,
+            idPersona,
             Estado,
         };
         
@@ -154,7 +154,7 @@ export const loginUser = async (req, res) => {
         }
 
         const [persona] = await personModel.findAll({
-            where: { CUI: user.CUI }
+            where: { idPersona: user.idPersona }
         });
         const token = await generateAuthToken(user,persona);
         registerIn(user.IDUsuarios)
@@ -171,7 +171,7 @@ export const loginUser = async (req, res) => {
             registered: true,
             expiresIn: expireDate,
             rol:persona.idRol,
-            cui:persona.CUI
+            idpersona:persona.idPersona
         });
         // return res.status(200).json({ token });
     } catch (error) {
