@@ -149,7 +149,8 @@ const SideBar = () => {
                         </div>
                         {" "}<span className="nav-text">{data.title}</span>
                         {
-                          data.update && data.update.length > 0 ?
+                         data.update && data.update.length > 0 ?
+
                             <span className="badge badge-xs badge-danger ms-2">{data.update}</span>
                             :
                             ''

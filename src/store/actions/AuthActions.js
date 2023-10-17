@@ -7,7 +7,7 @@ import {
     signUp,
 } from '../../services/AuthService';
 
-
+import { useHistory } from 'react';
 export const SIGNUP_CONFIRMED_ACTION = '[signup action] confirmed signup';
 export const SIGNUP_FAILED_ACTION = '[signup action] failed signup';
 export const LOGIN_CONFIRMED_ACTION = '[login action] confirmed login';
@@ -43,7 +43,7 @@ export function signupAction(email, password, navigate) {
 export function Logout(navigate) {
 	localStorage.removeItem('userDetails');
     navigate('/login');
-	//history.push('/login');
+	//useHistory.push('/login');
     
 	return {
         type: LOGOUT_ACTION,
