@@ -126,7 +126,6 @@ const generateAuthToken = async (user,persona)=>{
     return payload;
 }*/
 
-
 export const loginUser = async (req, res) => {
     const { Usuario, Contraseña } = req.body;
 
@@ -158,21 +157,21 @@ export const loginUser = async (req, res) => {
             where: { CUI: user.CUI }
         });
         const token = await generateAuthToken(user,persona);
-        console.log(registerIn(user.IDUsuarios));
+        registerIn(user.IDUsuarios)
         console.log('en teoria jalo' ) 
         // res.json({ response: {data} });
         const expireDate = 8*3600;
-        
+
         res.status(200).json({
             kind : "identitytoolkit#VerifyPasswordResponse",
             localId : user.IDUsuarios,
             email : user.Usuario,
-            displayName : "",
+            displayName : persona.Nombres,
             idToken: token,
             registered: true,
             expiresIn: expireDate,
-           
-
+            rol:persona.idRol,
+            cui:persona.CUI
         });
         // return res.status(200).json({ token });
     } catch (error) {
