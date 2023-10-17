@@ -5,6 +5,10 @@ import {
     Logout,
 } from '../store/actions/AuthActions';
 
+// PARA LLAMAR LOS DATOS DE LOS tokenDetailsStringconst tokenData = localStorage.getItem('userDetails');
+// const tokenParse = JSON.parse(tokenData);
+// console.log("tokeeen1: "+tokenParse.cui);
+
 export function signUp(email, password) {
     //axios call
     const postData = {
@@ -18,14 +22,13 @@ export function signUp(email, password) {
     );
 }
 
-export function login(email, password) {
+export function login(Usuario, Contraseña) {
     const postData = {
-        email,
-        password,
-        returnSecureToken: true,
+        Usuario,
+        Contraseña
     };
     return axios.post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD3RPAp3nuETDn9OQimqn_YF6zdzqWITII`,
+        `http://127.0.0.1:3001/api/Usrv/login`,
         postData,
     );
 }
@@ -35,14 +38,14 @@ export function formatError(errorResponse) {
         case 'EMAIL_EXISTS':            
             swal("Oops", "Email already exists", "error");
             break;
-        case 'EMAIL_NOT_FOUND':
-           swal("Oops", "Email not found", "error",{ button: "Try Again!",});
+        case 'INVALID_DATA':
+           swal("Oops", "DATOS INVALIDOS", "error",{ button: "reintentar!",});
            break;
-        case 'INVALID_PASSWORD':
-            swal("Oops", "Invalid Password", "error",{ button: "Try Again!",});
-            break;
-        case 'USER_DISABLED':
-            return 'User Disabled';
+        // case 'INVALID_PASSWORD':
+        //     swal("Oops", "Invalid Password", "error",{ button: "Try Again!",});
+        //     break;
+        case 'INACTIVE_USER':
+            return 'USUARIO INACTIVO';
 
         default:
             return '';

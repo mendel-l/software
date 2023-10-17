@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt';
 import USRVCModel from '../Models/USRVCModel.js';
+import personModel from '../Models/personModel.js';
 import {registerIn,registerOut} from "./controllerEntradas.js";
 import { registerMovi } from './controllerAuditoria.js';
+import jwt from 'jsonwebtoken';
 const tableName = 'usuario';
 
 export const getAllUsers = async (req, res) => {
@@ -69,31 +71,72 @@ export const loginUser = async (req, res) => {
     const { Usuario, Contraseña } = req.body;
 
     try {
-      
+
         const [user] = await USRVCModel.findAll({
-            where: { Usuario: Usuario }, 
+            where: { Usuario: Usuario }
         });
 
         if (!user) {
-        
-            return res.status(401).json({ message: 'Credenciales incorrectas' });
+            console.log('INVALID_DATA user' ) 
+            return res.status(401).json({ error: {message: 'INVALID_DATA'} });
         }
 
-     
+
         const isContraseñaValid = await bcrypt.compare(Contraseña, user.Contraseña);
 
         if (!isContraseñaValid) {
-     
-            return res.status(401).json({ message: 'Credenciales incorrectas' });
+            console.log('INVALID_DATA password' ) 
+            return res.status(401).json({ error: {message: 'INVALID_DATA'} });
         }
-        
+
         if(!user.Estado){
-            return res.status(401).json({ message: 'Error: Usuario Inactivo' });
+            console.log('INVALID_DATA estado' ) 
+            return res.status(402).json({error: { message: 'INACTIVE_USER' }});
         }
+
+        const [persona] = await personModel.findAll({
+            where: { CUI: user.CUI }
+        });
+        const token = await generateAuthToken(user,persona);
         console.log(registerIn(user.IDUsuarios));
-        res.json({ message: 'Inicio de sesión exitoso' });
+        console.log('en teoria jalo' ) 
+        // res.json({ response: {data} });
+        const expireDate = 8*3600;
+
+        res.status(200).json({
+            kind : "identitytoolkit#VerifyPasswordResponse",
+            localId : user.IDUsuarios,
+            email : user.Usuario,
+            displayName : persona.Nombres,
+            idToken: token,
+            registered: true,
+            expiresIn: expireDate,
+            rol:persona.idRol,
+            cui:persona.CUI
+        });
+        // return res.status(200).json({ token });
     } catch (error) {
-        res.status(500).json({ message: 'Error en el servidor' });
+        res.status(500).json({ message: 'Error en el servidor' + error.message});
     }
 };
 
+const generateAuthToken = async (user,persona)=>{
+    const fechaActual = new Date();
+    const iat = Math.floor(fechaActual.getTime() / 1000);
+    const exp = iat+(8*3600);
+    const payload = {
+        // idUser: user.IDUsuarios, // Identificador único del usuario
+        // cui: persona.CUI, 
+        // user: user.Usuario,
+        // role: persona.idRol, 
+        iss: "https://identitytoolkit.google.com/",
+        aud: "react-course-b798e",
+        iat: iat,
+        exp: exp,
+        user_id: user.IDUsuarios,
+        email: user.Usuario,
+        sign_in_provider: "password",
+        verified: true
+    };
+    return jwt.sign(payload, 'proyectoFinal');
+}
