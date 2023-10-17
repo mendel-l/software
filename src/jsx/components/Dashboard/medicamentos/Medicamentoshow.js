@@ -43,7 +43,7 @@ const CompMedicamentoShow = () => {
   const csvlink = {
     headers: headers,
     data: medicamentos,
-    filename: "csvfile.csv"
+    filename: "medicamento.csv"
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +86,7 @@ const CompMedicamentoShow = () => {
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
-                        Exportar reporte
+                        Reporte Medicamentos
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
                         onClick={() => medicamento.current.showEmployeModal()}

@@ -26,6 +26,8 @@ const MedicamentoCreate = forwardRef((props, ref) => {
     e.preventDefault();
 
     try {
+      // Convertir el valor de estado a booleano
+      const estadoBooleano = estado === "1" ? true : false;
       // Enviar los datos al servidor
       await axios.post(URI, {
         Nombre: nombre,

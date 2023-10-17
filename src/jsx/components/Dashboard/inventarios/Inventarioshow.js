@@ -9,6 +9,8 @@ const URI = 'http://localhost:3001/api/inventario'; // Cambiado
 
 const CompInventarioShow = () => {
   const [inventario, setInventario] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); //busqueda
+
   useEffect(() => {
     getInventario(); // Cambiado
   }, []);
@@ -42,6 +44,20 @@ const CompInventarioShow = () => {
     getInventario(); // Cambiado
   };
 
+  //procedimiento para hacer la busqueda
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Filtrar la lista de inventario por el término de búsqueda
+  const filteredInventario = inventario.filter((item) => {
+    return (
+      item.medicamento.Nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.medicamento.idMedicamento.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
+
   const headers = [
     { label: "IdInventario", key: "IdInventario" },
     { label: "Cantidad Disponible", key: "CantidadDisponible" },
@@ -53,7 +69,7 @@ const CompInventarioShow = () => {
   const csvlink = {
     headers: headers,
     data: inventario,
-    filename: "csvfile.csv"
+    filename: "inventario.csv"
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -96,12 +112,25 @@ const CompInventarioShow = () => {
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
-                        Exportar reporte
+                        Reporte Inventario
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
                         onClick={() => elemento.current.showEmployeModal()} // Cambiado
                       >+ Agregar Elemento de Inventario</Link> {" "}
                     </div>
+
+                    <div className="input-group search-area">
+						          <span className="input-group-text rounded-0">
+							          <Link to={"#"}>
+								          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+								              <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+							            </svg>
+						            </Link>
+					            </span>
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar Medicamento" value={searchTerm} onChange={handleSearch} />
+					          </div>
+                    
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
@@ -115,8 +144,9 @@ const CompInventarioShow = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {inventario.map((dato) => (
+                          {filteredInventario.map((dato) => (
                           <tr key={dato.IdInventario}>
+                        
                             <td>{dato.IdInventario}</td>
                             <td>{dato.CantidadDisponible}</td>
                             <td>{dato.PrecioVenta}</td>
