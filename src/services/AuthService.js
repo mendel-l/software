@@ -41,9 +41,9 @@ export function formatError(errorResponse) {
         case 'INVALID_DATA':
            swal("Oops", "DATOS INVALIDOS", "error",{ button: "reintentar!",});
            break;
-        // case 'INVALID_PASSWORD':
-        //     swal("Oops", "Invalid Password", "error",{ button: "Try Again!",});
-        //     break;
+         case 'INVALID_PASSWORD':
+             swal("Oops", "Invalid Password", "error",{ button: "Try Again!",});
+             break;
         case 'INACTIVE_USER':
             return 'USUARIO INACTIVO';
 

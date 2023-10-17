@@ -66,6 +66,66 @@ export const createUSRV = async (req, res) => {
 };
 
 
+/*
+export const loginUser = async (req, res) => {
+    const { Usuario, Contraseña } = req.body;
+
+    try {
+      
+        const [user] = await USRVCModel.findAll({
+            where: { Usuario: Usuario }
+        });
+
+        if (!user) {
+            console.log('INVALID_DATA user' ) 
+            return res.status(401).json({ error: {message: 'INVALID_DATA'} });
+        }
+
+     
+        const isContraseñaValid = await bcrypt.compare(Contraseña, user.Contraseña);
+
+        if (!isContraseñaValid) {
+            console.log('INVALID_DATA password' ) 
+            return res.status(401).json({ error: {message: 'INVALID_DATA'} });
+        }
+        
+        if(!user.Estado){
+            console.log('INVALID_DATA estado' ) 
+            return res.status(402).json({error: { message: 'INACTIVE_USER' }});
+        }
+
+        const [persona] = await personModel.findAll({
+            where: { CUI: user.CUI }
+        });
+        const token = await generateAuthToken(user,persona);
+        console.log(registerIn(user.IDUsuarios));
+        console.log('en teoria jalo' ) 
+        // res.json({ response: {data} });
+        const tiempoDeExpiracion = 8 * 3600;
+        res.status(200).json({
+                data: token,
+                expiresIn: tiempoDeExpiracion, // Reemplaza esto con el tiempo de expiración real
+                // Otros datos relacionados con el usuario si es necesario
+        });
+        // return res.status(200).json({ token });
+    } catch (error) {
+        res.status(500).json({ message: 'Error en el servidor' + error.message});
+    }
+};
+
+const generateAuthToken = async (user,persona)=>{
+    const payload = {
+        // idUser: user.IDUsuarios, // Identificador único del usuario
+        // cui: persona.CUI, 
+        // user: user.Usuario,
+        // role: persona.idRol, 
+        email: user.Usuario,
+        password: user.Contraseña
+    };
+    return jwt.sign(payload, 'proyectoFinal');
+    return payload;
+}*/
+
 
 export const loginUser = async (req, res) => {
     const { Usuario, Contraseña } = req.body;
@@ -102,24 +162,23 @@ export const loginUser = async (req, res) => {
         console.log('en teoria jalo' ) 
         // res.json({ response: {data} });
         const expireDate = 8*3600;
-
+        
         res.status(200).json({
             kind : "identitytoolkit#VerifyPasswordResponse",
             localId : user.IDUsuarios,
             email : user.Usuario,
-            displayName : persona.Nombres,
+            displayName : "",
             idToken: token,
             registered: true,
             expiresIn: expireDate,
-            rol:persona.idRol,
-            cui:persona.CUI
+           
+
         });
         // return res.status(200).json({ token });
     } catch (error) {
         res.status(500).json({ message: 'Error en el servidor' + error.message});
     }
 };
-
 const generateAuthToken = async (user,persona)=>{
     const fechaActual = new Date();
     const iat = Math.floor(fechaActual.getTime() / 1000);
@@ -136,7 +195,8 @@ const generateAuthToken = async (user,persona)=>{
         user_id: user.IDUsuarios,
         email: user.Usuario,
         sign_in_provider: "password",
-        verified: true
+        verified: false
+
     };
     return jwt.sign(payload, 'proyectoFinal');
 }

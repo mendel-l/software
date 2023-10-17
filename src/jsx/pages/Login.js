@@ -13,10 +13,10 @@ import lapredilecta from '../../images/background/lapredilecta.jpg';
 function Login (props) {
 	const [heartActive, setHeartActive] = useState(true);	
 	const navigate = useNavigate();
-    const [email, setEmail] = useState('demo@example.com');
+    const [email, setEmail] = useState('User');
     let errorsObj = { email: '', password: '' };
     const [errors, setErrors] = useState(errorsObj);
-    const [password, setPassword] = useState('123456');
+    const [password, setPassword] = useState('pass1');
     const dispatch = useDispatch();
 
     function onLogin(e) {
@@ -83,7 +83,7 @@ function Login (props) {
 															<p>Ingrese su correo electronico y su contraseña. </p>
 															<div className="form-group mb-3">
 															
-																<input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+																<input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
 																{errors.email && <div className="text-danger fs-12">{errors.email}</div>}
 															</div>
 															<div className="form-group mb-3">
