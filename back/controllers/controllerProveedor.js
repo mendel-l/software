@@ -112,3 +112,14 @@ export const deleteProveedor = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getAllProveedoresActive = async (req, res) => {
+    try {
+        const proveedores = await ProveedorModel.findAll({
+            where: { Estado: true }
+        });
+        res.json(proveedores);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}

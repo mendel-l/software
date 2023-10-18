@@ -19,7 +19,7 @@ const InventarioCreate = forwardRef((props, ref) => {
     // Obtener la lista de medicamentos disponibles al cargar el componente
     async function fetchMedicamentos() {
       try {
-        const res = await axios.get('http://localhost:3001/api/medicamento'); // Cambia la URL según tu API
+        const res = await axios.get('http://localhost:3001/api/medicamento/active'); // Cambia la URL según tu API
         setMedicamentos(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de medicamentos:', error);

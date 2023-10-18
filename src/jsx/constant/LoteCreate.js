@@ -23,7 +23,7 @@ const LoteCreate = forwardRef((props, ref) => {
   useEffect(() => {
     async function fetchMedicamentos() {
       try {
-        const res = await axios.get('http://localhost:3001/api/medicamento');
+        const res = await axios.get('http://localhost:3001/api/medicamento/active');
         setMedicamentos(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de medicamentos:', error);
@@ -32,7 +32,7 @@ const LoteCreate = forwardRef((props, ref) => {
 
     async function fetchProveedores() {
       try {
-        const res = await axios.get('http://localhost:3001/api/proveedores');
+        const res = await axios.get('http://localhost:3001/api/proveedores/active');
         setProveedores(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de proveedores:', error);

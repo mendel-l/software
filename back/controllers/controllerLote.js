@@ -153,3 +153,14 @@ export const updateLotsExpired = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getAllLotesActive = async (req, res) => {
+    try {
+        const lotes = await LoteModel.findAll({
+            where: { Estado: true }
+        });
+        res.json(lotes);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
