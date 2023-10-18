@@ -21,27 +21,24 @@ const ClienteCreate = forwardRef((props, ref) => {
   }));
   
  //procedimietno para guardar los datos
-  const guardar = async (e) => {
-    e.preventDefault();
+ const guardar = async (e) => {
+  e.preventDefault();
     
-    //try {
-      // Enviar los datos al servidor
-      await axios.post(URI, {
-        Nombre:nombre,
-        Nit:nit,
-        Telefono:telefono,
-        Estado:estado,
-      });
-      
-      // Cerrar el modal después de guardar los datos
-      setAddCliente(false);
+  try {
+    // Enviar los datos al servidor
+    await axios.post(URI, {
+      Nombre:nombre,
+      Nit:nit,
+      Telefono:telefono,
+      Estado:estado,
+    });
 
-      // Recargar la lista de clientes en la página principal
-      //props.reloadProveedores();
-    // } catch (error) {
-    //   console.error('Error al guardar el proveedor:', error);
-    // }
-  };
+    props.reloadClientes(); // Cambiado
+    setAddCliente(false);
+  } catch (error) {
+     console.error('Error al guardar el Cliente:', error);
+  }
+};
   
   return (
     <>

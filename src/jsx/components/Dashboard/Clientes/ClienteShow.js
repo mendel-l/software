@@ -12,6 +12,10 @@ const CompClienteShow = () => {
     getCliente()
   }, [])
 
+  const reloadClientes = () => {
+    getCliente();
+  };
+
   //Procedimiento para mostrar todos los clientes
   const getCliente = async () =>{
     const res = await axios.get(URI)
@@ -171,6 +175,7 @@ const CompClienteShow = () => {
       <ClienteCreate
         ref={cliente}
         Title="Add Inventario"
+        reloadClientes={reloadClientes}
       />
     </>
   );
