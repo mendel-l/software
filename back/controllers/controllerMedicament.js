@@ -144,3 +144,14 @@ export const desactivateExpired= async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getAllMedicamentsActive = async (req, res) => {
+    try {
+        const medicaments = await MedicamentModel.findAll({
+            where: { Estado: true }
+        });
+        res.json(medicaments);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}

@@ -170,3 +170,14 @@ export const cargarInventario = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getAllInventariosActive = async (req, res) => {
+    try {
+        const inventarios = await InventarioModel.findAll({
+            where: { Estado: true }
+        });
+        res.json(inventarios);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}

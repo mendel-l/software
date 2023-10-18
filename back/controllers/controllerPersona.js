@@ -77,3 +77,14 @@ export const deletePerson = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getAllPersonsActive = async (req, res) => {
+    try {
+        const persons = await personModel.findAll({
+            where: { Estado: true }
+        });
+        res.json(persons);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
