@@ -31,7 +31,7 @@ const PersonaEdit = () => {
         Titulacion: titulacion,
         Estado: estado,
       });
-      navigate('/personas'); // Redirige a la página de personas después de actualizar
+      navigate('/Persona'); // Redirige a la página de personas después de actualizar
     } catch (error) {
       console.error('Error al actualizar la persona:', error);
     }
@@ -42,7 +42,7 @@ const PersonaEdit = () => {
 
     async function obtenerRoles() {
       try {
-        const res = await axios.get('http://localhost:3001/api/roles');
+        const res = await axios.get('http://localhost:3001/api/rol');
         setRoles(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de roles:', error);
@@ -54,7 +54,8 @@ const PersonaEdit = () => {
 
   const obtenerPersonaPorID = async () => {
     try {
-      const res = await axios.get(`${URI}/${CUI}`);
+      const res = await  axios.get(`${URI}/${CUI}`);
+
       setidRol(res.data.idRol); // Cambiado
       setNombres(res.data.Nombres);
       setFechaNacimiento(res.data.FechaNacimiento);
@@ -66,6 +67,7 @@ const PersonaEdit = () => {
     } catch (error) {
       console.error('Error al obtener la persona:', error);
     }
+    console.log(obtenerPersonaPorID.data)
   };
 
   return (
@@ -81,7 +83,7 @@ const PersonaEdit = () => {
                   <option value="">Selecciona un rol</option>
                   {roles.map((rol) => (
                     <option key={rol.idRol} value={rol.idRol}>
-                      {rol.idRol} - {rol.NombreRol}
+                      {rol.idRol} - {rol.Rol}
                     </option>
                   ))}
                 </select>
@@ -113,8 +115,8 @@ const PersonaEdit = () => {
               <div className="col-xl-6 mb-3">
                 <label htmlFor="estado" className="form-label">Estado<span className="text-danger">*</span></label>
                 <select className="form-select" value={estado} onChange={(e) => setEstado(e.target.value)} required>
-                  <option value="1">Activo</option>
-                  <option value="0">Inactivo</option>
+                  <option value="true">Activo</option>
+                  <option value="false">Inactivo</option>
                 </select>
               </div>
             </div>

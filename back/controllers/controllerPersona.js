@@ -34,19 +34,34 @@ export const createPerson = async (req, res) => {
     }
 }
 
+export const getoneP = async (req, res) => {
+    try {
+        const [client] = await personModel.findAll({
+            where: { IdPersona: req.params.IdPersona }
+        });
+        if(!client)
+        {
+            return res.status(404).json({ message: "Cliente no Registrado" });
+        }
+        res.json(client);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
 export const updatePerson = async (req, res) => {
     try {
         const [persona] = await personModel.findAll({
-            where: { CUI: req.params.CUI }
+            where: { IdPersona: req.params.IdPersona }
         });
         if(!persona)
         {
             return res.status(404).json({ message: "Persona no Registrada" });
         }
         await personModel.update(req.body, {
-            where: { CUI: req.params.CUI }
+            where: { IdPersona: req.params.IdPersona }
         });
-        await registerMovi(tableName, req.params.CUI, 1, 2);
+        await registerMovi(tableName, req.params.IdPersona, 1, 2);
         res.json({
             "message": "Registro Actualizado Exitosamente"
         });

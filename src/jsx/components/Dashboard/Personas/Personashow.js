@@ -98,7 +98,7 @@ const PersonaShow = () => {
                     <table id="persona-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
-                        <th>ID</th>
+                        <th>ID Persona</th>
                           <th>ID Rol</th>
                           <th>Nombre</th>
                           <th>Fecha de Nacimiento</th>
@@ -113,8 +113,8 @@ const PersonaShow = () => {
                       </thead>
                       <tbody>
                         {personas.map((dato) => (
-                          <tr key={dato.CUI}>
-                            <td>{dato.CUI}</td>
+                          <tr key={dato.idPersona}>
+                            <td>{dato.idPersona}</td>
                             <td>{dato.idRol}</td>
                             <td>{dato.Nombres}</td>
                             <td>{dato.FechaNacimiento}</td>
@@ -128,8 +128,9 @@ const PersonaShow = () => {
                                </span>
                             </td>
                             <div>
-                              <Link to={`/edit-persona/${dato.CUI}`} className='btn btn-info'>Editar</Link>
-                              <button onClick={() => deletePersona(dato.CUI)} className='btn btn-danger'>Eliminar</button>
+                              <td>                              <Link to={`/edit-persona/${dato.idPersona}`} className='btn btn-info'>Editar</Link>
+</td>
+                              {/*<button onClick={() => deletePersona(dato.idPersona)} className='btn btn-danger'>Eliminar</button>*/}
                             </div>
                           </tr>
                         ))}
