@@ -95,11 +95,14 @@ export const getMoneySoldDAY= async (req, res) => {
 export const getOrderSellersMorSales= async (req, res) => {
     try {
         const query = `
-            SELECT persona.Nombres,venta.CUI,
-            COUNT(*) AS ventasTotales
+            SELECT
+            persona.Nombres,
+            persona.CUI,
+            COUNT(*) AS ventasTotales,
+            SUM(venta.MontoTotal) AS montoTotalGenerado
             FROM venta
-            INNER JOIN persona ON venta.CUI = persona.CUI
-            GROUP BY venta.CUI
+            INNER JOIN persona ON venta.idPersona = persona.idPersona
+            GROUP BY persona.idPersona
             ORDER BY ventasTotales DESC
         `;
         const [results] = await sequelize.query(query);
