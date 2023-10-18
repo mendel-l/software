@@ -5,7 +5,7 @@ import { CSVLink } from 'react-csv';
 import MainPagetitle from '../../../layouts/MainPagetitle';
 import UsuarioCreate from '../../../constant/UsuarioCreate';
 import axios from 'axios';
-const URI = 'http://localhost:3001/api/Usrv'
+const URI = 'http://localhost:3001/api/user'
 const CompUsuarioShow = () => {
   const [usuarios, setUsuarios] = useState([]); 
   useEffect(() => {
@@ -14,7 +14,7 @@ const CompUsuarioShow = () => {
 
   //Procedimiento para mostrar todos los usuarios
   const getUsuario = async () =>{
-    const res = await axios.get(URI+"/getAll")
+    const res = await axios.get(URI)
     setUsuarios(res.data)
   }
   //Procedimiento para eliminar un usuario
@@ -106,6 +106,7 @@ const CompUsuarioShow = () => {
                                 <td>{ usuarios.Usuario}</td>
                                 <td>{ usuarios.Contraseña}</td>
                                 <td>{ usuarios.CUI}</td>
+                                {/* <td>{ clientes.Estado}</td> */}
                                 <td>{ usuarios.createAt}</td>
                               <div>
                                 <Link to={`/edit-usuario/${usuarios.IDUsuarios}`} className='btn btn-info'>Editar</Link>
