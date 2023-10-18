@@ -113,6 +113,8 @@ const CompRolShow = () => {
                           <th>Venta</th>
                           <th>Persona</th>
                           <th>Reportes</th>
+                          <th></th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -121,19 +123,64 @@ const CompRolShow = () => {
                                 <td>{ roles.idRol}</td> 
                                 <td>{ roles.Rol}</td>
                                 <td>{ roles.Descripcion}</td>
-                                <td>{roles.vProveedores === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{roles.vMedicamentos === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vInventario === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vCliente === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vRol === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vLote === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vUsuario === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vVenta === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vPersona === true ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vReportes === true ? 'Activo' : 'Inactivo'}</td>
+                                                            <td>
+                              <span className={`badge light border-0 ${roles.vProveedores === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vProveedores === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vMedicamentos === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vMedicamentos === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vInventario === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vInventario === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vCliente === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vCliente === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vRol === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vRol === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vLote === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vLote === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vUsuario === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vUsuario === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vVenta === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vVenta === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vPersona === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vPersona === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge light border-0 ${roles.vReportes === true ? 'badge-success' : 'badge-danger'}`}>
+                                {roles.vReportes === true ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+
                               <div>
+                              <td>
                                 <Link to={`/edit-rol/${roles.idRol}`} className='btn btn-info'>Editar</Link>
+                                </td>
+                                <td>
                                 <button onClick={() => deleteRol(roles.idRol)} className='btn btn-danger'>Eliminar</button>
+                                </td>
                               </div>
                             </tr>
                         ))}
