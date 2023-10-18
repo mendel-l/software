@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import VentaCreate from '../../../constant/VentaCreate'; // Importa el componente necesario para la creación de productos
+import VentaCreate from '../../../constant/VentaCreate';
 
 const URI = 'http://localhost:3001/api/venta';
 
@@ -9,45 +9,54 @@ const CompVentaEdit = () => {
   const [fecha, setFecha] = useState('');
   const [montototal, setMontototal] = useState('');
   const [idcliente, setidCliente] = useState('');
-  const [cui, setCui] = useState('');
-  const [clientes, setClientes] = useState([]); //lista de clientes disponibles
+  const [idPersona, setIdPersona] = useState(''); // Cambiado de CUI a idPersona
+  const [clientes, setClientes] = useState([]);
+  const [personas, setPersonas] = useState([]); // Lista de personas disponibles
   const { Idventa } = useParams();
   const navigate = useNavigate();
-  const elemento = useRef(); // Ref para el componente VentaCreate
+  const elemento = useRef();
 
-  // Procedimiento para Actualizar
   const Actualizar = async (e) => {
     e.preventDefault();
     await axios.put(`${URI}/${Idventa}`, {
       Fecha: fecha,
       MontoTotal: montototal,
       idCliente: idcliente,
-      CUI: cui
+      idPersona: idPersona, // Cambiado de CUI a idPersona
     });
     navigate('/venta');
   };
 
   useEffect(() => {
     getVentaByID();
-    // Obtener la lista de clientes disponibles al cargar el componente
-    async function fetchClientes() {
-      try {
-        const res = await axios.get('http://localhost:3001/api/cliente');
-        setClientes(res.data);
-      } catch (error) {
-        console.error('Error al obtener la lista de clientes:', error);
-      }
-    }
-
     fetchClientes();
+    fetchPersonas(); // Obtener la lista de personas disponibles al cargar el componente
   }, []);
+
+  const fetchClientes = async () => {
+    try {
+      const res = await axios.get('http://localhost:3001/api/cliente');
+      setClientes(res.data);
+    } catch (error) {
+      console.error('Error al obtener la lista de clientes:', error);
+    }
+  };
+
+  const fetchPersonas = async () => {
+    try {
+      const res = await axios.get('http://localhost:3001/api/persona');
+      setPersonas(res.data);
+    } catch (error) {
+      console.error('Error al obtener la lista de personas:', error);
+    }
+  };
 
   const getVentaByID = async () => {
     const res = await axios.get(`${URI}/${Idventa}`);
     setFecha(res.data.Fecha);
     setMontototal(res.data.MontoTotal);
     setidCliente(res.data.idCliente);
-    setCui(res.data.CUI);
+    setIdPersona(res.data.idPersona); // Cambiado de CUI a idPersona
   };
 
   return (
@@ -103,17 +112,22 @@ const CompVentaEdit = () => {
                   </select>
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="cui" className="form-label">
-                    CUI<span className="text-danger">*</span>{" "}
+                  <label htmlFor="idPersona" className="form-label">
+                    ID Persona<span className="text-danger">*</span>{" "}
                   </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder=""
-                    value={cui}
-                    onChange={(e) => setCui(e.target.value)}
+                  <select
+                    className="form-select"
+                    value={idPersona}
+                    onChange={(e) => setIdPersona(e.target.value)}
                     required
-                  />
+                  >
+                    <option value="">Selecciona una Persona</option>
+                    {personas.map((persona) => (
+                      <option key={persona.idPersona} value={persona.idPersona}>
+                        {persona.idPersona} - {persona.Nombres}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div>
@@ -128,7 +142,7 @@ const CompVentaEdit = () => {
       <VentaCreate
         ref={elemento}
         Title="Add Inventario"
-        reloadDetalle={() => {}} // Puedes dejarlo vacío o manejarlo según tus necesidades
+        reloadDetalle={() => {}}
       />
     </>
   );
