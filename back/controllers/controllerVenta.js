@@ -49,7 +49,8 @@ export const createVenta = async (req, res) => {
             });
             
         res.json({
-            "message": "Registro Creado Exitosamente"
+            "message": "Registro Creado Exitosamente",
+            idRegistroMov
         });
     } catch (error) {
         res.json({ message: error.message });
