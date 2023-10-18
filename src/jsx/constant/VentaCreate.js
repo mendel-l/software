@@ -15,6 +15,7 @@ const VentaCreate = forwardRef((props, ref) => {
   const [ventas, setVentas] = useState([]);           //lista de ventas disponibles
   const [inventarios, setInventarios] = useState([]); //Lista de inventarios disponibles
   const [lotes, setLotes] = useState([]);             //Lista de lotes disponibles
+  const [medicamentoNames, setMedicamentoNames] = useState([]);
   
 
   const [addDetalle, setAddDetalle] = useState(false);
@@ -48,9 +49,22 @@ const VentaCreate = forwardRef((props, ref) => {
       }
     }
 
-    fetchVentas();
-    fetchInventarios();
-    fetchLotes();
+    async function fetchMedicamentoNames() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/medicamento'); // Ajusta la URL según tu API
+        setMedicamentoNames(res.data);
+      } catch (error) {
+        console.error('Error al obtener los nombres de los medicamentos:', error);
+      }
+    }
+
+    async function fetchData() {
+      await fetchVentas();
+      await fetchInventarios();
+      await fetchLotes();
+      await fetchMedicamentoNames(); // Agrega esta línea
+    }
+    fetchData();
   }, []);
 
   useImperativeHandle(ref, () => ({
@@ -58,6 +72,11 @@ const VentaCreate = forwardRef((props, ref) => {
       setAddDetalle(true);
     },
   }));
+
+  const getMedicamentoName = (idMedicamento) => {
+    const medicamento = medicamentoNames.find((m) => m.idMedicamento === idMedicamento);
+    return medicamento ? `${idMedicamento} - ${medicamento.Nombre}` : '';
+  };
   
  //procedimietno para guardar los datos
   const guardar = async (e) => {
@@ -128,7 +147,7 @@ const VentaCreate = forwardRef((props, ref) => {
                     <option value="">Selecciona el Inventario</option>
                     {inventarios.map((inventario) => (
                       <option key={inventario.idinventario} value={inventario.idinventario}>
-                        {inventario.IdInventario} - {inventario.idMedicamento}
+                        {inventario.IdInventario} - {getMedicamentoName(inventario.idMedicamento)}
                       </option>
                     ))}
                   </select>

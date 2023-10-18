@@ -98,15 +98,14 @@ function Login (props) {
 																	<label className="form-check-label" htmlFor="check1">Recordar siempre</label>
 																</span>																
 															</div>
-															<div className="dz-social">
-																<h5 className="form-title fs-20">Inicia sesion con:</h5>
+																<div className="dz-social">
+																<h5 className="form-title fs-20">Puedes contactarnos en:</h5>
 																<ul className="dz-social-icon dz-border dz-social-icon-lg text-white">
-																	<li><a target="_blank" href="https://www.facebook.com/dexignzone" className="fab fa-facebook-f btn-facebook"></a></li>
-																	<li><a target="_blank" href="mailto:dexignzones@gmail.com" className="fab fa-google-plus-g btn-google-plus"></a></li>
-																	<li><a target="_blank" href="https://www.linkedin.com/in/dexignzone" className="fab fa-linkedin-in btn-linkedin"></a></li>
-																	<li><a target="_blank" href="https://twitter.com/dexignzones" className="fab fa-twitter btn-twitter"></a></li>
+																	<li><a target="_blank" href="https://www.facebook.com/" className="fab fa-facebook-f btn-facebook"></a></li>
+																	<li><a target="_blank" href="https://www.instagram.com/" className="fab fa-instagram btn-instagram"></a></li>
+																	<li><a target="_blank" href="https://www.twitter.com/" className="fab fa-twitter btn-twitter"></a></li>
 																</ul>
-															</div>
+																</div>
 														</form>
 														<div className="text-center bottom"> 
 															<NavLink to="/page-register" className="btn btn-primary button-md btn-block" >
