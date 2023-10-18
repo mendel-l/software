@@ -39,7 +39,7 @@ function LogoutPage(props) {
   function callAPIlogout() {
     const tokenData = JSON.parse(localStorage.getItem('userDetails'));
     const requestData = { localId: tokenData.localId };
-    console.log(tokenData.localId);
+    //console.log(tokenData.localId);
     return axios.post(
         `http://127.0.0.1:3001/api/Usrv/logout`,
         requestData,
