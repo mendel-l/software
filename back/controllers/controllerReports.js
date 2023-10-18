@@ -116,14 +116,15 @@ export const getSellersMorSalesMonth= async (req, res) => {
     try {
         const query = `
             SELECT
-            persona.Nombres,
-            venta.CUI,
             EXTRACT(YEAR FROM venta.Fecha) AS Año,
             EXTRACT(MONTH FROM venta.Fecha) AS Mes,
-            COUNT(*) AS VentasTotales
+            persona.Nombres,
+            persona.CUI,
+            COUNT(*) AS VentasTotales,
+            SUM(venta.MontoTotal) AS MontoTotalGenerado
             FROM venta
-            INNER JOIN persona ON venta.CUI = persona.CUI
-            GROUP BY Año, Mes, venta.CUI
+            INNER JOIN persona ON venta.idPersona = persona.idPersona
+            GROUP BY Año, Mes, venta.idPersona
             ORDER BY Año DESC, Mes DESC, VentasTotales DESC
         `;
         const [results] = await sequelize.query(query);
