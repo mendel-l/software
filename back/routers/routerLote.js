@@ -1,5 +1,6 @@
 import express from 'express';
-import { getAllLotes, getLote, createLote, updateLote, deleteLote, getSumLotes, getAllLotesById } from '../controllers/controllerLote.js';
+import { getAllLotes, getLote, createLote, updateLote, deleteLote, getSumLotes, getAllLotesById,updateLotsExpired } 
+from '../controllers/controllerLote.js';
 
 const LoteRouter = express.Router();
 
@@ -8,6 +9,7 @@ LoteRouter.get('/getSumLotes/:idMedicamento', getSumLotes);// Obtener la "cantid
 LoteRouter.get('/getAllLotesById/:idMedicamento', getAllLotesById);
 LoteRouter.get('/:IDLote', getLote);
 LoteRouter.post('/', createLote);
+LoteRouter.put('/updateLotsExpired', updateLotsExpired);
 LoteRouter.put('/:IDLote', updateLote);
 LoteRouter.delete('/:IDLote', deleteLote);
 
