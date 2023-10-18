@@ -1,54 +1,57 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate,useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import VentaCreate from '../../../constant/VentaCreate'; // Importa el componente necesario para la creación de productos
 
-const URI = 'http://localhost:3001/api/venta'
+const URI = 'http://localhost:3001/api/venta';
 
 const CompVentaEdit = () => {
-    const [fecha, setFecha] = useState('')
-    const [montototal, setMontototal] = useState('')
-    const [idcliente, setidCliente] = useState('')
-    const [cui, setCui] = useState('')
-    const [clientes, setClientes] = useState([]); //lista de clientes disponibles
-    const { Idventa } = useParams();
-    const navigate = useNavigate();
-  
-    // Procedimiento para Actualizar
-    const Actualizar = async (e) => {
-      e.preventDefault();
-      await axios.put(`${URI}/${Idventa}`, {
-        Fecha: fecha,
-        MontoTotal: montototal,
-        idCliente: idcliente,
-        CUI: cui
-      });
-      navigate('/venta');
-    };
-  
-    useEffect(() => {
-      getVentaByID();
-      // Obtener la lista de clientes disponibles al cargar el componente
-      async function fetchClientes() {
-        try {
-          const res = await axios.get('http://localhost:3001/api/cliente'); // Cambia la URL según tu API
-          setClientes(res.data);
-        } catch (error) {
-          console.error('Error al obtener la lista de clientes:', error);
-        }
+  const [fecha, setFecha] = useState('');
+  const [montototal, setMontototal] = useState('');
+  const [idcliente, setidCliente] = useState('');
+  const [cui, setCui] = useState('');
+  const [clientes, setClientes] = useState([]); //lista de clientes disponibles
+  const { Idventa } = useParams();
+  const navigate = useNavigate();
+  const elemento = useRef(); // Ref para el componente VentaCreate
+
+  // Procedimiento para Actualizar
+  const Actualizar = async (e) => {
+    e.preventDefault();
+    await axios.put(`${URI}/${Idventa}`, {
+      Fecha: fecha,
+      MontoTotal: montototal,
+      idCliente: idcliente,
+      CUI: cui
+    });
+    navigate('/venta');
+  };
+
+  useEffect(() => {
+    getVentaByID();
+    // Obtener la lista de clientes disponibles al cargar el componente
+    async function fetchClientes() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/cliente');
+        setClientes(res.data);
+      } catch (error) {
+        console.error('Error al obtener la lista de clientes:', error);
       }
-  
-      fetchClientes();
-    }, []);
-  
-    const getVentaByID = async () => {
-      const res = await axios.get(`${URI}/${Idventa}`);
-      setFecha(res.data.Fecha);
-      setMontototal(res.data.MontoTotal);
-      setidCliente(res.data.idCliente);
-      setCui(res.data.CUI);
-    };
-  
-    return (
+    }
+
+    fetchClientes();
+  }, []);
+
+  const getVentaByID = async () => {
+    const res = await axios.get(`${URI}/${Idventa}`);
+    setFecha(res.data.Fecha);
+    setMontototal(res.data.MontoTotal);
+    setidCliente(res.data.idCliente);
+    setCui(res.data.CUI);
+  };
+
+  return (
+    <>
       <div>
         <h3>Editar Elemento de Venta</h3>
         <div className="offcanvas-body">
@@ -122,7 +125,13 @@ const CompVentaEdit = () => {
           </div>
         </div>
       </div>
-    );
-  };
-  
-  export default CompVentaEdit;
+      <VentaCreate
+        ref={elemento}
+        Title="Add Inventario"
+        reloadDetalle={() => {}} // Puedes dejarlo vacío o manejarlo según tus necesidades
+      />
+    </>
+  );
+};
+
+export default CompVentaEdit;
