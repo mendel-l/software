@@ -108,7 +108,11 @@ const CompClienteShow = () => {
                                 <td>{ clientes.Nombre}</td>
                                 <td>{ clientes.Nit}</td>
                                 <td>{ clientes.Telefono}</td>
-                                <td>{clientes.Estado === 1 ? "Activo" : "Inactivo"}</td>
+                                <td>
+                                <span className={`badge light border-0 ${clientes.Estado === true ? 'badge-success' : 'badge-danger'}`}>
+                                {clientes.Estado === true ? 'Activo' : 'Inactivo'}
+                               </span>
+                               </td>
                                 <td>{ clientes.createdAt}</td>
                               <div>
                                 <Link to={`/edit-cliente/${clientes.idCliente}`} className='btn btn-info'>Editar</Link>

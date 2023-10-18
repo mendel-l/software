@@ -13,7 +13,7 @@ const  MedicamentModel = db.define('medicamento', {
     Descripcion: { type: DataTypes.STRING },
     Sustancias: { type: DataTypes.STRING },
     casaFarmaceutica: { type: DataTypes.STRING },
-    Estado: { type: DataTypes.SMALLINT }
+    Estado: { type: DataTypes.BOOLEAN }
  }, { tableName: 'medicamento' }); 
  
 

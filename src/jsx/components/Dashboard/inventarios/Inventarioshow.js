@@ -141,6 +141,9 @@ const CompInventarioShow = () => {
                           <th>Precio de Venta</th>
                           <th>Medicamento</th>
                           <th>Estado</th>
+                          <th></th>
+                          <th></th>
+                          
                         </tr>
                       </thead>
                       <tbody>
@@ -151,7 +154,11 @@ const CompInventarioShow = () => {
                             <td>{dato.CantidadDisponible}</td>
                             <td>{dato.PrecioVenta}</td>
                             <td>{dato.medicamento ? `${dato.medicamento.idMedicamento} - ${dato.medicamento.Nombre}` : ''}</td>
-                            <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
+                            <td>
+                                <span className={`badge light border-0 ${dato.Estado === true ? 'badge-success' : 'badge-danger'}`}>
+                                {dato.Estado === true ? 'Activo' : 'Inactivo'}
+                               </span>
+                            </td>
                             <div>
                               <Link to={`/edit-inventario/${dato.IdInventario}`} className='btn btn-info'>Editar</Link>
                               <button onClick={() => deleteInventario(dato.IdInventario)} className='btn btn-danger'>Eliminar</button>

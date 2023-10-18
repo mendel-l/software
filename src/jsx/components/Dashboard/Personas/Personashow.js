@@ -120,7 +120,11 @@ const PersonaShow = () => {
                             <td>{dato.Telefono}</td>
                             <td>{`Q ${dato.Salario}`}</td> {/* Modificado para agregar "Q" */}
                             <td>{dato.Titulacion}</td>
-                            <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
+                            <td>
+                                <span className={`badge light border-0 ${dato.Estado === true ? 'badge-success' : 'badge-danger'}`}>
+                                {dato.Estado === true ? 'Activo' : 'Inactivo'}
+                               </span>
+                            </td>
                             <div>
                               <Link to={`/edit-persona/${dato.CUI}`} className='btn btn-info'>Editar</Link>
                               <button onClick={() => deletePersona(dato.CUI)} className='btn btn-danger'>Eliminar</button>

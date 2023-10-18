@@ -11,7 +11,7 @@ const  InventarioModel = db.define('inventario', {
     CantidadDisponible: { type: DataTypes.NUMBER},
     PrecioVenta: { type: DataTypes.DECIMAL},
     idMedicamento: { type: DataTypes.NUMBER },
-    Estado:{ type: DataTypes.NUMBER } 
+    Estado:{ type: DataTypes.BOOLEAN } 
  }, { tableName: 'inventario' }); 
  
 

@@ -15,7 +15,7 @@ const LoteModel = db.define('lote', {
     cantidadDisponible:{ type: DataTypes.NUMBER } ,
     IDProveedor: { type: DataTypes.NUMBER },
     idMedicamento:{ type: DataTypes.NUMBER } ,
-    Estado:{ type: DataTypes.NUMBER }  
+    Estado:{ type: DataTypes.BOOLEAN }  
  }, { tableName: 'lote' }); 
  
 

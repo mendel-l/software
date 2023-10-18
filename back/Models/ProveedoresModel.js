@@ -13,7 +13,7 @@ const  ProveedorModel = db.define('proveedor', {
     Direccion: { type: DataTypes.STRING },
     Telefono: { type: DataTypes.STRING},
     Descripcion: { type: DataTypes.STRING},
-    Estado: { type: DataTypes.SMALLINT }
+    Estado: { type: DataTypes.BOOLEAN }
  }, { tableName: 'proveedor' }); 
  
 

@@ -123,7 +123,11 @@ const CompLoteShow = () => {
                             <td>{dato.cantidadDisponible}</td>
                             <td>{dato.IDProveedor}</td>
                             <td>{dato.idMedicamento}</td>
-                            <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
+                            <td>
+                                <span className={`badge light border-0 ${dato.Estado === true ? 'badge-success' : 'badge-danger'}`}>
+                                {dato.Estado === true ? 'Activo' : 'Inactivo'}
+                               </span>
+                               </td>
                             <div>
                               <Link to={`/edit-lote/${dato.IDLote}`} className='btn btn-info'>Editar</Link>
                               <button onClick={() => deleteLote(dato.IDLote)} className='btn btn-danger'>Eliminar</button>

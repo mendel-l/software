@@ -103,6 +103,8 @@ const CompMedicamentoShow = () => {
                       <th>Sustancias</th>
                       <th>casa Farmaceutica</th>
                       <th>Estado</th>
+                      <th></th>
+                      <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -113,7 +115,11 @@ const CompMedicamentoShow = () => {
                                 <td>{ dato.Descripcion}</td>
                                 <td>{ dato.Sustancias}</td>
                                 <td>{ dato.casaFarmaceutica}</td>
-                                <td>{dato.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>
+                                <span className={`badge light border-0 ${dato.Estado === true ? 'badge-success' : 'badge-danger'}`}>
+                                {dato.Estado === true ? 'Activo' : 'Inactivo'}
+                               </span>
+                               </td>
                               <div>
                                 <Link to={`/edit-medicamento/${dato.idMedicamento}`} className='btn btn-info'>Editar</Link>
                                 <button onClick={() => deleteMedicamento(dato.idMedicamento)} className='btn btn-danger'>Eliminar</button>

@@ -12,7 +12,7 @@ const ClientModel = db.define('cliente', {
     Nombre: { type: DataTypes.STRING },
     Nit: { type: DataTypes.STRING },
     Telefono: { type: DataTypes.STRING },
-    Estado: { type: DataTypes.SMALLINT }
+    Estado: { type: DataTypes.BOOLEAN }
 }, { tableName: 'cliente' });
 
 
