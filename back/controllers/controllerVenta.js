@@ -109,3 +109,24 @@ export const deleteVenta = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const ultimoRegistro = async (req, res) => {
+            await VentaModel.findOne({
+                order: [['Idventa', 'DESC']]
+            }).then((ultimoRegistro) => {
+                let idRegistroMov;
+                if (ultimoRegistro) {
+                    idRegistroMov = ultimoRegistro.Idventa;
+                    
+                } else {
+                    console.log('No se encontraron registros en la tabla venta.');
+                }
+                   
+            res.json({
+                idRegistroMov
+            });
+            }).catch((error) => {
+                console.error('Error al registrar auditoria', error);
+            });
+         
+}
