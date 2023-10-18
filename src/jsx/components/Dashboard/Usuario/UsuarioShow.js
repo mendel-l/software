@@ -20,23 +20,48 @@ const UsuarioShow = () => {
     getUsuarios();
   };
 
+
+
+  const inhabilitar = async (e, idUsuario) => {
+    e.preventDefault();
+    try {
+      await axios.put(URI + '/' + idUsuario, {
+        Estado: 0
+      });
+      getUsuarios();
+  
+    } catch (error) {
+      console.error('Error al inhabilitar el usuario:', error);
+    }
+  };
+  
+
+  
+  const habilitar = async (e, idUsuario) => {
+    e.preventDefault();
+    try {
+      await axios.put(URI + '/' + idUsuario, {
+        Estado: 1
+      });
+      getUsuarios();
+  
+    } catch (error) {
+      console.error('Error al habilitar el usuario:', error);
+    }
+  };
+
   const getUsuarios = async () => {
     try {
-      const res = await axios.get(URI + "/getAll");
+      const res = await axios.get(URI+"/IP");
       setUsuarios(res.data);
+      console.log(res.data)
     } catch (error) {
       console.error('Error al obtener la lista de usuarios:', error);
     }
   };
-
-  const deleteUsuario = async (IDUsuarios) => {
-    try {
-      await axios.delete(`${URI}/${IDUsuarios}`);
-      getUsuarios();
-    } catch (error) {
-      console.error('Error al eliminar el usuario:', error);
-    }
-  };
+ 
+ 
+  
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -52,9 +77,9 @@ const UsuarioShow = () => {
   const headers = [
     { label: 'IDUsuarios', key: 'IDUsuarios' },
     { label: 'Usuario', key: 'Usuario' },
-    { label: 'Contraseña', key: 'Contraseña' },
     { label: 'Estado', key: 'Estado' },
     { label: 'idPersona', key: 'idPersona' },
+    { label: 'Nombres', key: 'Nombres' },
   ];
 
   const csvlink = {
@@ -105,26 +130,42 @@ const UsuarioShow = () => {
                   <table className="table ItemsCheckboxSec dataTable no-footer mb-0">
                     <thead>
                       <tr>
-                        <th>ID</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
+                        <th>Id Usuarios</th>
+                        <th>Nombre Usuario</th>
                         <th>Estado</th>
-                        <th>idPersona</th>
+                     
+                        <th>Id Persona</th>
+                        <th>Nombre Persona</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredUsuarios.map((usuario) => (
                         <tr key={usuario.IDUsuarios}>
-                          <td>{usuario.IDUsuarios}</td>
-                          <td>{usuario.Usuario}</td>
-                          <td>{usuario.Contraseña}</td>
-                          <td>{usuario.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
-                          <td>{usuario.idPersona}</td>
-                          <div>
-                            <button onClick={() => deleteUsuario(usuario.IDUsuarios)} className="btn btn-danger">
+                            <td>{usuario.IDUsuarios}</td>
+                            <td>{usuario.Usuario}</td>
+                            <td>
+                                <span className={`badge light border-0 ${usuario.Estado === 1 ? 'badge-success' : 'badge-danger'}`}>
+                                {usuario.Estado === 1 ? 'Activo' : 'Inactivo'}
+                               </span>
+                               </td>
+                            <td>{usuario.idPersona}</td>
+                            <td>{usuario.Nombres}</td>
+                        
+                            
+                            <td>                            <div>
+                            <button onClick={(e) => inhabilitar(e, usuario.IDUsuarios)} className="btn btn-danger">
                               Eliminar
                             </button>
                           </div>
+                          </td>
+                          <td>                            <div>
+                            <button onClick={(e) => habilitar(e, usuario.IDUsuarios)} className="btn btn-success">
+                              Activar
+                            </button>
+                          </div>
+                          </td>
+
                         </tr>
                       ))}
                     </tbody>

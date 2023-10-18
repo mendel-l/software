@@ -5,9 +5,11 @@ import RolModel from '../Models/RolModel.js';
 import {registerIn,registerOut} from "./controllerEntradas.js";
 import { registerMovi } from './controllerAuditoria.js';
 import jwt from 'jsonwebtoken';
+import sequelize from '../DB/database.js';
 const tableName = 'usuario';
 
 export const getAllUsers = async (req, res) => {
+    
     try {
         const user = await USRVCModel.findAll();
         res.json(user);
@@ -16,6 +18,56 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
+export const updateU = async (req, res) => {
+    try {
+        const [rol] = await USRVCModel.findAll({
+            where: { IDUsuarios : req.params.IDUsuarios  }
+        });
+        if(!rol)
+        {
+            return res.status(404).json({ message: "Rol no Registrado" });
+        }
+        await USRVCModel.update(req.body, {
+            where: { IDUsuarios : req.params.IDUsuarios  }
+        });
+
+        //--------------------- PARA LA AUDITORIA ----------------------------------------------------------------
+
+        await registerMovi(tableName, req.params.IDUsuarios, 1, 2);
+
+        //----------------------- FIN ----------------------------------------------------------------------------------
+
+        res.json({
+            "message": "Registro actualizado correctamente"
+        });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+export const getUserInnerP= async (req, res) => {
+    try {
+        const query = `
+SELECT
+    usuario.IDUsuarios,
+    usuario.Usuario,
+    usuario.Estado,
+    persona.idPersona,
+    persona.Nombres
+FROM
+    usuario
+INNER JOIN
+    persona ON usuario.idPersona = persona.idPersona
+INNER JOIN
+    rol ON persona.idRol = rol.idRol;
+
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
 
 export const createUSRV = async (req, res) => {
     try {
