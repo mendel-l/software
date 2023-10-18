@@ -114,6 +114,7 @@ const CompProveedorShow = () => {
                                 <td>{ proveedores.Nombre}</td>
                                 <td>{ proveedores.Direccion}</td>
                                 <td>{ proveedores.Telefono}</td>
+                                <td>{ proveedores.Descripcion}</td>
                                 <td>
                               <span className={`badge light border-0 ${proveedores.Estado === true ? 'badge-success' : 'badge-danger'}`}>
                                 {proveedores.Estado === true ? 'Activo' : 'Inactivo'}
@@ -121,11 +122,12 @@ const CompProveedorShow = () => {
                             </td>
                                
                       
-                              
+                              <td>
                               <div>
                                 <Link to={`/edit-proveedor/${proveedores.IDProveedor}`} className='btn btn-info'>Editar</Link>
-                                <button onClick={() => deleteProveedor(proveedores.IDProveedor)} className='btn btn-danger'>Eliminar</button>
+                              
                               </div>
+                              </td>
                             </tr>
                         ))}
                       </tbody>

@@ -137,6 +137,8 @@ const UsuarioShow = () => {
                         <th>Id Persona</th>
                         <th>Nombre Persona</th>
                         <th></th>
+                        <th></th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -144,6 +146,7 @@ const UsuarioShow = () => {
                         <tr key={usuario.IDUsuarios}>
                             <td>{usuario.IDUsuarios}</td>
                             <td>{usuario.Usuario}</td>
+                          
                             <td>
                                 <span className={`badge light border-0 ${usuario.Estado === 1 ? 'badge-success' : 'badge-danger'}`}>
                                 {usuario.Estado === 1 ? 'Activo' : 'Inactivo'}
@@ -155,7 +158,7 @@ const UsuarioShow = () => {
                             
                             <td>                            <div>
                             <button onClick={(e) => inhabilitar(e, usuario.IDUsuarios)} className="btn btn-danger">
-                              Eliminar
+                              Desactivar
                             </button>
                           </div>
                           </td>
