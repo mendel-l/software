@@ -27,7 +27,7 @@ export const getSalesInner= async (req, res) => {
             INNER JOIN cliente as c
             on v.idCliente=c.idCliente
             INNER JOIN persona as p
-            on v.CUI = p.CUI
+            on v.idPersona = p.idPersona
         `;
         const [results] = await sequelize.query(query);
         res.json(results);
