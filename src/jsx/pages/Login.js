@@ -92,7 +92,7 @@ function Login (props) {
 																{errors.password && <div className="text-danger fs-12">{errors.password}</div>}
 															</div>
 															<div className="form-group text-left mb-5">
-																<button type="submit" className="btn btn-primary dz-xs-flex m-r5">login</button>
+																<button type="submit" className="btn btn-primary dz-xs-flex m-r5">Ingresar</button>
 																<span className="form-check d-inline-block ms-2">
 																	<input type="checkbox" className="form-check-input" id="check1" name="example1" />
 																	<label className="form-check-label" htmlFor="check1">Recordar siempre</label>
@@ -107,11 +107,6 @@ function Login (props) {
 																</ul>
 																</div>
 														</form>
-														<div className="text-center bottom"> 
-															<NavLink to="/page-register" className="btn btn-primary button-md btn-block" >
-																Registrarse
-															</NavLink> 																	
-														</div>
 													</div>
 																										
 												</div>												
