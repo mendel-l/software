@@ -12,6 +12,10 @@ const CompRolShow = () => {
     getRol()
   }, [])
 
+  const reloadRoles = () => {
+    getRol();
+  };
+
   //Procedimiento para mostrar todos los roles
   const getRol = async () =>{
     const res = await axios.get(URI)
@@ -19,27 +23,30 @@ const CompRolShow = () => {
   }
   //Procedimiento para eliminar un rol
   const deleteRol = async (idRol) => {
-    await axios.delete('${URI}${idRol}')
-    getRol()
-  }
-
-  const reloadRoles = () => {
+    await axios.delete(`${URI}/${idRol}`);
     getRol();
-  };
+  }
   
   const headers = [
     { label: "idRol", key: "idRol" },
     { label: "Rol", key: "Rol" },
     { label: "Descripcion", key: "Descripcion" },
-    { label: "Nivelacceso", key: "Nivelacceso" },
-    { label: "createAt", key: "createAt" },
-
+    { label: "vProveedores", key: "vProveedores" },
+    { label: "vMedicamentos", key: "vMedicamentos" },
+    { label: "vInventario", key: "vInventario" },
+    { label: "vCliente", key: "vCliente" },
+    { label: "vRol", key: "vRol" },
+    { label: "vLote", key: "vLote" },
+    { label: "vUsuario", key: "vUsuario" },
+    { label: "vVenta", key: "vVenta" },
+    { label: "vPersona", key: "vPersona" },
+    { label: "vReportes", key: "vReportes" },
   ];
 
   const csvlink = {
     headers: headers,
     data: roles,
-    filename: "csvfile.csv"
+    filename: "roles.csv"
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,7 +73,7 @@ const CompRolShow = () => {
      }
    }
 
-  const rol = useRef();
+  const elemento = useRef();
 
   return (
     <>
@@ -82,10 +89,10 @@ const CompRolShow = () => {
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
-                        Exportar reporte
+                        Exportar Roles
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
-                        onClick={() => rol.current.showEmployeModal()}
+                        onClick={() => elemento.current.showEmployeModal()}
                       >+ Agregar Rol</Link> {" "}
                     </div>
                   </div>
@@ -96,9 +103,16 @@ const CompRolShow = () => {
                           <th>IDRol</th>
                           <th>Rol</th>
                           <th>Descripcion</th>
-                          <th>Nivel Acceso</th>
-                          <th>createAt</th>
-                       
+                          <th>Proveedores</th>
+                          <th>Medicamentos</th>
+                          <th>Inventario</th>
+                          <th>Cliente</th>
+                          <th>Rol</th>
+                          <th>Lote</th>
+                          <th>Usuario</th>
+                          <th>Venta</th>
+                          <th>Persona</th>
+                          <th>Reportes</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -107,8 +121,16 @@ const CompRolShow = () => {
                                 <td>{ roles.idRol}</td> 
                                 <td>{ roles.Rol}</td>
                                 <td>{ roles.Descripcion}</td>
-                                <td>{ roles.NivelAcceso}</td>
-                                <td>{ roles.createAt}</td>
+                                <td>{roles.vProveedores}</td>
+                                <td>{roles.vMedicamentos === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vInventario === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vCliente === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vRol === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vLote === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vUsuario === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vVenta === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vPersona === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vReportes === 1 ? 'Activo' : 'Inactivo'}</td>
                               <div>
                                 <Link to={`/edit-rol/${roles.idRol}`} className='btn btn-info'>Editar</Link>
                                 <button onClick={() => deleteRol(roles.idRol)} className='btn btn-danger'>Eliminar</button>
@@ -162,7 +184,7 @@ const CompRolShow = () => {
         </div>
       </div>
       <RolCreate
-        ref={rol}
+        ref={elemento}
         Title="Add Inventario"
         reloadRoles={reloadRoles}
       />
