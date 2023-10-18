@@ -1,0 +1,38 @@
+  
+  /* Estilo para las secciones */
+  .welcome-area, .about-area, .contact-area {
+    background-color: #f7f7f7;
+    padding: 40px 0;
+    text-align: center;
+  }
+  
+  /* Estilo para los títulos */
+  h2 {
+    font-size: 28px;
+    color: #333;
+  }
+  
+  /* Estilo para los párrafos */
+  p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  /* Estilo para el contenedor principal */
+  .container {
+    max-width: 1200px;
+  }
+  
+  /* Estilo para centrar elementos */
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Estilo para las imágenes y el icono */
+ body{
+  background-image: url('La\ Predilecta.png'); /* Reemplaza 'background.jpg' con la ruta de tu imagen de fondo */
+  background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+  background-position: center; /* Centra la imagen en la pantalla */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+ }
+  
