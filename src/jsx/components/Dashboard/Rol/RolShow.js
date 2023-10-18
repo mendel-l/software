@@ -121,16 +121,16 @@ const CompRolShow = () => {
                                 <td>{ roles.idRol}</td> 
                                 <td>{ roles.Rol}</td>
                                 <td>{ roles.Descripcion}</td>
-                                <td>{roles.vProveedores}</td>
-                                <td>{roles.vMedicamentos === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vInventario === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vCliente === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vRol === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vLote === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vUsuario === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vVenta === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vPersona === 1 ? 'Activo' : 'Inactivo'}</td>
-                                <td>{ roles.vReportes === 1 ? 'Activo' : 'Inactivo'}</td>
+                                <td>{roles.vProveedores === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{roles.vMedicamentos === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vInventario === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vCliente === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vRol === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vLote === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vUsuario === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vVenta === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vPersona === true ? 'Activo' : 'Inactivo'}</td>
+                                <td>{ roles.vReportes === true ? 'Activo' : 'Inactivo'}</td>
                               <div>
                                 <Link to={`/edit-rol/${roles.idRol}`} className='btn btn-info'>Editar</Link>
                                 <button onClick={() => deleteRol(roles.idRol)} className='btn btn-danger'>Eliminar</button>
