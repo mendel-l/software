@@ -4,8 +4,11 @@ import sequelize from '../DB/database.js';
 export const getExpiredLots= async (req, res) => {
     try {
         const query = `
-            SELECT *
-            FROM lote 
+            SELECT l.IDLote,l.CantidadCompra,l.cantidadDisponible,l.PrecioCompra,p.Nombre as Proveedor,m.Nombre as Medicamento,l.Fecha_Ingreso,l.Fecha_Vencimiento,l.Estado  FROM lote as l
+            INNER JOIN proveedor as p
+            on l.IDProveedor=p.IDProveedor
+            INNER JOIN medicamento as m
+            on l.idMedicamento=m.idMedicamento
             WHERE Fecha_Vencimiento<now()
         `;
         const [results] = await sequelize.query(query);
