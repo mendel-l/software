@@ -114,10 +114,12 @@ const CompClienteShow = () => {
                                </span>
                                </td>
                                 <td>{ clientes.createdAt}</td>
+                                <td>
                               <div>
                                 <Link to={`/edit-cliente/${clientes.idCliente}`} className='btn btn-info'>Editar</Link>
-                                <button onClick={() => deleteCliente(clientes.idCliente)} className='btn btn-danger'>Eliminar</button>
+                             
                               </div>
+                              </td>
                             </tr>
                         ))}
                       </tbody>

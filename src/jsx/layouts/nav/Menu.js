@@ -107,37 +107,27 @@ export const MenuList = [
               to: '/reports',
               content: [
                 {
-                    title: 'Dashboard Light',//Nombre de la tabla reportes hijo
-                    to: '/dashboard',//La redireccion
+                    title: 'Control Entradas y Salidas',
+                    to: '/reportes',
                 },
                 {
-                    title: 'Dashboard Dark',
-                    to: '/dashboard-dark',
+                    title: 'Auditoria',
+                    to: '/reportauditoria',
+                },
+                {
+                    title: 'Ventas',
+                    to: '/reportsventa',
+                },
+                {
+                    title: 'Cliente Frecuente',
+                    to: '/reportCfrecuente',
+                },
+                {
+                    title: 'Medicamento Vencido',
+                    to: '/reports',
                 },
             ],
           }
         : null,
-  
-    McontrCli
-        ? {
-              title: 'Control de Clientes',
-              iconStyle: SVGICON.ManageClient,
-              to: '/manage-client',
-          }
-        : null,
-    {
-        title: 'Tabla',
-        classsChange: 'mm-collapse',
-        iconStyle: SVGICON.Table,
-        content: [
-            {
-                title: 'Tabla de filtro',
-                to: 'table-filtering',
-            },
-            {
-                title: 'Tabla de selección',
-                to: 'table-sorting',
-            },
-        ],
-    },
+
 ];

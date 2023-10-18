@@ -142,7 +142,7 @@ const CompInventarioShow = () => {
                           <th>Medicamento</th>
                           <th>Estado</th>
                           <th></th>
-                          <th></th>
+                         
                           
                         </tr>
                       </thead>
@@ -159,10 +159,12 @@ const CompInventarioShow = () => {
                                 {dato.Estado === true ? 'Activo' : 'Inactivo'}
                                </span>
                             </td>
-                            <div>
+                            <td>                            <div>
                               <Link to={`/edit-inventario/${dato.IdInventario}`} className='btn btn-info'>Editar</Link>
-                              <button onClick={() => deleteInventario(dato.IdInventario)} className='btn btn-danger'>Eliminar</button>
+                             
                             </div>
+                            </td>
+
                           </tr>
                         ))}
                       </tbody>

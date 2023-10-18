@@ -104,7 +104,7 @@ const CompMedicamentoShow = () => {
                       <th>casa Farmaceutica</th>
                       <th>Estado</th>
                       <th></th>
-                      <th></th>
+                    
                         </tr>
                       </thead>
                       <tbody>
@@ -120,10 +120,13 @@ const CompMedicamentoShow = () => {
                                 {dato.Estado === true ? 'Activo' : 'Inactivo'}
                                </span>
                                </td>
-                              <div>
+                               <td>
+                               <div>
                                 <Link to={`/edit-medicamento/${dato.idMedicamento}`} className='btn btn-info'>Editar</Link>
-                                <button onClick={() => deleteMedicamento(dato.idMedicamento)} className='btn btn-danger'>Eliminar</button>
+                              
                               </div>
+                               </td>
+                              
                             </tr>
                         ))}
                       </tbody>
