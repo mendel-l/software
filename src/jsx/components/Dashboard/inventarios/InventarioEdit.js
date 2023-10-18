@@ -109,8 +109,8 @@ const CompInventarioEdit = () => {
                   onChange={(e) => setEstado(e.target.value)}
                   required
                 >
-                  <option value="1">Activo</option>
-                  <option value="0">Inactivo</option>
+                  <option value="true">Activo</option>
+                  <option value="false">Inactivo</option>
                 </select>
               </div>
             </div>

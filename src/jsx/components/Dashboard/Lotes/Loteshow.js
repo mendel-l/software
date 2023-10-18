@@ -110,6 +110,8 @@ const CompLoteShow = () => {
                           <th>ID Proveedor</th>
                           <th>ID Medicamento</th>
                           <th>Estado</th>
+                          <th></th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -128,9 +130,11 @@ const CompLoteShow = () => {
                                 {dato.Estado === true ? 'Activo' : 'Inactivo'}
                                </span>
                                </td>
+                              
+                             
                             <div>
-                              <Link to={`/edit-lote/${dato.IDLote}`} className='btn btn-info'>Editar</Link>
-                              <button onClick={() => deleteLote(dato.IDLote)} className='btn btn-danger'>Eliminar</button>
+                               <td>{<Link to={`/edit-lote/${dato.IDLote}`} className='btn btn-info'>Editar</Link>}</td>
+                               {/*<td>{<button onClick={() => deleteLote(dato.IDLote)} className='btn btn-danger'>Eliminar</button> }</td>--*/}
                             </div>
                           </tr>
                         ))}

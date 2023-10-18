@@ -66,8 +66,8 @@ const CompEditarProveedor = () => {
                 <div className="col-xl-6 mb-3">
                     <label htmlFor="estado" className="form-label">Estado<span className="text-danger">*</span></label>
                     <select className="form-select" value={estado} onChange={(e) => setEstado(e.target.value)} required>
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
                     </select>
                 </div>
               </div>

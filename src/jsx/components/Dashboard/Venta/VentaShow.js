@@ -141,56 +141,6 @@ const CompVentaShow = () => {
                     </div>
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
-                    <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0"> 
-                    {/* datos donde se mostraran fecha, Nombre Cliente y CUI */}
-                      <thead>
-                      <tr>
-                        <th>
-                          <div className="col-xl-6 mb-3">
-                          <label htmlFor="fecha" className="form-label">Fecha<span className="text-danger">*</span></label>
-                          <input type="date" className="form-control" placeholder="" value={fecha} onChange={(e) => setFecha(e.target.value)} required/>
-                          </div>
-                        </th>
-                        <th>
-                          <div className="col-xl-6 mb-3">
-                          <label htmlFor="montototal" className="form-label">Monto Total<span className="text-danger">*</span></label>
-                          <input type="number" className="form-control" placeholder="" value={montototal} onChange={(e) => setMontoTotal(e.target.value)} required/>
-                          </div>
-                        </th>
-                        <th>
-                          <div className="col-xl-6 mb-3">
-                          <label htmlFor="cliente" className="form-label">ID Cliente<span className="text-danger">*</span></label>
-                          <select
-                          className="form-select"
-                          value={idcliente}
-                          onChange={(e) => setidCliente(e.target.value)}
-                          required
-                          >
-                          <option value="">Selecciona al Cliente</option>
-                          {clientes.map((cliente) => (
-                          <option key={cliente.idCliente} value={cliente.idCliente}>
-                          {cliente.idCliente} - {cliente.Nombre}
-                          </option>
-                          ))}
-                          </select>
-                          </div>
-                        </th>
-                        <th>
-                          <div className="col-xl-6 mb-3">
-                          <label htmlFor="cui" className="form-label">CUI<span className="text-danger">*</span>
-                          </label>
-                          <input type="number" className="form-control" placeholder="" value={cui} onChange={(e) => setCUI(e.target.value)} required/>
-                          </div>
-                        </th>
-                        <th>
-                          <div>
-                            {/* <Link to={`/edit-venta/${dato1.Idventa}`} className='btn btn-info'>Editar</Link> falta ver que guarde*/} 
-                          </div>
-                        </th>
-                      </tr>
-                      </thead>
-                      {/* Termina de mostraran fecha, Nombre Cliente y CUI */}
-                    </table>
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
