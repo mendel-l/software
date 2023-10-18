@@ -12,6 +12,8 @@ const VentaShow = () => {
   const [clientes, setClientes] = useState([]); // Agregado
   const [personas, setPersonas] = useState([]); // Agregado
 
+  const [selectedClientId, setSelectedClientId] = useState(''); //x
+
   useEffect(() => {
     getVentas();
     fetchClientes(); // Agregado
@@ -24,6 +26,14 @@ const VentaShow = () => {
     // y se llamará para actualizar el estado local
     getVentas(); // Cambiado
   };
+
+  const [showSecondModal, setShowSecondModal] = useState(false);
+  const [textBoxContent, setTextBoxContent] = useState('');
+
+  const openSecondModal = () => {
+    setShowSecondModal(true);
+    setSelectedClientId('');
+  }; //x
 
   const fetchClientes = async () => {
     try {
@@ -95,7 +105,25 @@ const VentaShow = () => {
       setCurrentPage(currentPage + 1);
     }
   }
+  
+  const fecha = useState(new Date().toISOString().split('T')[0]); // Obtiene la fecha actual
 
+  async function callAPIPostVenta(clientId) {
+    const tokenData = JSON.parse(localStorage.getItem('userDetails'));
+    const requestData = { 
+      idCliente: clientId,
+      Fecha: fecha[0],
+      MontoTotal: 0,
+      idPersona: tokenData.idpersona
+     };
+    console.log(requestData);
+    const response = await axios.post(
+        `http://localhost:3001/api/venta`,
+        requestData,
+    );
+    const idVenta = response.data.idRegistroMov;
+    console.log(idVenta);
+}
   const elemento = useRef(); // Cambiado
 
   return (
@@ -110,6 +138,29 @@ const VentaShow = () => {
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
                     <h4 className="heading mb-0">Venta</h4>
                     <div>
+                      
+                    <div className="mb-3">
+                    <label htmlFor="clienteCombobox" className="form-label">
+                    </label>
+                    <select
+                      id="clienteCombobox"
+                      className="form-select"
+                      value={selectedClientId}
+                      onChange={(e) => {
+                        setSelectedClientId(e.target.value); // Actualiza el estado con el cliente seleccionado
+                        callAPIPostVenta(e.target.value); // Llama a tu función con el cliente seleccionado
+                      }}
+
+                    >
+                      <option value="">Selecciona un Cliente</option>
+                      {clientes.map((cliente) => (
+                        <option key={cliente.idCliente} value={cliente.idCliente}>
+                          {cliente.idCliente} - {cliente.Nombre}
+                        </option>
+                      ))}
+                    </select>
+                    </div> 
+
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
                         Exportar reporte
