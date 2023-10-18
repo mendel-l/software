@@ -8,11 +8,11 @@ import Notes from "../components/chatBox/Notes";
 import Alerts from "../components/chatBox/Alerts";
 import Chat from "../components/chatBox/Chat";
 import { Link } from "react-router-dom";
+import Alertas from "../components/chatBox/Alerts";
 
 const dataToggle = [
-   { href: "#notes", name: "Notes" },
-   { href: "#alerts", name: "Alerts" },
-   { href: "#chat", name: "Chat" },
+   { href: "#alertas", name: "Alertas" },
+
 ];
 
 const ChatBox = ({ onClick, toggle }) => {
@@ -48,17 +48,8 @@ const ChatBox = ({ onClick, toggle }) => {
                ))}
             </ul>
             <div className="tab-content">
-               <Chat
-                  //PerfectScrollbar={PerfectScrollbar}
-                  toggle={toggle}
-                  toggleTab={toggleTab}
-               />
-               <Notes
-                  //PerfectScrollbar={PerfectScrollbar}
-                  toggle={toggle}
-                  toggleTab={toggleTab}
-               />
-               <Alerts
+ 
+               <Alertas
                   //PerfectScrollbar={PerfectScrollbar}
                   toggle={toggle}
                   toggleTab={toggleTab}

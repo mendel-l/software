@@ -95,7 +95,9 @@ const CompClienteShow = () => {
                           <th>Nit</th>
                           <th>Telefono</th>
                           <th>Estado</th>
-                          <th>createAt</th>
+                          <th>Creado</th>
+                          <th></th>
+                          <th></th>
                        
                         </tr>
                       </thead>
@@ -106,8 +108,8 @@ const CompClienteShow = () => {
                                 <td>{ clientes.Nombre}</td>
                                 <td>{ clientes.Nit}</td>
                                 <td>{ clientes.Telefono}</td>
-                                {/* <td>{ clientes.Estado}</td> */}
-                                <td>{ clientes.createAt}</td>
+                                <td>{clientes.Estado === 1 ? "Activo" : "Inactivo"}</td>
+                                <td>{ clientes.createdAt}</td>
                               <div>
                                 <Link to={`/edit-cliente/${clientes.idCliente}`} className='btn btn-info'>Editar</Link>
                                 <button onClick={() => deleteCliente(clientes.idCliente)} className='btn btn-danger'>Eliminar</button>
