@@ -43,6 +43,7 @@ export function signupAction(email, password, navigate) {
 export function Logout(navigate) {
 	localStorage.removeItem('userDetails');
     navigate('/login');
+    
 	//useHistory.push('/login');
     
 	return {
@@ -63,7 +64,8 @@ export function loginAction(email, password, navigate) {
                 );
                dispatch(loginConfirmedAction(response.data));
                console.log(dispatch(loginConfirmedAction(response.data)))	              
-				navigate('/dashboard');                
+				navigate('/dashboard');    
+                window.location.reload();            
             })
             .catch((error) => {
 				
