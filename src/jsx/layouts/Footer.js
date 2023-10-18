@@ -6,10 +6,9 @@ const Footer = () => {
 		<div className="footer out-footer">
 			<div className="copyright">
 				<p>Copyright © 
-					
-					{" "}Desarrollado por{" Sexto Semestre Meso Xela "}
-					<a href="http://dexignzone.com/" target="_blank"  rel="noreferrer">
-						DexignZone
+					{" "}Desarrollado por{" Sexto Semestre E "}
+					<a href="https://www.mesoamericana.edu.gt/" target="_blank"  rel="noreferrer">
+						Mesoamericana Quetzaltenango
 					</a>{" "}
 					{d.getFullYear()}
 				</p>

@@ -67,6 +67,12 @@ import ReportClienteMasCompra from "./components/Dashboard/ReportClienteMasCompr
 import ReportAuditoria from "./components/Dashboard/ReportAuditoria";
 //Reporte Control Entradas y Salidas
 import ReportES from "./components/Dashboard/ReportES";
+//Reporte de venta por dia
+import ReportVentasDia from "./components/Dashboard/ReportVentasxDia";
+//Reporte de Ventas por semana
+import ReportVentasSemana from "./components/Dashboard/ReportVentasxSemana";
+//Reporte de Ventas por Mes
+import ReportVentasMes from "./components/Dashboard/ReportVentasxMes";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -198,6 +204,12 @@ const allroutes = [
     { url: "reportauditoria", component: <ReportAuditoria /> },
     //Reporte Control de Entradas y Salidas
     { url: "reportes", component: <ReportES /> },
+    //Reporte Ventas Dia
+    { url: "reportDia", component: <ReportVentasDia /> },
+    //Reporte ventas Semana
+    { url: "reportSemana", component: <ReportVentasSemana /> },
+    //Reporte ventas Mes
+    { url: "reportMes", component: <ReportVentasMes /> },
 
 
 
