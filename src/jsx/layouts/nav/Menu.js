@@ -115,16 +115,28 @@ export const MenuList = [
                     to: '/reportauditoria',
                 },
                 {
-                    title: 'Ventas',
-                    to: '/reportsventa',
+                    title: 'Medicamento Vencido',
+                    to: '/reports',
                 },
                 {
                     title: 'Cliente Frecuente',
                     to: '/reportCfrecuente',
                 },
                 {
-                    title: 'Medicamento Vencido',
-                    to: '/reports',
+                    title: 'Ventas',
+                    to: '/reportsventa',
+                },
+                {
+                    title: 'VentasDia',
+                    to: '/reportDia',
+                },
+                {
+                    title: 'VentasSemana',
+                    to: '/reportSemana',
+                },
+                {
+                    title: 'VentasMes',
+                    to: '/reportMes',
                 },
             ],
           }

@@ -5,17 +5,17 @@ from '../controllers/controllerReports.js'
 
 const routerReports = express.Router()
 
-routerReports.get('/getExpiredLots', getExpiredLots) //lotes expirados
-routerReports.get('/getSalesInner', getSalesInner) // ventas, pero sin llaves primarias, ya con datos
-routerReports.get('/getMoneySoldMonth', getMoneySoldMonth)//dinero vendido mes
-routerReports.get('/getMoneySoldDAY', getMoneySoldDAY)// dinero vendido dia
-routerReports.get('/getMoneySoldWEEK', getMoneySoldWEEK)//dinero vendido semana
-routerReports.get('/getOrderSellersMorSales', getOrderSellersMorSales) //vendedores ordenados con mas ventas
-routerReports.get('/getSellersMorSalesMonth', getSellersMorSalesMonth) // vendedoers con masvetnas mes
+routerReports.get('/getExpiredLots', getExpiredLots) //lotes expirados                                           --ya
+routerReports.get('/getSalesInner', getSalesInner) // ventas, pero sin llaves primarias, ya con datos           --ya
+routerReports.get('/getMoneySoldMonth', getMoneySoldMonth)//dinero vendido mes                                  --ya
+routerReports.get('/getMoneySoldDAY', getMoneySoldDAY)// dinero vendido dia                                     --ya
+routerReports.get('/getMoneySoldWEEK', getMoneySoldWEEK)//dinero vendido semana                                 --ya
+routerReports.get('/getOrderSellersMorSales', getOrderSellersMorSales) //vendedores ordenados con mas ventas   
+routerReports.get('/getSellersMorSalesMonth', getSellersMorSalesMonth) // vendedoers con masvetnas mes         
 routerReports.get('/getOrderClientsMorSales', getOrderClientsMorSales) // clientes ordenados con mas compras
-routerReports.get('/getClientsMorSalesMonth', getClientsMorSalesMonth) //clientes con mas compras mes 
-routerReports.get('/getAuditoriaInner', getAuditoriaInner) //Auditoria
-routerReports.get('/getLoginControl', getLoginControl) //control entradas y salidas AQUI ESTADO TAMBIIIIEN
-routerReports.get('/getLoteSoonExpire', getLoteSoonExpire) //Lotes cercanos a vencer (1 semana)
+routerReports.get('/getClientsMorSalesMonth', getClientsMorSalesMonth) //clientes con mas compras mes           --ya
+routerReports.get('/getAuditoriaInner', getAuditoriaInner) //Auditoria                                          --ya
+routerReports.get('/getLoginControl', getLoginControl) //control entradas y salidas AQUI ESTADO TAMBIIIIEN      --ya
+routerReports.get('/getLoteSoonExpire', getLoteSoonExpire) //Lotes cercanos a vencer (1 semana)                 --no
 
 export default routerReports
