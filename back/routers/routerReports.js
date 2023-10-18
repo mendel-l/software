@@ -1,6 +1,6 @@
 import express from 'express'
 import {getExpiredLots,getSalesInner,getMoneySoldMonth,getMoneySoldDAY,getMoneySoldWEEK,getOrderSellersMorSales,
-    getSellersMorSalesMonth,getOrderClientsMorSales,getClientsMorSalesMonth,getAuditoriaInner, getLoginControl} 
+    getSellersMorSalesMonth,getOrderClientsMorSales,getClientsMorSalesMonth,getAuditoriaInner, getLoginControl, getLoteSoonExpire} 
 from '../controllers/controllerReports.js'
 
 const routerReports = express.Router()
@@ -16,6 +16,6 @@ routerReports.get('/getOrderClientsMorSales', getOrderClientsMorSales) // client
 routerReports.get('/getClientsMorSalesMonth', getClientsMorSalesMonth) //clientes con mas compras mes 
 routerReports.get('/getAuditoriaInner', getAuditoriaInner) //Auditoria
 routerReports.get('/getLoginControl', getLoginControl) //control entradas y salidas AQUI ESTADO TAMBIIIIEN
-// routerReports.get('/getOrderSellersMorSales', getOrderSellersMorSales)
+routerReports.get('/getLoteSoonExpire', getLoteSoonExpire) //Lotes cercanos a vencer (1 semana)
 
 export default routerReports

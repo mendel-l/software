@@ -210,3 +210,19 @@ export const getLoginControl= async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getLoteSoonExpire= async (req, res) => {
+    try {
+        const query = `
+            SELECT l.IDLote, l.cantidadDisponible, m.Nombre as Medicamento, l.Fecha_Vencimiento
+            FROM lote as l
+            INNER JOIN proveedor as p on l.IDProveedor = p.IDProveedor
+            INNER JOIN medicamento as m on l.idMedicamento = m.idMedicamento
+            WHERE DATEDIFF(l.Fecha_Vencimiento, NOW()) <= 7 AND l.Estado = true
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
