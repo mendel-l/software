@@ -1,73 +1,73 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import { Modal, Offcanvas } from 'react-bootstrap';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import MainPagetitle from '../../../layouts/MainPagetitle';
 import UsuarioCreate from '../../../constant/UsuarioCreate';
 import axios from 'axios';
-const URI = 'http://localhost:3001/api/user'
-const CompUsuarioShow = () => {
-  const [usuarios, setUsuarios] = useState([]); 
+
+const URI = 'http://localhost:3001/api/Usrv';
+
+const UsuarioShow = () => {
+
+  const [usuarios, setUsuarios] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
-    getUsuario()
-  }, [])
+    getUsuarios();
+  }, []);
 
-  //Procedimiento para mostrar todos los usuarios
-  const getUsuario = async () =>{
-    const res = await axios.get(URI)
-    setUsuarios(res.data)
-  }
-  //Procedimiento para eliminar un usuario
+  const reloadUsuarios = () => {
+    getUsuarios();
+  };
+
+  const getUsuarios = async () => {
+    try {
+      const res = await axios.get(URI + "/getAll");
+      setUsuarios(res.data);
+    } catch (error) {
+      console.error('Error al obtener la lista de usuarios:', error);
+    }
+  };
+
   const deleteUsuario = async (IDUsuarios) => {
-    await axios.delete('${URI}${IDUsuarios}')
-    getUsuario()
-  }
-  
-  const headers = [
-    { label: "IDUsuarios", key: "IDUsuarios" },
-    { label: "Usuario", key: "Usuario" },
-    { label: "Contraseña", key: "Contraseña" },
-    { label: "CUI", key: "CUI" },
-    { label: "Estado", key: "Estado" },
-    { label: "createAt", key: "createAt" },
+    try {
+      await axios.delete(`${URI}/${IDUsuarios}`);
+      getUsuarios();
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+    }
+  };
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredUsuarios = usuarios.filter((usuario) => {
+    return (
+      usuario.Usuario.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      usuario.idPersona.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
+  const headers = [
+    { label: 'IDUsuarios', key: 'IDUsuarios' },
+    { label: 'Usuario', key: 'Usuario' },
+    { label: 'Contraseña', key: 'Contraseña' },
+    { label: 'Estado', key: 'Estado' },
+    { label: 'idPersona', key: 'idPersona' },
   ];
 
   const csvlink = {
     headers: headers,
     data: usuarios,
-    filename: "csvfile.csv"
+    filename: 'usuarios.csv',
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const recordsPage = 100;
-  const lastIndex = currentPage * recordsPage;
-  const firstIndex = lastIndex - recordsPage;
-  const records = usuarios.slice(firstIndex, lastIndex); //cambio 1
-  const npage = Math.ceil(usuarios.length / recordsPage);
-  const number = [...Array(npage + 1).keys()].slice(1);
-
-  function prePage() {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  }
-
-  function changeCPage(id) {
-    setCurrentPage(id);
-  }
-
-   function nextPage() {
-     if (currentPage !== npage) {
-       setCurrentPage(currentPage + 1);
-     }
-   }
-
-  const usuario = useRef();
+  const elemento = useRef();
 
   return (
     <>
-      <MainPagetitle mainTitle="Usuario" pageTitle={'Usuario'} parentTitle={'Inicio'} />
+      <MainPagetitle mainTitle="Usuarios" pageTitle={'Usuarios'} parentTitle={'Inicio'} />
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-12">
@@ -78,94 +78,66 @@ const CompUsuarioShow = () => {
                     <h4 className="heading mb-0">Usuarios</h4>
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
-                        <i className="fa-solid fa-file-excel" /> {" "}
-                        Exportar reporte
+                        <i className="fa-solid fa-file-excel" /> Reporte Usuarios
                       </CSVLink>
-                      <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
-                        onClick={() => usuario.current.showEmployeModal()}
-                      >+ Agregar Usuario</Link> {" "}
-                    </div>
-                  </div>
-                  <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
-                    <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
-                      <thead>
-                        <tr>
-                          <th>IDUsuario</th>
-                          <th>Usuario</th>
-                          <th>Contraseña</th>
-                          <th>CUI</th>
-                          <th>Estado</th>
-                          <th>createAt</th>
-                       
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {usuarios.map ( (usuarios) => (
-                            <tr key={ usuarios.IDUsuarios}>
-                                <td>{ usuarios.IDUsuarios}</td> 
-                                <td>{ usuarios.Usuario}</td>
-                                <td>{ usuarios.Contraseña}</td>
-                                <td>{ usuarios.CUI}</td>
-                                {/* <td>{ clientes.Estado}</td> */}
-                                <td>{ usuarios.createAt}</td>
-                              <div>
-                                <Link to={`/edit-usuario/${usuarios.IDUsuarios}`} className='btn btn-info'>Editar</Link>
-                                <button onClick={() => deleteUsuario(usuarios.IDUsuarios)} className='btn btn-danger'>Eliminar</button>
-                              </div>
-                            </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <div className="d-sm-flex text-center justify-content-between align-items-center">
-                      <div className='dataTables_info'>
-                        {/* cambio 2 */}
-                      Mostrado {lastIndex - recordsPage + 1} to{" "}  
-                      {usuarios.length < lastIndex ? usuarios.length : lastIndex}
-                      {" "}of {usuarios.length} entries
-
-                      </div>
-                      <div
-                        className="dataTables_paginate paging_simple_numbers justify-content-center"
-                        id="example2_paginate"
+                      <Link
+                        to={'#'}
+                        className="btn btn-primary btn-sm ms-1"
+                        data-bs-toggle="offcanvas"
+                        onClick={() => elemento.current.showUsuarioModal()}
                       >
-                        <Link
-                          className="paginate_button previous disabled"
-                          to="#"
-                          onClick={prePage}
-                        >
-                          <i className="fa-solid fa-angle-left" />
+                        + Agregar Usuario
+                      </Link>
+                    </div>
+
+                    <div className="input-group search-area">
+                      <span className="input-group-text rounded-0">
+                        <Link to={'#'}>
+                          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
                         </Link>
-                        <span>
-                        {number.map((n, i) => (
-                            <Link className={`paginate_button ${currentPage === n ? 'current' : ''} `} key={i}
-                              onClick={() => changeCPage(n)}
-                            >
-                              {n}
-                            </Link>
-                          ))}
-                        </span>
-                        <Link
-                          className="paginate_button next"
-                          to="#"
-                          onClick={nextPage}
-                        >
-                          <i className="fa-solid fa-angle-right" />
-                        </Link>
-                      </div>
+                      </span>
+                      <input type="text" className="form-control rounded-0" placeholder="Buscar Usuario" value={searchTerm} onChange={handleSearch} />
                     </div>
                   </div>
+                  <table className="table ItemsCheckboxSec dataTable no-footer mb-0">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Contraseña</th>
+                        <th>Estado</th>
+                        <th>idPersona</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredUsuarios.map((usuario) => (
+                        <tr key={usuario.IDUsuarios}>
+                          <td>{usuario.IDUsuarios}</td>
+                          <td>{usuario.Usuario}</td>
+                          <td>{usuario.Contraseña}</td>
+                          <td>{usuario.Estado === 1 ? 'Activo' : 'Inactivo'}</td>
+                          <td>{usuario.idPersona}</td>
+                          <div>
+                            <button onClick={() => deleteUsuario(usuario.IDUsuarios)} className="btn btn-danger">
+                              Eliminar
+                            </button>
+                          </div>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <UsuarioCreate
-        ref={usuario}
-        Title="Add Inventario"
-      />
+      <UsuarioCreate ref={elemento} Title="Agregar Usuario" reloadUsuarios={reloadUsuarios} />
     </>
   );
 };
 
-export default CompUsuarioShow;
+export default UsuarioShow;

@@ -1,48 +1,62 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import { Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
 
-const URI = 'http://localhost:3001/api/user'
+const URI = 'http://localhost:3001/api/Usrv';
 
 const UsuarioCreate = forwardRef((props, ref) => {
-  const [usuario, setUsuario] = useState('')
-  const [contrasena, setContrasena] = useState('')
-  const [cui, setCui] = useState('')
-  const [estado, setEstado] = useState('')
+  const [usuario, setUsuario] = useState('');
+  const [contrasena, setContraseña] = useState('');
+  const [estado, setEstado] = useState('');
+  const [idPersona, setidPersona] = useState('');
+  const [personas, setPersonas] = useState([]); // Lista de personas disponibles
 
   const [addUsuario, setAddUsuario] = useState(false);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Obtener la lista de personas disponibles al cargar el componente
+    async function fetchPersonas() {
+      try {
+        const res = await axios.get('http://localhost:3001/api/persona'); // Cambia la URL según tu API
+        setPersonas(res.data);
+      } catch (error) {
+        console.error('Error al obtener la lista de personas:', error);
+      }
+    }
+
+    fetchPersonas();
+  }, []);
 
   useImperativeHandle(ref, () => ({
-    showEmployeModal() {
+    showUsuarioModal() {
       setAddUsuario(true);
     },
   }));
-  
- //procedimietno para guardar los datos
+
+  // Procedimiento para guardar los datos
   const guardar = async (e) => {
     e.preventDefault();
-    
-    //try {
+
+    try {
+      // Convertir el valor de estado a booleano
+      const estadoBooleano = estado === "1" ? true : false;
       // Enviar los datos al servidor
       await axios.post(URI, {
-        Usuario:usuario,
-        Contrasena:contrasena,
-        CUI:cui,
-        Estado:estado,
+        Usuario: usuario,
+        Contraseña: contrasena,
+        Estado: estadoBooleano,
+        idPersona: idPersona,
       });
-      
-      // Cerrar el modal después de guardar los datos
-      setAddUsuario(false);
 
-      // Recargar la lista de usuario en la página principal
-      //props.reloadProveedores();
-    // } catch (error) {
-    //   console.error('Error al guardar el proveedor:', error);
-    // }
+      // Recargar la lista de usuarios en la página principal
+      props.reloadUsuarios();
+
+      setAddUsuario(false);
+    } catch (error) {
+      console.error('Error al guardar el usuario:', error);
+    }
   };
-  
+
   return (
     <>
       <Offcanvas show={addUsuario} onHide={() => setAddUsuario(false)} className="offcanvas-end customeoff" placement="end">
@@ -58,25 +72,35 @@ const UsuarioCreate = forwardRef((props, ref) => {
               <div className="row">
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="usuario" className="form-label">Usuario<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={usuario} onChange={(e) => setUsuario(e.target.value)} required/>
+                  <input type="text" className="form-control" placeholder="" value={usuario} onChange={(e) => setUsuario(e.target.value)} required />
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="contrasena" className="form-label">Contraseña<span className="text-danger">*</span>
-                  </label>
-                  <input type="text" className="form-control" placeholder="" value={contrasena} onChange={(e) => setContrasena(e.target.value)} required/>
+                  <label htmlFor="contrasena" className="form-label">Contraseña<span className="text-danger">*</span> </label>
+                  <input type="password" className="form-control" placeholder="" value={contrasena} onChange={(e) => setContraseña(e.target.value)} required />
                 </div>
                 <div className="col-xl-6 mb-3">
-                  <label htmlFor="cui" className="form-label">CUI<span className="text-danger">*</span></label>
-                  <input type="number" className="form-control" placeholder="" value={cui} onChange={(e) => setCui(e.target.value)} required/>
+                  <label htmlFor="persona" className="form-label">Persona<span className="text-danger">*</span></label>
+                  <select
+                    className="form-select"
+                    value={idPersona}
+                    onChange={(e) => setidPersona(e.target.value)}
+                    required
+                  >
+                    <option value="">Selecciona una persona</option>
+                    {personas.map((persona) => (
+                      <option key={persona.idPersona} value={persona.idPersona}>
+                        {persona.idPersona} - {persona.Nombres}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="col-xl-6 mb-3">
-                    <label htmlFor="estado" className="form-label">Estado<span className="text-danger">*</span></label>
-                    <select className="form-select" value={estado} onChange={(e) => setEstado(e.target.value)} required>
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
-                    </select>
+                  <label htmlFor="estado" className="form-label">Estado<span className="text-danger">*</span></label>
+                  <select className="form-select" value={estado} onChange={(e) => setEstado(e.target.value)} required>
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                  </select>
                 </div>
-
               </div>
               <div>
                 <button type="submit" className="btn btn-primary me-1">Guardar</button>
