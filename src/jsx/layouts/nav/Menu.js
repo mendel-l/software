@@ -3,7 +3,7 @@ const tokenData = localStorage.getItem('userDetails');
 const tokenParse = JSON.parse(tokenData);
 
 const Mdashboard = true;
-const Mproveedores = tokenParse ? tokenParse.vProveedores : false; // Verifica si tokenParse es nulo
+const Mproveedores = tokenParse ? tokenParse.vProveedores : false;
 const Mmedicamentos = tokenParse ? tokenParse.vMedicamentos : false;
 const Minventario = tokenParse ? tokenParse.vInventario : false;
 const Mclientes = tokenParse ? tokenParse.vCliente : false;
@@ -26,7 +26,6 @@ export const MenuList = [
         iconStyle: SVGICON.Home,
         to: '/bienvenida',
     },
-    // Dashboard (condicional)
     Mdashboard
         ? {
               title: 'Dashboard',
@@ -44,7 +43,7 @@ export const MenuList = [
               ],
           }
         : null,
-    // Proveedores (condicional)
+
     Mproveedores
         ? {
               title: 'Proveedores',
@@ -52,7 +51,7 @@ export const MenuList = [
               to: '/Proveedor',
           }
         : null,
-    // Medicamentos (condicional)
+
     Mmedicamentos
         ? {
               title: 'Medicamentos',
@@ -60,7 +59,7 @@ export const MenuList = [
               to: '/Medicamento',
           }
         : null,
-    // Inventario (condicional)
+
     Minventario
         ? {
               title: 'Inventario',
@@ -68,7 +67,7 @@ export const MenuList = [
               to: '/Inventario',
           }
         : null,
-    // Cliente (condicional)
+
     Mclientes
         ? {
               title: 'Clientes',
@@ -76,7 +75,7 @@ export const MenuList = [
               to: '/Cliente',
           }
         : null,
-    // Rol (condicional)
+ 
     Mrol
         ? {
               title: 'Rol',
@@ -84,7 +83,7 @@ export const MenuList = [
               to: '/Rol',
           }
         : null,
-    // Lote (condicional)
+   
     Mlote
         ? {
               title: 'Lotes',
@@ -92,7 +91,7 @@ export const MenuList = [
               to: '/Lote',
           }
         : null,
-    // Usuario (condicional)
+ 
     Musuario
         ? {
               title: 'Usuarios',
@@ -100,15 +99,15 @@ export const MenuList = [
               to: '/Usuario',
           }
         : null,
-    // Venta (condicional)
+  
     Mventa
         ? {
-              title: 'Ventas', //venta
+              title: 'Ventas', 
               iconStyle: SVGICON.Venta,
               to: '/Venta',
           }
         : null,
-    // Persona Menu (condicional)
+   
     Mpersona
         ? {
               title: 'Personas',
@@ -116,7 +115,7 @@ export const MenuList = [
               to: '/Persona',
           }
         : null,
-    // Reportes (condicional)
+    
     Mreportes
         ? {
               title: 'Reportes',
@@ -124,7 +123,7 @@ export const MenuList = [
               to: '/reports',
           }
         : null,
-    // Control de Clientes (condicional)
+  
     McontrCli
         ? {
               title: 'Control de Clientes',

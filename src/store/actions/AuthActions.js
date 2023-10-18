@@ -64,7 +64,7 @@ export function loginAction(email, password, navigate) {
                 );
                dispatch(loginConfirmedAction(response.data));
                console.log(dispatch(loginConfirmedAction(response.data)))	              
-				navigate('/dashboard');    
+				navigate('/bienvenida');    
                 window.location.reload();            
             })
             .catch((error) => {
