@@ -27,7 +27,7 @@ export const registerOut = async (req, res) => {
 
     try {
         const {localId} = req.body; //BUSCAR INVESTIGAR forma de obtener el ID del usuario que cierra sesión
-        console.log("Contenido de req.body: " + JSON.stringify(req.body));
+        //console.log("Contenido de req.body: " + JSON.stringify(req.body));
         let currentDateHour = new Date();
         let year = currentDateHour.getFullYear();
         let month = currentDateHour.getMonth() + 1; // Corrige aquí, utiliza getMonth() y suma 1
