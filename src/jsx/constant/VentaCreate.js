@@ -33,7 +33,7 @@ const VentaCreate = forwardRef((props, ref) => {
 
     async function fetchInventarios() { //obtiene la lista de inventarios
       try {
-        const res = await axios.get('http://localhost:3001/api/inventario');
+        const res = await axios.get('http://localhost:3001/api/inventario/active');
         setInventarios(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de inventarios:', error);
@@ -42,7 +42,7 @@ const VentaCreate = forwardRef((props, ref) => {
 
     async function fetchLotes() { //obtiene la lista de lotes
       try {
-        const res = await axios.get('http://localhost:3001/api/lote'); // Cambia la URL según tu API
+        const res = await axios.get('http://localhost:3001/api/lote/active'); // Cambia la URL según tu API
         setLotes(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de lotes:', error);

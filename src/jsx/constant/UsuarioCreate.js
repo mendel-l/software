@@ -17,7 +17,7 @@ const UsuarioCreate = forwardRef((props, ref) => {
     // Obtener la lista de personas disponibles al cargar el componente
     async function fetchPersonas() {
       try {
-        const res = await axios.get('http://localhost:3001/api/persona'); // Cambia la URL según tu API
+        const res = await axios.get('http://localhost:3001/api/persona/active'); // Cambia la URL según tu API
         setPersonas(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de personas:', error);
