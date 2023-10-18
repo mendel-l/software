@@ -107,8 +107,12 @@ export const MenuList = [
               to: '/reports',
               content: [
                 {
-                    title: 'Medicamento Vencido',
-                    to: '/reports',
+                    title: 'Control Entradas y Salidas',
+                    to: '/reportes',
+                },
+                {
+                    title: 'Auditoria',
+                    to: '/reportauditoria',
                 },
                 {
                     title: 'Ventas',
@@ -118,8 +122,12 @@ export const MenuList = [
                     title: 'Cliente Frecuente',
                     to: '/reportCfrecuente',
                 },
+                {
+                    title: 'Medicamento Vencido',
+                    to: '/reports',
+                },
             ],
           }
         : null,
-        
+
 ];

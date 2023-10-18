@@ -63,6 +63,10 @@ import Report from "./components/Dashboard/Report";
 import ReportVentas from "./components/Dashboard/ReportVentas";
 //Reporte Cliente Frecuente
 import ReportClienteMasCompra from "./components/Dashboard/ReportClienteMasCompra";
+//Reporte Auditoria
+import ReportAuditoria from "./components/Dashboard/ReportAuditoria";
+//Reporte Control Entradas y Salidas
+import ReportES from "./components/Dashboard/ReportES";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -190,6 +194,10 @@ const allroutes = [
     { url: "reportsventa", component: <ReportVentas /> },
     //Reporte Cliente Frecuente
     { url: "reportCfrecuente", component: <ReportClienteMasCompra /> },
+    //Reporte Auditoria
+    { url: "reportauditoria", component: <ReportAuditoria /> },
+    //Reporte Control de Entradas y Salidas
+    { url: "reportes", component: <ReportES /> },
 
 
 
