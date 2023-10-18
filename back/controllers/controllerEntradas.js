@@ -26,8 +26,8 @@ export const registerIn = async (idUser) => {
 export const registerOut = async (req, res) => {
 
     try {
-        const {IDUsuarios} = req.body; //BUSCAR INVESTIGAR forma de obtener el ID del usuario que cierra sesión
-
+        const {localId} = req.body; //BUSCAR INVESTIGAR forma de obtener el ID del usuario que cierra sesión
+        //console.log("Contenido de req.body: " + JSON.stringify(req.body));
         let currentDateHour = new Date();
         let year = currentDateHour.getFullYear();
         let month = currentDateHour.getMonth() + 1; // Corrige aquí, utiliza getMonth() y suma 1
@@ -42,7 +42,7 @@ export const registerOut = async (req, res) => {
             { FechaOut: dateNow, 
               HoraOut: hourNow, 
               Estado: false },
-            { where: { IDUsuarios: IDUsuarios, Estado: true} }
+            { where: { IDUsuarios: localId, Estado: true} }
         );
 
         console.log("Cierre de sesión registrado");
