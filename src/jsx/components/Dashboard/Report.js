@@ -16,7 +16,7 @@ const Report = () => {
     getReporte();
   };
 
-  //Procedimiento para mostrar todos los roles
+  //Procedimiento 
   const getReporte = async () =>{
     const res = await axios.get(URI)
     setReporte(res.data)
@@ -37,7 +37,7 @@ const Report = () => {
 const csvlink = {
     headers : headers,
     data : reporte,
-    filename: "Resumen.csv"
+    filename: "Reporte Medicamentos Vencidos.csv"
 };
     
 
@@ -76,7 +76,7 @@ const csvlink = {
                                         <div>
                                             <CSVLink {...csvlink} className="btn btn-primary light btn-sm">
                                                 <i className="fa-solid fa-file-excel" /> {" "} 
-                                                Exportar Reporte
+                                                Exportar Reporte Medicamentos Vencidos
                                             </CSVLink> 
                                         </div>
                                         
@@ -107,10 +107,7 @@ const csvlink = {
                                                         <td>{ reporte.Medicamento}</td>
                                                         <td>{ reporte.Fecha_Ingreso}</td>
                                                         <td>{ reporte.Fecha_Vencimiento}</td>
-                                                        <td>{ reporte.Estado}</td>
-                                                        {/* <td>
-													        <Link to={"#"} className="text-primary">{item.invoice}</Link>
-                                                        </td>    */}  
+                                                        <td>{ reporte.Estado}</td>  
                                                     </tr>
                                                 ))}
                                             </tbody>
