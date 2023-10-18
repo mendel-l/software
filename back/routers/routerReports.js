@@ -1,6 +1,6 @@
 import express from 'express'
 import {getExpiredLots,getSalesInner,getMoneySoldMonth,getMoneySoldDAY,getMoneySoldWEEK,getOrderSellersMorSales,
-    getSellersMorSalesMonth,getOrderClientsMorSales,getClientsMorSalesMonth} 
+    getSellersMorSalesMonth,getOrderClientsMorSales,getClientsMorSalesMonth,getAuditoriaInner, getLoginControl} 
 from '../controllers/controllerReports.js'
 
 const routerReports = express.Router()
@@ -14,8 +14,8 @@ routerReports.get('/getOrderSellersMorSales', getOrderSellersMorSales) //vendedo
 routerReports.get('/getSellersMorSalesMonth', getSellersMorSalesMonth) // vendedoers con masvetnas mes
 routerReports.get('/getOrderClientsMorSales', getOrderClientsMorSales) // clientes ordenados con mas compras
 routerReports.get('/getClientsMorSalesMonth', getClientsMorSalesMonth) //clientes con mas compras mes 
-// routerReports.get('/getMoneySoldDAY', getMoneySoldDAY) //Auditoria
-// routerReports.get('/getMoneySoldWEEK', getMoneySoldWEEK) //control entradas y salidas
+routerReports.get('/getAuditoriaInner', getAuditoriaInner) //Auditoria
+routerReports.get('/getLoginControl', getLoginControl) //control entradas y salidas AQUI ESTADO TAMBIIIIEN
 // routerReports.get('/getOrderSellersMorSales', getOrderSellersMorSales)
 
 export default routerReports

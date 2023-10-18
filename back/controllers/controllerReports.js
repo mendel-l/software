@@ -171,3 +171,42 @@ export const getClientsMorSalesMonth= async (req, res) => {
         res.json({ message: error.message });
     }
 }
+
+export const getAuditoriaInner= async (req, res) => {
+    try {
+        const query = `
+            SELECT au.IdAuditoria,us.Usuario as UsuarioModificador,
+            per.Nombres as PersonaModificador, au.nombreTablaMov as TablaTrabajada, 
+            au.idRegistroMov as RegistroTrabajado, tip.Movimiento as Accion
+            From auditoria as au
+            INNER JOIN usuario as us
+            on au.IDUsuarios=us.IDUsuarios
+            INNER JOIN tipomovimiento as tip
+            on au.idTipoMovimiento=tip.idTipoMovimiento
+            INNER JOIN persona as per
+            on per.idPersona=us.idPersona    
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+export const getLoginControl= async (req, res) => {
+    try {
+        const query = `
+            SELECT con.IDControl,p.Nombres,us.Usuario,
+            con.FechaIn,con.FechaOut,con.Estado,con.FechaOut,con.HoraOut 
+            From controlentradas as con
+            INNER JOIN usuario as us
+            on us.IDUsuarios=con.IDUsuarios
+            INNER JOIN persona as p
+            ON us.idPersona = p.idPersona 
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
