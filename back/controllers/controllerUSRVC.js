@@ -9,41 +9,12 @@ const tableName = 'usuario';
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await USRVCModel.findAll();
-        if (users.length === 0) {
-            return res.json({ message: "No se encontraron usuarios." });
-        }
-
-        const user = users[0]; // Supongo que quieres el primer usuario, puedes cambiar esto según tus necesidades
-
-        const personas = await personModel.findAll({
-            where: { idPersona: user.idPersona }
-        });
-        if (personas.length === 0) {
-            return res.json({ message: "No se encontraron personas asociadas a este usuario." });
-        }
-
-        const persona = personas[0]; // Supongo que quieres la primera persona, puedes cambiar esto según tus necesidades
-
-        const roles = await RolModel.findAll({
-            where: { idRol: persona.idRol }
-        });
-        if (roles.length === 0) {
-            return res.json({ message: "No se encontraron roles asociados a esta persona." });
-        }
-
-        const rol = roles[0]; // Supongo que quieres el primer rol, puedes cambiar esto según tus necesidades
-
-        res.json({
-            user,
-            Nombres: persona.Nombres,
-            Rol: rol.Rol
-        });
+        const user = await USRVCModel.findAll();
+        res.json(user);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.json({ message: error.message });
     }
-};
-
+}
 
 
 export const createUSRV = async (req, res) => {
