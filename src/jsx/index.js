@@ -21,7 +21,7 @@ import Projects from "./components/Dashboard/Projects";
 import TaskSummary from "./components/Dashboard/TaskSummary";
 import Blog from "./components/Dashboard/Blog";
 import ManageClient from "./components/Dashboard/ManageClient";
-import Report from "./components/Dashboard/Report";
+
 import Finance from "./components/Dashboard/Finance";
 import Employees from "./components/Dashboard/Employees";
 import Task from "./components/Dashboard/Task";
@@ -57,6 +57,13 @@ import PersonaEdit from "./components/Dashboard/Personas/PersonasEdit";
 
 //vista para el usuario
 import VistaUsuarioShow from "./components/Dashboard/VistaUsuarios/VistaUsuarioShow";
+
+//Reporte Medicamentos Vencidos
+import Report from "./components/Dashboard/Report";
+//Reporte Ventas Realizadas
+import ReportVentas from "./components/Dashboard/ReportVentas";
+//Reporte Cliente Frecuente
+import ReportClienteMasCompra from "./components/Dashboard/ReportClienteMasCompra";
 
 //Apps
 import Contacts from './components/AppsMenu/Contacts';
@@ -145,7 +152,7 @@ const allroutes = [
     { url: "task-summary", component: <TaskSummary /> },
     { url: "blog", component: <Blog /> },
     { url: "manage-client", component: <ManageClient /> },
-    { url: "reports", component: <Report /> },
+    
     { url: "finance", component: <Finance /> },
     { url: "employee", component: <Employees /> },
     { url: "task", component: <Task /> },
@@ -179,6 +186,13 @@ const allroutes = [
     { url: '/edit-persona/:CUI', component: <PersonaEdit/>},
     //vista para usuarios
     { url: '/bienvenida', component: <VistaUsuarioShow /> },
+    //Reportes Medicamentos Vencidos
+    { url: "reports", component: <Report /> },
+    //Reporte Ventas
+    { url: "reportsventa", component: <ReportVentas /> },
+    //Reporte Cliente Frecuente
+    { url: "reportCfrecuente", component: <ReportClienteMasCompra /> },
+
 
 
     
