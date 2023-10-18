@@ -26,23 +26,7 @@ export const MenuList = [
         iconStyle: SVGICON.Home,
         to: '/bienvenida',
     },
-    Mdashboard
-        ? {
-              title: 'Dashboard',
-              classsChange: 'mm-collapse',
-              iconStyle: SVGICON.Home,
-              content: [
-                  {
-                      title: 'Dashboard Light',
-                      to: '/dashboard',
-                  },
-                  {
-                      title: 'Dashboard Dark',
-                      to: '/dashboard-dark',
-                  },
-              ],
-          }
-        : null,
+
 
     Mproveedores
         ? {
@@ -121,6 +105,16 @@ export const MenuList = [
               title: 'Reportes',
               iconStyle: SVGICON.Reports,
               to: '/reports',
+              content: [
+                {
+                    title: 'Dashboard Light',//Nombre de la tabla reportes hijo
+                    to: '/dashboard',//La redireccion
+                },
+                {
+                    title: 'Dashboard Dark',
+                    to: '/dashboard-dark',
+                },
+            ],
           }
         : null,
   
