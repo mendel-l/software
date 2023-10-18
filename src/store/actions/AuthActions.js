@@ -8,6 +8,7 @@ import {
 } from '../../services/AuthService';
 
 import { useHistory } from 'react';
+import axios from 'axios';
 export const SIGNUP_CONFIRMED_ACTION = '[signup action] confirmed signup';
 export const SIGNUP_FAILED_ACTION = '[signup action] failed signup';
 export const LOGIN_CONFIRMED_ACTION = '[login action] confirmed login';
@@ -63,7 +64,8 @@ export function loginAction(email, password, navigate) {
                     navigate,
                 );
                dispatch(loginConfirmedAction(response.data));
-               console.log(dispatch(loginConfirmedAction(response.data)))	              
+               console.log(dispatch(loginConfirmedAction(response.data)))	
+                axios.put(`http://localhost:3001/api/lote/updateLotsExpired `);              
 				navigate('/bienvenida');    
                 window.location.reload();            
             })

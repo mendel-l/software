@@ -1,5 +1,6 @@
 import LoteModel from "../Models/LoteModel.js";
 import { registerMovi } from "./controllerAuditoria.js";
+import sequelize from '../DB/database.js';
 const tableName = "lote";
 
 export const getAllLotes = async (req, res) => {
@@ -133,6 +134,21 @@ export const getSumLotes = async (req, res) => {
         });
 
         res.json({ totalCantidadDisponible });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+export const updateLotsExpired = async (req, res) => {
+    try {
+        const query = `
+            UPDATE lote SET Estado= 0 
+            WHERE DATEDIFF(Fecha_Vencimiento, NOW()) < 0 
+            AND Estado = true
+        `;
+        const [results] = await sequelize.query(query);
+        console.log("Lotes Desactivados: " + results.affectedRows);
+        res.json("Lotes Desactivados: " + results.affectedRows);
     } catch (error) {
         res.json({ message: error.message });
     }
