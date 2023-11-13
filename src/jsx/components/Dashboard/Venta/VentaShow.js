@@ -5,10 +5,8 @@ import MainPagetitle from '../../../layouts/MainPagetitle';
 import VentaCreate from '../../../constant/VentaCreate';
 import VentaCreate1 from '../../../constant/VentaCreate1';
 import axios from 'axios';
-
 const URII = 'http://localhost:3001/api/venta'
 const URI = 'http://localhost:3001/api/detalle_factura'
-
 const CompVentaShow = () => {
   
   //DETALLE FACTURA----------------------------------------------------------------
@@ -16,38 +14,31 @@ const CompVentaShow = () => {
   useEffect(() => {
     getDetalle();
   }, []);
-
   const reloadDetalle= () => {
     getDetalle(); 
   };
-
   // Procedimiento para mostrar todos los elementos del detalle
   const getDetalle = async () => {
     const res = await axios.get(URI);
     setDetalle(res.data);
     };
-
     // Procedimiento para eliminar un elemento de detalle
   const deleteDetalle = async (IdDetalle) => {
     await axios.delete(`${URI}/${IdDetalle}`);
     getDetalle(); 
   };
-
   const headers = [
     { label: "IdDetalle", key: "IdDetalle" },
     { label: "Cantidad", key: "Cantidad" },
     { label: "subTotal", key: "subTotal" },
     { label: "Idventa", key: "Idventa" }, 
     { label: "IdInventario", key: "IdInventario" },
-
   ];
-
   const csvlink = {
     headers: headers,
     data: detalles,
     filename: "factura.csv"
   };
-
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPage = 100;
   const lastIndex = currentPage * recordsPage;
@@ -55,7 +46,6 @@ const CompVentaShow = () => {
   const records = detalles.slice(firstIndex, lastIndex); //cambio 1
   const npage = Math.ceil(detalles.length / recordsPage);
   const number = [...Array(npage + 1).keys()].slice(1);
-
   function prePage() {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);

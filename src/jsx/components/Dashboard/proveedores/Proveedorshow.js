@@ -122,7 +122,6 @@ const CompProveedorShow = () => {
                             </td>
                               <div>
                                 <Link to={`/edit-proveedor/${proveedores.IDProveedor}`} className='btn btn-info'>Editar</Link>
-                                <button onClick={() => deleteProveedor(proveedores.IDProveedor)} className='btn btn-danger'>Eliminar</button>
                               </div>
                             </tr>
                         ))}
