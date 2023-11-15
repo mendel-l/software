@@ -2,8 +2,10 @@ import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'rea
 import { Link, useNavigate } from 'react-router-dom';
 import { Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
-
+import {idVentaRecuperado} from './VentaCreate1.js';
+export let loteSelect = null;
 const URI = 'http://localhost:3001/api/detalle_factura'
+const URI2 = 'http://localhost:3001/api/inventario/descargar/'
 //Creacion DETALLE FACTURA
 const VentaCreate = forwardRef((props, ref) => {
   const [cantidad, setCantidad] = useState('')
@@ -22,6 +24,8 @@ const VentaCreate = forwardRef((props, ref) => {
   const [addDetalle, setAddDetalle] = useState(false);
   const navigate = useNavigate();
 
+  const [idMedicamentoSeleccionado, setIdMedicamentoSeleccionado] = useState(null);
+  const [precioVentaSeleccionado, setPrecioVentaSeleccionado] = useState(null);
   useEffect(() => {
     async function fetchVentas() { //obtiene la lista de ventas
       try {
@@ -34,7 +38,7 @@ const VentaCreate = forwardRef((props, ref) => {
 
     async function fetchInventarios() { //obtiene la lista de inventarios
       try {
-        const res = await axios.get('http://localhost:3001/api/inventario');
+        const res = await axios.get('http://localhost:3001/api/inventario/getInvInnerMed');
         setInventarios(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de inventarios:', error);
@@ -76,14 +80,17 @@ const VentaCreate = forwardRef((props, ref) => {
   const guardar = async (e) => {
     e.preventDefault();
 
-    try {
-      await axios.post(URI, {
-        Cantidad:cantidad,
-        subTotal:subtotal,
-        Idventa:idventa,
-        IdInventario:idinventario,
-      });
+    try {      
+      const response2 = await axios.put(URI2+idlote+"/"+cantidad);
 
+      const response = await axios.post(URI, {
+        Cantidad:cantidad,
+        subTotal:response2.data.resultado,
+        Idventa:idVentaRecuperado,
+        IdInventario:idinventario,
+        IDLote: idlote
+      });
+      loteSelect=idlote;
       props.reloadDetalle();
       setAddDetalle(false);
     } catch (error) {
@@ -105,17 +112,25 @@ const VentaCreate = forwardRef((props, ref) => {
             <form onSubmit={guardar}>
               <div className="row">
               <div className="col-xl-6 mb-3">
-                  <label htmlFor="inventario" className="form-label">ID Inventario<span className="text-danger">*</span></label>
+                  <label htmlFor="inventario" className="form-label">Inventario<span className="text-danger">*</span></label>
                   <select
                     className="form-select"
                     value={idinventario} // para el id + nombre
-                    onChange={(e) => setIdInventario(e.target.value)} // para el id + nombre
+                    onChange={(e) => {
+                      setIdInventario(e.target.value);
+                      const inventarioSeleccionado = inventarios.find((inv) => inv.IdInventario === parseInt(e.target.value, 10));
+                      const idMedicamento = inventarioSeleccionado ? inventarioSeleccionado.idMedicamento : null;
+                      const precioVenta = inventarioSeleccionado ? inventarioSeleccionado.PrecioVenta : null;
+                      setIdMedicamentoSeleccionado(idMedicamento);
+                      setPrecioVentaSeleccionado(precioVenta);
+                    }} // para el id + nombre
                     required
                   >
-                    <option value="">Selecciona el Inventario</option>
-                    {inventarios.map((inventario) => (
-                      <option key={inventario.idinventario} value={inventario.idinventario}>
-                        {inventario.IdInventario} - {inventario.idMedicamento} - {idMedicamento.Nombre}
+                    <option value="">Selecciona el Producto</option>
+                    {inventarios
+                    .map((inventario) => (
+                      <option key={inventario.IdInventario} value={inventario.IdInventario} >
+                        {inventario.idMedicamento} - {inventario.Nombre}
                       </option>
                     ))}
                   </select>
@@ -126,12 +141,15 @@ const VentaCreate = forwardRef((props, ref) => {
                     className="form-select"
                     value={idlote} // para el id + nombre
                     onChange={(e) => setIDLote(e.target.value)} // para el id + nombre
+                    onClick={(e)=>{}}
                     required
                   >
                     <option value="">Selecciona un lote</option>
-                    {lotes.map((lote) => (
+                    {lotes   
+                    .filter((lote) => lote.idMedicamento === idMedicamentoSeleccionado)                 
+                    .map((lote) => (
                       <option key={lote.IDLote} value={lote.IDLote}>
-                        {lote.IDLote} - Vence {lote.Fecha_Vencimiento}
+                        {lote.IDLote} - Disponible({lote.cantidadDisponible}) - Vence {lote.Fecha_Vencimiento}
                       </option>
                     ))}
                   </select>
@@ -142,7 +160,7 @@ const VentaCreate = forwardRef((props, ref) => {
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="subtotal" className="form-label">Sub Total<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={subtotal} onChange={(e) => setsubTotal(e.target.value)} required readOnly/>
+                  <input type="text" className="form-control" placeholder="" value={precioVentaSeleccionado*cantidad} required readOnly/>
                 </div>
                 {/* <div className="col-xl-6 mb-3">
                   <label htmlFor="sustancias" className="form-label">Medicamento<span className="text-danger">*</span></label>

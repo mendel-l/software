@@ -107,7 +107,7 @@ const csvlink = {
                                                         <td>{ reporte.Medicamento}</td>
                                                         <td>{ reporte.Fecha_Ingreso}</td>
                                                         <td>{ reporte.Fecha_Vencimiento}</td>
-                                                        <td>{ reporte.Estado}</td>  
+                                                        <td><sapan className='badge light border-0 badge-danger'>Inactivo</sapan></td>  
                                                     </tr>
                                                 ))}
                                             </tbody>

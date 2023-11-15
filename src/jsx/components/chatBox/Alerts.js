@@ -33,7 +33,7 @@ const Alertas = ({ toggleTab, PerfectScrollbar, toggleChatBox }) => {
           id="DZ_W_Contacts_Body1"
         >
           <ul className="contacts">
-            <li className="name-first-letter">Medicamentos vencidos</li>
+            <li className="name-first-letter">Medicamentos Por Vencer</li>
             {medicamentosVencidos.map((medicamento, index) => (
               <li className="active" key={index} onClick={() => mostrarDetalles(medicamento)}>
                 <div className="d-flex bd-highlight">

@@ -1,12 +1,28 @@
 import InventarioModel from "../Models/InventarioModel.js";
 import LoteModel from "../Models/LoteModel.js";
 import { registerMovi } from "./controllerAuditoria.js";
+import sequelize from '../DB/database.js';
 const tableName = "inventario";
 
 export const getAllInventarios = async (req, res) => {
     try {
         const inventarios = await InventarioModel.findAll();
         res.json(inventarios);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+export const getInvInnerMed = async (req, res) => {
+    try {
+        const query = `
+            SELECT inventario.IdInventario,inventario.idMedicamento,inventario.PrecioVenta,medicamento.Nombre
+            FROM inventario
+            INNER JOIN medicamento
+            ON inventario.idMedicamento=medicamento.idMedicamento
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
     } catch (error) {
         res.json({ message: error.message });
     }

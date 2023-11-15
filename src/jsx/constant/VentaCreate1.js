@@ -2,9 +2,9 @@ import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'rea
 import { useNavigate } from 'react-router-dom';
 import { Offcanvas } from 'react-bootstrap';
 import axios from 'axios';
+export let idVentaRecuperado = null;
 const tokenData = localStorage.getItem('userDetails');
 const tokenParse = JSON.parse(tokenData);
-console.log(tokenParse);
 const URI = 'http://localhost:3001/api/venta'
 const VentaCreate1 = forwardRef((props, ref) => {
   
@@ -66,14 +66,14 @@ const VentaCreate1 = forwardRef((props, ref) => {
     e.preventDefault();
     
     try {
-      await axios.post(URI, {
+      const response = await axios.post(URI, {
         Fecha:fecha,
-        MontoTotal: montototal,
+        MontoTotal: 0,
         idCliente:idcliente,
-        idPersona: idpersona,
+        idPersona: tokenParse.idpersona,
       });
-
-      props.reloadVenta();
+      idVentaRecuperado=response.data.idRegistroMov;
+      props.reloadDetalle();
       setAddVenta(false);
     } catch (error) {
        console.error('Error al guardar el Venta:', error);
@@ -115,11 +115,11 @@ const VentaCreate1 = forwardRef((props, ref) => {
                 </div>
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="persona" className="form-label">Vendedor<span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="" value={tokenParse.displayName} onChange={(e) => setMontototal(e.target.value)}/>
+                  <input type="text" className="form-control" placeholder="" value={tokenParse.displayName} onChange={(e) => setidPersona(e.target.value)}/>
                 </div>
               </div>
               <div>
-                <button type="submit" className="btn btn-primary me-1">Ingresar Venta</button>
+                <button type="submit" className="btn btn-primary me-1" onClick={() => setAddVenta(false)}>Ingresar Venta</button>
                 <button type="button" className="btn btn-danger light ms-1" onClick={() => setAddVenta(false)}>Cancelar</button>
               </div>
             </form>

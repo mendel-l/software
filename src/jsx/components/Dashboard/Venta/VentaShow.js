@@ -5,10 +5,19 @@ import MainPagetitle from '../../../layouts/MainPagetitle';
 import VentaCreate from '../../../constant/VentaCreate';
 import VentaCreate1 from '../../../constant/VentaCreate1';
 import axios from 'axios';
-const URII = 'http://localhost:3001/api/venta'
+import {idVentaRecuperado} from '../../../constant/VentaCreate1';
+import {loteSelect} from '../../../constant/VentaCreate';
+export let banderaAux = false;
+const URIVenta = 'http://localhost:3001/api/venta'
 const URI = 'http://localhost:3001/api/detalle_factura'
+const URI2 = 'http://localhost:3001/api/inventario/cargar'
 const CompVentaShow = () => {
-  
+  const [reloadComponent, setReloadComponent] = useState(false);
+  const closeVentaCreate1 = () => {
+    
+    // Lógica para cerrar VentaCreate1
+    setReloadComponent(true); // Actualiza el estado para volver a renderizar CompVentaShow
+  };
   //DETALLE FACTURA----------------------------------------------------------------
   const [detalles, setDetalle] = useState([]);
   useEffect(() => {
@@ -23,9 +32,15 @@ const CompVentaShow = () => {
     setDetalle(res.data);
     };
     // Procedimiento para eliminar un elemento de detalle
-  const deleteDetalle = async (IdDetalle) => {
-    await axios.delete(`${URI}/${IdDetalle}`);
-    getDetalle(); 
+  const deleteDetalle = async (dato) => {
+    try {
+      const resp = await axios.put(`${URI2}/${dato.IDLote}/${dato.Cantidad}`);
+      console.log(resp.data);
+      await axios.delete(`${URI}/${dato.IdDetalle}`);
+      getDetalle();
+    } catch (error) {
+      console.error("Error al eliminar detalle", error);
+    } 
   };
   const headers = [
     { label: "IdDetalle", key: "IdDetalle" },
@@ -59,6 +74,25 @@ const CompVentaShow = () => {
        setCurrentPage(currentPage + 1);
      }
    }
+  async function cancelarVenta() {
+    let cont = 1;
+    for (const dato of detalles.filter((dato) => dato.Idventa === idVentaRecuperado)) {
+    console.log(cont++);
+    console.log("dato Eliminado " + dato.IdDetalle + "/" + dato.IDLote + "/" + dato.Cantidad);
+    await deleteDetalle(dato);
+    }
+    await axios.delete(`${URIVenta}/${idVentaRecuperado}`);
+    window.location.reload();
+  }
+  async function confirmarVenta(){
+    let total=0;
+    for (const dato of detalles.filter((dato) => dato.Idventa === idVentaRecuperado)) {
+      total+=dato.subTotal;
+      console.log(dato.subTotal);
+    }
+    const resp = await axios.put(`${URIVenta}/${idVentaRecuperado}`,{MontoTotal: total});
+    window.location.reload();
+  }
    const elemento = useRef(); // Para el modal de detalle
    const elemento1 = useRef(); // Para el modal de Venta
   return (
@@ -73,12 +107,21 @@ const CompVentaShow = () => {
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
                     <h4 className="heading mb-0">Productos</h4>
                     <div>
+                    {idVentaRecuperado === null && (
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
                         onClick={() => elemento1.current.showVentaModal()} // Cambiado
-                      >+ Agregar Venta</Link> {" "}
-                      <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
-                        onClick={() => elemento.current.showDetalleModal()} // Cambiado
-                      >+ Agregar Producto</Link> {" "}
+                      >+ Agregar Venta</Link>
+                      )}
+                      {idVentaRecuperado !== null && (
+                        <Link
+                          to={"#"}
+                          className="btn btn-primary btn-sm ms-1"
+                          data-bs-toggle="offcanvas"
+                          onClick={() => elemento.current.showDetalleModal()}
+                        >
+                          + Agregar Producto
+                        </Link>
+                      )}
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
                         Generar Factura
@@ -94,19 +137,22 @@ const CompVentaShow = () => {
                           <th>Subtotal</th>
                           <th>ID Venta</th>
                           <th>ID Inventario</th>
+                          <th>ID Lote</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {detalles.map((dato) => (
+                        {detalles
+                        .filter((dato) => dato.Idventa === idVentaRecuperado)
+                        .map((dato) => (
                           <tr key={dato.IdDetalle}>
                             <td>{dato.IdDetalle}</td>
                             <td>{dato.Cantidad}</td>
                             <td>{dato.subTotal}</td>
                             <td>{dato.Idventa}</td>
                             <td>{dato.IdInventario}</td>
+                            <td>{dato.IDLote}</td>
                             <div>
-                              <Link to={`/edit-venta/${dato.IdDetalle}`} className='btn btn-info'>Editar</Link>
-                              <button onClick={() => deleteDetalle(dato.IdDetalle)} className='btn btn-danger'>Eliminar</button>
+                              <button onClick={() => deleteDetalle(dato)} className='btn btn-danger'>Eliminar</button>
                             </div>
                           </tr>
                         ))}
@@ -147,12 +193,15 @@ const CompVentaShow = () => {
                         </Link>
                       </div>
                     </div>
-                    <div className="text-center">
-                      <button type="submit" className="btn btn-primary me-1">Confirmar</button>
-                      <button type="button" className="btn btn-danger light ms-1">Cancelar</button>
+                    {idVentaRecuperado !== null && (
+                    <div className="text-center" >
+                      <button type="submit" className="btn btn-primary me-1" onClick={() => confirmarVenta()}>Confirmar</button>
+                      <button type="button" className="btn btn-danger light ms-1" onClick={() => cancelarVenta()}
+                      ref={elemento1} reloadDetalle={reloadDetalle}>Cancelar</button>
                       <br />
                       <label></label>
                     </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -167,6 +216,7 @@ const CompVentaShow = () => {
       />
       <VentaCreate1
         ref={elemento1}
+        reloadDetalle={reloadDetalle} // Cambiado
       />
     </>
   );

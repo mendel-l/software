@@ -11,7 +11,8 @@ const  Detalle_FacturaModel = db.define('detalle_factura', {
     Cantidad: { type: DataTypes.NUMBER},
     subTotal: { type: DataTypes.DECIMAL },
     Idventa: { type: DataTypes.NUMBER },
-    IdInventario:{ type: DataTypes.NUMBER } 
+    IdInventario:{ type: DataTypes.NUMBER },
+    IDLote:{ type: DataTypes.NUMBER } 
  }, { tableName: 'detalle_factura' }); 
  
 
