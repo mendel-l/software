@@ -9,6 +9,7 @@ const URI = 'http://localhost:3001/api/medicamento' //-----------------------
 
 const CompMedicamentoShow = () => {
   const [medicamentos, setMedicamentos] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState(''); //busqueda 
   useEffect(() => {
     getmedicamento()
   }, [])
@@ -31,6 +32,18 @@ const CompMedicamentoShow = () => {
     getmedicamento()
   }
   
+  //procedimiento para hacer la busqueda
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filtered = medicamentos.filter((item) => {
+    return (
+      item.Nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.idMedicamento.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   const headers = [
     { label: "idMedicamento", key: "idMedicamento" },
     { label: "Nombre", key: "Nombre" },
@@ -92,6 +105,19 @@ const CompMedicamentoShow = () => {
                         onClick={() => medicamento.current.showEmployeModal()}
                       >+ Agregar Medicamento</Link> {" "}
                     </div>
+
+                    <div className="input-group search-area">
+						          <span className="input-group-text rounded-0">
+							          <Link to={"#"}>
+								          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+								              <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+							            </svg>
+						            </Link>
+					            </span>
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar Medicamento (Nombre/ID)" value={searchTerm} onChange={handleSearch} />
+					          </div>
+
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
@@ -108,7 +134,7 @@ const CompMedicamentoShow = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {medicamentos.map ( (dato) => (
+                        {filtered.map ( (dato) => (
                             <tr key={ dato.idMedicamento}>
                                 <td>{ dato.idMedicamento}</td> 
                                 <td>{ dato.Nombre}</td>

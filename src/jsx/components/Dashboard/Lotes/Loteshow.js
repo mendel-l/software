@@ -9,6 +9,7 @@ const URI = 'http://localhost:3001/api/lote'; // Cambiado
 
 const CompLoteShow = () => {
   const [lotes, setLotes] = useState([]); // Cambiado
+  const [searchTerm, setSearchTerm] = useState(''); //busqueda
   useEffect(() => {
     getLotes(); // Cambiado
   }, []);
@@ -22,7 +23,7 @@ const CompLoteShow = () => {
 
   // Procedimiento para mostrar todos los elementos de lote
   const getLotes = async () => {
-    const res = await axios.get(URI);
+    const res = await axios.get(`http://localhost:3001/api/lote/getAllInner`);
     setLotes(res.data);
   };
 
@@ -31,6 +32,18 @@ const CompLoteShow = () => {
     await axios.delete(`${URI}/${IDLote}`);
     getLotes(); // Cambiado
   };
+
+    //procedimiento para hacer la busqueda
+    const handleSearch = (event) => {
+      setSearchTerm(event.target.value);
+    };
+  
+    // Filtrar la lista de inventario por el término de búsqueda
+    const filtered = lotes.filter((item) => {
+      return (
+        item.IDLote.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
 
   const headers = [
     { label: "IDLote", key: "IDLote" },
@@ -96,6 +109,19 @@ const CompLoteShow = () => {
                         onClick={() => elemento.current.showLoteModal()} // Cambiado
                       >+ Agregar Lote</Link> {" "}
                     </div>
+
+                    <div className="input-group search-area">
+						          <span className="input-group-text rounded-0">
+							          <Link to={"#"}>
+								          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+								              <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+							            </svg>
+						            </Link>
+					            </span>
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar Lote (ID)" value={searchTerm} onChange={handleSearch} />
+					          </div>
+
                   </div>
                   <div id="lote-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="lote-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
@@ -107,15 +133,15 @@ const CompLoteShow = () => {
                           <th>Fecha de Vencimiento</th>
                           <th>Cantidad de Compra</th>
                           <th>Cantidad Disponible</th>
-                          <th>ID Proveedor</th>
-                          <th>ID Medicamento</th>
+                          <th>Proveedor</th>
+                          <th>Medicamento</th>
                           <th>Estado</th>
                           <th></th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
-                        {lotes.map((dato) => (
+                        {filtered.map((dato) => (
                           <tr key={dato.IDLote}>
                             <td>{dato.IDLote}</td>
                             <td>{dato.PrecioCompra}</td>
@@ -123,8 +149,8 @@ const CompLoteShow = () => {
                             <td>{dato.Fecha_Vencimiento}</td>
                             <td>{dato.CantidadCompra}</td>
                             <td>{dato.cantidadDisponible}</td>
-                            <td>{dato.IDProveedor}</td>
-                            <td>{dato.idMedicamento}</td>
+                            <td>{dato.Proveedor}</td>
+                            <td>{dato.Medicamento}</td>
                             <td>
                                 <span className={`badge light border-0 ${dato.Estado === true ? 'badge-success' : 'badge-danger'}`}>
                                 {dato.Estado === true ? 'Activo' : 'Inactivo'}

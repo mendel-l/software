@@ -7,7 +7,8 @@ import ProveedorCreate from '../../../constant/ProveedorCreate';
 import axios from 'axios';
 const URI = 'http://localhost:3001/api/proveedores' //prueba 2 
 const CompProveedorShow = () => {
-  const [proveedores, setProveedores] = useState([]); 
+  const [proveedores, setProveedores] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); //busqueda 
   useEffect(() => {
     getProveedor()
   }, [])
@@ -23,6 +24,18 @@ const CompProveedorShow = () => {
     getProveedor()
   }
   
+  //procedimiento para hacer la busqueda
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filtered = proveedores.filter((item) => {
+    return (
+      item.Nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.IDProveedor.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   const headers = [
     { label: "IDProveedor", key: "IDProveedor" },
     { label: "Nombre", key: "Nombre" },
@@ -90,6 +103,19 @@ const CompProveedorShow = () => {
                         onClick={() => proveedor.current.showEmployeModal()}
                       >+ Agregar Proveedor</Link> {" "}
                     </div>
+
+                    <div className="input-group search-area">
+						          <span className="input-group-text rounded-0">
+							          <Link to={"#"}>
+								          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+								              <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+							            </svg>
+						            </Link>
+					            </span>
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar Proveedor (Nombre/ID)" value={searchTerm} onChange={handleSearch} />
+					          </div>
+
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
@@ -108,7 +134,7 @@ const CompProveedorShow = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {proveedores.map ( (proveedores) => (
+                        {filtered.map ( (proveedores) => (
                             <tr key={ proveedores.IDProveedor}>
                                 <td>{ proveedores.IDProveedor}</td> 
                                 <td>{ proveedores.Nombre}</td>

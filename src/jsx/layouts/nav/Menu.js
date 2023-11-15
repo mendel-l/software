@@ -94,7 +94,7 @@ export const MenuList = [
    
     Mpersona
         ? {
-              title: 'Personas',
+              title: 'Empleados',
               iconStyle: SVGICON.Persona,
               to: '/Persona',
           }

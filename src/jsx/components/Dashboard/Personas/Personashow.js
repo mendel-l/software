@@ -9,6 +9,7 @@ const URI = 'http://localhost:3001/api/persona'; // Cambiado
 
 const PersonaShow = () => {
   const [personas, setPersonas] = useState([]); // Cambiado
+  const [searchTerm, setSearchTerm] = useState(''); //busqueda
   useEffect(() => {
     getPersonas(); // Cambiado
   }, []);
@@ -20,7 +21,7 @@ const PersonaShow = () => {
   };
 
   const getPersonas = async () => {
-    const res = await axios.get(URI);
+    const res = await axios.get(`${URI}/getAllInner`);
     setPersonas(res.data);
   };
 
@@ -28,6 +29,19 @@ const PersonaShow = () => {
     await axios.delete(`${URI}/${CUI}`);
     getPersonas(); // Cambiado
   };
+
+  //procedimiento para hacer la busqueda
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Filtrar la lista de inventario por el término de búsqueda
+  const filtered = personas.filter((item) => {
+    return (
+      item.Nombres.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.idPersona.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   const headers = [
     { label: "CUI", key: "CUI" },
@@ -83,7 +97,7 @@ const PersonaShow = () => {
               <div className="card-body p-0">
                 <div className="table-responsive active-projects style-1 ItemsCheckboxSec shorting">
                   <div className="tbl-caption d-flex justify-content-between text-wrap align-items-center">
-                    <h4 className="heading mb-0">Persona</h4>
+                    <h4 className="heading mb-0">Empleados</h4>
                     <div>
                       <CSVLink {...csvlink} className="btn btn-primary light btn-sm me-1">
                         <i className="fa-solid fa-file-excel" /> {" "}
@@ -91,37 +105,48 @@ const PersonaShow = () => {
                       </CSVLink>
                       <Link to={"#"} className="btn btn-primary btn-sm ms-1" data-bs-toggle="offcanvas"
                         onClick={() => elemento.current.showPersonaModal()} // Cambiado
-                      >+ Agregar Persona</Link> {" "}
+                      >+ Agregar Empleado</Link> {" "}
                     </div>
+                    <div className="input-group search-area">
+						          <span className="input-group-text rounded-0">
+							          <Link to={"#"}>
+								          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+								              <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+							            </svg>
+						            </Link>
+					            </span>
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar Empleado (Nombre/ID)" value={searchTerm} onChange={handleSearch} />
+					          </div>
                   </div>
                   <div id="persona-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="persona-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
                       <thead>
                         <tr>
                         <th>ID Persona</th>
-                          <th>ID Rol</th>
                           <th>Nombre</th>
                           <th>Fecha de Nacimiento</th>
                           <th>Direccion</th>
                           <th>Telefono</th>
                           <th>Salario</th>
                           <th>Titulacion</th>
+                          <th>Rol</th>
                           <th>Estado</th>
                           <th></th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
-                        {personas.map((dato) => (
+                        {filtered.map((dato) => (
                           <tr key={dato.idPersona}>
                             <td>{dato.idPersona}</td>
-                            <td>{dato.idRol}</td>
                             <td>{dato.Nombres}</td>
                             <td>{dato.FechaNacimiento}</td>
                             <td>{dato.Direccion}</td>
                             <td>{dato.Telefono}</td>
                             <td>{`Q ${dato.Salario}`}</td> {/* Modificado para agregar "Q" */}
                             <td>{dato.Titulacion}</td>
+                            <td>{dato.Rol}</td>
                             <td>
                                 <span className={`badge light border-0 ${dato.Estado === true ? 'badge-success' : 'badge-danger'}`}>
                                 {dato.Estado === true ? 'Activo' : 'Inactivo'}

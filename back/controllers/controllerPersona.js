@@ -1,11 +1,26 @@
 import personModel from "../Models/personModel.js";
 import { registerMovi } from "./controllerAuditoria.js"
+import sequelize from '../DB/database.js';
 const tableName = "persona";
 
 export const getAllPersons = async (req, res) => {
     try {
         const persons = await personModel.findAll();
         res.json(persons);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+export const getAllInner = async (req, res) => {
+    try {
+        const query = `
+        SELECT persona.*,rol.Rol from persona
+        INNER JOIN rol
+        on persona.idRol=rol.idRol
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
     } catch (error) {
         res.json({ message: error.message });
     }

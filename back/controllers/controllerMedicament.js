@@ -123,7 +123,7 @@ export const getNotAppearInventory = async (req, res) => {
             FROM medicamento AS m
             LEFT JOIN inventario AS i
             ON m.idMedicamento = i.idMedicamento
-            WHERE i.idMedicamento IS NULL
+            WHERE i.idMedicamento IS NULL AND m.Estado=1
         `;
         const [results] = await sequelize.query(query);
         res.json(results);

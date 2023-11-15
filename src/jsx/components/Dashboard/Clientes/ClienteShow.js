@@ -8,6 +8,7 @@ import axios from 'axios';
 const URI = 'http://localhost:3001/api/cliente'
 const CompClienteShow = () => {
   const [clientes, setClientes] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState(''); //busqueda
   useEffect(() => {
     getCliente()
   }, [])
@@ -27,6 +28,19 @@ const CompClienteShow = () => {
     getCliente()
   }
   
+    //procedimiento para hacer la busqueda
+    const handleSearch = (event) => {
+      setSearchTerm(event.target.value);
+    };
+  
+    // Filtrar la lista de inventario por el término de búsqueda
+    const filtered = clientes.filter((item) => {
+      return (
+        item.Nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Nit.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+
   const headers = [
     { label: "idCliente", key: "idCliente" },
     { label: "Nombre", key: "Nombre" },
@@ -89,6 +103,19 @@ const CompClienteShow = () => {
                         onClick={() => cliente.current.showEmployeModal()}
                       >+ Agregar Cliente</Link> {" "}
                     </div>
+
+                    <div className="input-group search-area">
+						          <span className="input-group-text rounded-0">
+							          <Link to={"#"}>
+								          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+								              <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+							            </svg>
+						            </Link>
+					            </span>
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar Cliente (Nombre/NIT)" value={searchTerm} onChange={handleSearch} />
+					          </div>
+
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
@@ -106,7 +133,7 @@ const CompClienteShow = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {clientes.map ( (clientes) => (
+                        {filtered.map ( (clientes) => (
                             <tr key={ clientes.idCliente}>
                                 <td>{ clientes.idCliente}</td> 
                                 <td>{ clientes.Nombre}</td>

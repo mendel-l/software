@@ -59,7 +59,7 @@ const LoteCreate = forwardRef((props, ref) => {
         Fecha_Ingreso: fechaIng,
         Fecha_Vencimiento: fechaVen,
         CantidadCompra: cantComp,
-        cantidadDisponible: cantDis,
+        cantidadDisponible: cantComp,
         IDProveedor: IDprov,
         idMedicamento: IDmedi,
         Estado: estado,
@@ -118,10 +118,10 @@ const LoteCreate = forwardRef((props, ref) => {
                   <label htmlFor="cantidadCompra" className="form-label">Cantidad de Compra<span className="text-danger">*</span></label>
                   <input type="text" className="form-control" placeholder="" value={cantComp} onChange={(e) => setCantidadCompra(e.target.value.replace(/\D/, ''))} required />
                 </div>
-                <div className="col-xl-6 mb-3">
+                {/* <div className="col-xl-6 mb-3">
                   <label htmlFor="cantidadDisponible" className="form-label">Cantidad Disponible<span className="text-danger">*</span></label>
                   <input type="text" className="form-control" placeholder="" value={cantDis} onChange={(e) => setcantidadDisponible(e.target.value.replace(/\D/, ''))} required />
-                </div>
+                </div> */}
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="IDProveedor" className="form-label">ID Proveedor<span className="text-danger">*</span></label>
                   <select className="form-select" value={IDprov} onChange={(e) => setIDProveedor(e.target.value)} required>

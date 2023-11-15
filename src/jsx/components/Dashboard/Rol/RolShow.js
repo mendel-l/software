@@ -8,6 +8,7 @@ import axios from 'axios';
 const URI = 'http://localhost:3001/api/rol'
 const CompRolShow = () => {
   const [roles, setRoles] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState(''); //busqueda
   useEffect(() => {
     getRol()
   }, [])
@@ -27,6 +28,20 @@ const CompRolShow = () => {
     getRol();
   }
   
+  
+    //procedimiento para hacer la busqueda
+    const handleSearch = (event) => {
+      setSearchTerm(event.target.value);
+    };
+  
+    // Filtrar la lista de inventario por el término de búsqueda
+    const filtered = roles.filter((item) => {
+      return (
+        item.Rol.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.idRol.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+
   const headers = [
     { label: "idRol", key: "idRol" },
     { label: "Rol", key: "Rol" },
@@ -95,6 +110,19 @@ const CompRolShow = () => {
                         onClick={() => elemento.current.showEmployeModal()}
                       >+ Agregar Rol</Link> {" "}
                     </div>
+
+                    <div className="input-group search-area">
+						          <span className="input-group-text rounded-0">
+							          <Link to={"#"}>
+								          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								            <circle cx="8.78605" cy="8.78605" r="8.23951" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+								              <path d="M14.5168 14.9447L17.7471 18.1667" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+							            </svg>
+						            </Link>
+					            </span>
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar Rol (Nombre/ID)" value={searchTerm} onChange={handleSearch} />
+					          </div>
+
                   </div>
                   <div id="employee-tbl_wrapper" className="dataTables_wrapper no-footer">
                     <table id="empoloyees-tblwrapper" className="table ItemsCheckboxSec dataTable no-footer mb-0">
@@ -118,7 +146,7 @@ const CompRolShow = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {roles.map ( (roles) => (
+                        {filtered.map ( (roles) => (
                             <tr key={ roles.idRol}>
                                 <td>{ roles.idRol}</td> 
                                 <td>{ roles.Rol}</td>

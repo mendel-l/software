@@ -12,6 +12,22 @@ export const getAllLotes = async (req, res) => {
     }
 }
 
+export const getAllInner = async (req, res) => {
+    try {
+        const query = `
+        SELECT lote.*,proveedor.Nombre as Proveedor,medicamento.Nombre as Medicamento FROM lote
+        INNER JOIN proveedor
+        on proveedor.IDProveedor=lote.IDProveedor
+        INNER JOIN medicamento
+        on medicamento.idMedicamento=lote.idMedicamento
+        `;
+        const [results] = await sequelize.query(query);
+        res.json(results);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
 export const getLote = async (req, res) => {
     try {
         const [lote] = await LoteModel.findAll({

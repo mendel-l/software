@@ -19,7 +19,7 @@ const InventarioCreate = forwardRef((props, ref) => {
     // Obtener la lista de medicamentos disponibles al cargar el componente
     async function fetchMedicamentos() {
       try {
-        const res = await axios.get('http://localhost:3001/api/medicamento/active'); // Cambia la URL según tu API
+        const res = await axios.get('http://localhost:3001/api/medicamento/getNotAppearInventory'); // Cambia la URL según tu API
         setMedicamentos(res.data);
       } catch (error) {
         console.error('Error al obtener la lista de medicamentos:', error);
@@ -43,8 +43,10 @@ const InventarioCreate = forwardRef((props, ref) => {
       // Convertir el valor de estado a booleano
       const estadoBooleano = estado === "1" ? true : false;
       // Enviar los datos al servidor
+      const disponible = await axios.get('http://localhost:3001/api/lote/getSumLotes/'+medicamentoId);
+      console.log(disponible.data.totalCantidadDisponible);
       await axios.post(URI, {
-        CantidadDisponible: cantidadDis,
+        CantidadDisponible: disponible.data.totalCantidadDisponible,
         PrecioVenta: precioVenta,
         idMedicamento: medicamentoId,
         Estado: estado,
@@ -73,10 +75,10 @@ const InventarioCreate = forwardRef((props, ref) => {
           <div className="container-fluid">
             <form onSubmit={guardar}>
               <div className="row">
-                <div className="col-xl-6 mb-3">
+                {/* <div className="col-xl-6 mb-3">
                   <label htmlFor="nombre" className="form-label">Cantidad Disponible<span className="text-danger">*</span></label>
                   <input type="text" className="form-control" placeholder="" value={cantidadDis} onChange={(e) => setCantidadDisponible(e.target.value)} required />
-                </div>
+                </div> */}
                 <div className="col-xl-6 mb-3">
                   <label htmlFor="descripcion" className="form-label">Precio de Venta<span className="text-danger">*</span> </label>
                   <input type="text" className="form-control" placeholder="" value={precioVenta} onChange={(e) => setPrecioVenta(e.target.value)} required />

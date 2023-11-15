@@ -128,7 +128,7 @@ const CompInventarioShow = () => {
 							            </svg>
 						            </Link>
 					            </span>
-					              <input type="text" className="form-control rounded-0" placeholder="Buscar Medicamento" value={searchTerm} onChange={handleSearch} />
+					              <input type="text" className="form-control rounded-0" placeholder="Buscar (Nombre/ID)" value={searchTerm} onChange={handleSearch} />
 					          </div>
                     
                   </div>
@@ -137,9 +137,9 @@ const CompInventarioShow = () => {
                       <thead>
                         <tr>
                           <th>id</th>
+                          <th>Medicamento</th>
                           <th>Cantidad Disponible</th>
                           <th>Precio de Venta</th>
-                          <th>Medicamento</th>
                           <th>Estado</th>
                           <th></th>
                          
@@ -151,9 +151,9 @@ const CompInventarioShow = () => {
                           <tr key={dato.IdInventario}>
                         
                             <td>{dato.IdInventario}</td>
+                            <td>{dato.medicamento ? `${dato.medicamento.Nombre}` : ''}</td>
                             <td>{dato.CantidadDisponible}</td>
                             <td>{dato.PrecioVenta}</td>
-                            <td>{dato.medicamento ? `${dato.medicamento.idMedicamento} - ${dato.medicamento.Nombre}` : ''}</td>
                             <td>
                                 <span className={`badge light border-0 ${dato.Estado === true ? 'badge-success' : 'badge-danger'}`}>
                                 {dato.Estado === true ? 'Activo' : 'Inactivo'}
